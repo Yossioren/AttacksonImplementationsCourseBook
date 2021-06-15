@@ -1,11 +1,11 @@
 <div style="text-align: center; font-size:18px;">
 	<div style="display: inline-block; text-align: left; color:#1d1d1d; font-family: Tahoma;">
 	<p align="center">
-		<img src="https://i.ibb.co/pf4x0K3/logo-aes.png" alt="logo_aes"/>
-	
-		<h3 align="center" style="color:#1d1d1d; font-family: Tahoma;">Built in Python on
-		<a href="https://anvil.works/" target="_blank">Anvil.works</a> 
-		platform<br></h3>
+	<img src="https://i.ibb.co/pf4x0K3/logo-aes.png" alt="logo_aes"/>
+
+	<h3 align="center" style="color:#1d1d1d; font-family: Tahoma;">Built in Python on
+	<a href="https://anvil.works/" target="_blank">Anvil.works</a> 
+	platform<br></h3>
 	</p>
 	<p align="center">
 	<img src="https://i.ibb.co/4PQvZNy/python-logo.png" alt="python_anvil" width="42" height="47"/>
