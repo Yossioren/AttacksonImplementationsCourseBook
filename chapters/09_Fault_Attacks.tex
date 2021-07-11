@@ -477,6 +477,38 @@ The performence from this paper shows accuracy of 82\% when reading OpenSSH host
 
 Suggested mitigations may be memory encryption, flushing keys from memory, probabilistic memory allocator and Hardware mitigations such as targeted row refresh and increasing refresh intervals.
 
+\subsubsection{Throwhammer : Rowhammer Attack over the Internet ~\cite{throwhammer}}
+There are some sophisticated Rowhammer exploits which allow an attacker, that can execute code on a vulnerable system, to escalate privileges and compromise browsers, clouds, and mobile systems. In all these attacks, the common assumption is that attackers first need to obtain code execution on the victim machine to be able to exploit Rowhammer, either by having (unprivileged) code execution on the victim machine or by luring the victim to a website that employs a malicious JavaScript application. 
+
+In Contrary to those attacks, In the Throwhammmer attack, the attacker can trigger and exploit Rowhammer bit flips directly from a remote machine by only sending network packets.
+
+While it is true that millions of DRAM accesses per second is harder to accomplish from across 
+the network than from code executing locally, today’s networks are becoming very fast.
+To achieve high-performance networking, some systems entirely remove the interruptions and
+expensive privilege switching, and instead deliver network packets directly to the applications.
+This approach might create large load on the cpu, so to reduce that load, some networking equipment include the possibility for Remote Direct Memory Access (RDMA).
+With RDMA, there is no need to involve the CPU on both client and server for packet transfer. The server
+and client applications both configure DMA buffers to the NIC (Network interface controller) through interfaces that are provided by the operating system. When the client application wants to send a packet to a server application, it directly writes it to its buffer as shown in \Cref{fig:RDMA_vs_non-RDMA}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/chapter_9/RDMA.jpeg}
+	\caption{RDMA vs non-RDMA (standard TCP connection)}
+	\label{fig:RDMA_vs_non-RDMA}
+\end{figure}
+
+In the Throwhammer attack, the attacker is assumed to be able to generate and send legitimate
+traffic through a high-speed network to a target server (A common example is a client that sends requests to a cloud or data center machine that runs a server application), and that the target machine is vulnerable to Rowhammer bit flips.
+The end goal of the attacker is to bypass RDMA’s security model by modifying bits outside of memory areas that are registered for DMA in order to compromise the system.
+
+The attack is executed by repeatedly asking the server’s NIC to send the client packets with data from various offsets within the shared buffer used by the RDMA protocol. This allows the attacker to perform double-sided Rowhammer similar to Flip Feng Shui~\cite{ffs}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\linewidth]{images/chapter_9/Unique-Flips.jpeg}
+	\caption{Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network ~\cite{throwhammer}}
+	\label{fig:Unique-Flips}
+\end{figure}
 
 
 \section{Related Work} \label{sec:RelatedWork}
