@@ -477,7 +477,7 @@ The performence from this paper shows accuracy of 82\% when reading OpenSSH host
 
 Suggested mitigations may be memory encryption, flushing keys from memory, probabilistic memory allocator and Hardware mitigations such as targeted row refresh and increasing refresh intervals.
 
-\subsubsection{Throwhammer : Rowhammer Attack over the Internet ~\cite{throwhammer}}
+\subsubsection{Throwhammer - Rowhammer Attack over the Internet ~\cite{throwhammer}}
 There are some sophisticated Rowhammer exploits which allow an attacker, that can execute code on a vulnerable system, to escalate privileges and compromise browsers, clouds, and mobile systems. In all these attacks, the common assumption is that attackers first need to obtain code execution on the victim machine to be able to exploit Rowhammer, either by having (unprivileged) code execution on the victim machine or by luring the victim to a website that employs a malicious JavaScript application. 
 
 In Contrary to those attacks, In the Throwhammmer attack, the attacker can trigger and exploit Rowhammer bit flips directly from a remote machine by only sending network packets.
@@ -509,6 +509,8 @@ The attack is executed by repeatedly asking the server’s NIC to send the clien
 	\caption{Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network ~\cite{throwhammer}}
 	\label{fig:Unique-Flips}
 \end{figure}
+
+An overview of the chapter can be found in the following link: \cite{chapter9-overview}
 
 
 \section{Related Work} \label{sec:RelatedWork}
