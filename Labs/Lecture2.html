@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js"></script>
+      <style type="text/css">
+        .running    {background-color:pink;}
+        table       {font-family: 'Courier New', monospace;}
+        span {color: #41ff00;}
+        body {background-color: black;}
+        button {background-color: black; border-color: #41ff00;}
+      </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const montgomeryPythonCode = `
+#
+# Montgomery reduction algorithm (Python)
+#
+# Copyright (c) 2020 Project Nayuki
+# All rights reserved. Contact Nayuki for licensing.
+# https://www.nayuki.io/page/montgomery-reduction-algorithm
+#
+
+import math, random
+import datetime
+
+class MontgomeryReducer:
+
+  def __init__(self, mod):
+    # Modulus
+    if mod < 3 or mod % 2 == 0:
+      raise ValueError("Modulus must be an odd number at least 3")
+    self.modulus = mod
+
+    # Reducer
+    self.reducerbits = (mod.bit_length() // 8 + 1) * 8  # This is a multiple of 8
+    self.reducer = 1 << self.reducerbits  # This is a power of 256
+    self.mask = self.reducer - 1
+    assert self.reducer > mod and math.gcd(self.reducer, mod) == 1
+
+    # Other computed numbers
+    self.reciprocal = MontgomeryReducer.reciprocal_mod(self.reducer % mod, mod)
+    self.factor = (self.reducer * self.reciprocal - 1) // mod
+    self.convertedone = self.reducer % mod
+
+
+  # The range of x is unlimited
+  def convert_in(self, x):
+    return (x << self.reducerbits) % self.modulus
+
+
+  # The range of x is unlimited
+  def convert_out(self, x):
+    return (x * self.reciprocal) % self.modulus
+
+
+  # Inputs and output are in Montgomery form and in the range [0, modulus)
+  def multiply(self, x, y):
+    mod = self.modulus
+    assert 0 <= x < mod and 0 <= y < mod
+    product = x * y
+    temp = ((product & self.mask) * self.factor) & self.mask
+    reduced = (product + temp * mod) >> self.reducerbits
+    result = reduced if (reduced < mod) else (reduced - mod)
+    assert 0 <= result < mod
+    return result
+
+  
+  def multiply_with_reduce(self, x, y):
+    mod = self.modulus
+    assert 0 <= x < mod and 0 <= y < mod
+    product = x * y
+    temp = ((product & self.mask) * self.factor) & self.mask
+    reduced = (product + temp * mod) >> self.reducerbits
+
+    if reduced < mod:
+      result = reduced
+      is_reduced = 0
+    else:
+      result = reduced - mod
+      is_reduced = 1
+    
+    assert 0 <= result < mod
+    return result, is_reduced
+  
+  # Input x (base) is in Montgomery form and in the range [0, modulus); input y (exponent) is in standard form
+  def pow_ret_reductions(self, x, y, stop_after_n_bits):
+    assert 0 <= x < self.modulus
+    if y < 0:
+      raise ValueError("Negative exponent")
+
+    num_of_reds = 0
+    z = self.convertedone
+    n_bits = 0
+
+    while y != 0:
+      if n_bits == stop_after_n_bits:
+        break  
+
+      if y & 1 != 0:
+        z, red = self.multiply_with_reduce(z, x)
+        num_of_reds += red
+      
+      x, red = self.multiply_with_reduce(x, x)
+      num_of_reds += red
+      y = y >> 1
+      n_bits += 1
+
+    return num_of_reds
+
+
+  @staticmethod
+  def reciprocal_mod(x, mod):
+    # Based on a simplification of the extended Euclidean algorithm
+    assert mod > 0 and 0 <= x < mod
+    y = x
+    x = mod
+    a = 0
+    b = 1
+    while y != 0:
+      a, b = b, a - x // y * b
+      x, y = y, x % y
+    if x == 1:
+      return a % mod
+    else:
+      raise ValueError("Reciprocal does not exist")
+
+def pow_ret_reductions(mod, x_mont_form, y_key, stop_after_n_bits):
+  mr = MontgomeryReducer(mod)
+  return mr.pow_ret_reductions(x_mont_form, y_key, stop_after_n_bits)
+
+
+''
+`
+      function getRandomArbitrary(min, max) {
+          return Math.random() * (max - min) + min;
+      }
+
+      /**
+       * Returns a random integer between min (inclusive) and max (inclusive).
+       * The value is no lower than min (or the next integer greater than min
+       * if min isn't an integer) and no greater than max (or the next integer
+       * lower than max if max isn't an integer).
+       * Using Math.round() will give you a non-uniform distribution!
+       */
+      function getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+
+      let key = getRandomInt(0, 33);
+
+      async function main() {
+        await loadPyodide({
+          indexURL : "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/"
+        });
+        console.log(pyodide.runPython(montgomeryPythonCode));
+      }
+
+      function hint() {
+        let currKeyGuess = document.getElementById('guess').value;
+        if (currKeyGuess === undefined) {
+          alert('your guess is empty!');
+        }
+
+        for (let i = 0; i < currKeyGuess.length; i++) {
+          if (currKeyGuess[i] !== '0' && currKeyGuess[i] !== '1') {
+            alert('The key must be binary!');
+            return;
+          }
+        }
+        
+        if (currKeyGuess.length !== 5) {
+          alert('Hints will be given for 5 bit guesses only.');
+          return;
+        }
+        
+        let actualKey = key.toString(2);
+        // pad with leading zeros
+        const toPad = 5 - actualKey.length;
+        const pad = '0'.repeat(toPad);
+        actualKey = pad + actualKey;
+
+        let sim = 0;
+        for (let i = 0; i < 5; i++) {
+          if (actualKey[i] === currKeyGuess[i]) {
+            sim++;
+          }
+        }
+
+        alert(`You got ${sim} bits right`);
+      }
+
+      function checkKey() {
+        let currKeyGuess = document.getElementById('guess').value;
+        if (currKeyGuess === undefined) {
+          alert('your guess is empty!');
+        }
+
+        if (currKeyGuess.length !== 5) {
+          alert('Your guess must include 5 bits!');
+          return;
+        }
+
+        for (let i = 0; i < currKeyGuess.length; i++) {
+          if (currKeyGuess[i] !== '0' && currKeyGuess[i] !== '1') {
+            alert('The key must be binary!');
+            return;
+          }
+        }
+
+        if (parseInt(currKeyGuess, 2) === key) {
+          alert('You are correct!!!! The key is ' + currKeyGuess);
+        }
+
+        else {
+          alert('your guess is not correct')
+        }
+      }
+
+      function generateExamples() {
+        const getAllPossibleMessages = (startMessage) => {
+          if (startMessage.length === 5) {
+            return [startMessage];
+          }
+          else {
+            return getAllPossibleMessages(startMessage + '0').concat(getAllPossibleMessages(startMessage + '1'));
+          }
+        };
+        
+        let currKeyGuess = document.getElementById('guess').value;
+        if (currKeyGuess === undefined) {
+          currKeyGuess = '';
+        }
+
+        for (let i = 0; i < currKeyGuess.length; i++) {
+          if (currKeyGuess[i] !== '0' && currKeyGuess[i] !== '1') {
+            alert('The key must be binary!');
+            return;
+          }
+        }
+
+        let retHtml = `<span> Answers for guess ${currKeyGuess ? currKeyGuess : 'empty guess'} </br> </span>  <span> <h2 style="font-family: Lucida Console"> for adding 0: </h2>`;
+        if (currKeyGuess.length === 5) {
+          retHtml += '<br/> Your guess is 5 digits, try the "check this key" button';
+          document.getElementById(`retOptions`).innerHTML = retHtml;
+          return;
+        }
+
+        if (currKeyGuess.length > 5) {
+          retHtml += '<br/> Your guess is over 4 digits, the key is only 5 digits.';
+          document.getElementById(`retOptions`).innerHTML = retHtml;
+          return;
+        }
+
+        const currKeyGuessBin = parseInt(currKeyGuess, 2);
+        const keyWithAdded1 = parseInt(currKeyGuess + '1', 2);
+        const keyWithAdded0 = parseInt(currKeyGuess + '0', 2);
+        const lengthOfGuessKey = currKeyGuess.length + 1;
+
+        const allPossibleMessages = getAllPossibleMessages('');
+
+        const addReductionNextIsZero = [];
+        const dontAddReductionNextIsZero = [];
+        const addReductionNextIsOne = [];
+        const dontAddReductionNextIsOne = [];
+
+        allPossibleMessages.forEach(msg => {
+          const originalRun = pyodide.runPython(`pow_ret_reductions(71, ${parseInt(msg, 2)}, ${key}, 5)`);
+          const numOfReductionsBase = lengthOfGuessKey === 1 ? 0 : pyodide.runPython(`pow_ret_reductions(71, ${parseInt(msg, 2)}, ${currKeyGuessBin}, ${lengthOfGuessKey - 1})`);
+          
+          const numOfReductionsAdded1 = pyodide.runPython(`pow_ret_reductions(71, ${parseInt(msg, 2)}, ${keyWithAdded1}, ${lengthOfGuessKey})`);
+          const numOfReductionsAdded0 = pyodide.runPython(`pow_ret_reductions(71, ${parseInt(msg, 2)}, ${keyWithAdded0}, ${lengthOfGuessKey})`);
+
+          if (numOfReductionsAdded0 > numOfReductionsBase) {
+            addReductionNextIsZero.push([msg, originalRun]);
+          }
+          else {
+            dontAddReductionNextIsZero.push([msg, originalRun]);
+          }
+
+          if (numOfReductionsAdded1 > numOfReductionsBase) {
+            addReductionNextIsOne.push([msg, originalRun]);
+          }
+          else {
+            dontAddReductionNextIsOne.push([msg, originalRun]);
+          }
+
+        });
+
+        retHtml += '<table>';
+        retHtml += '<tr> <td> Messages That Added Reductions </td> <td> Actual Number Of Reductions For Messages From Left </td> <td> Messages That Did Not Added Reductions </td> <td> Actual Number Of Reductions For Messages From Left </td> </tr>';
+        
+        const maxNumsZero = Math.max(addReductionNextIsZero.length, dontAddReductionNextIsZero.length);
+        for (let i = 0; i < maxNumsZero; i++) {
+          if (i >= addReductionNextIsZero.length) {
+            retHtml += `<tr> <td> </td> <td> </td> <td> ${dontAddReductionNextIsZero[i][0].toString(2)} </td> <td>  ${dontAddReductionNextIsZero[i][1]} </td> <td> </td>  </tr>`;
+          }
+          else if (i >= dontAddReductionNextIsZero.length) {
+            retHtml += `<tr> <td> ${addReductionNextIsZero[i][0].toString(2)} </td> <td> ${addReductionNextIsZero[i][1]} </td>  <td> </td> <td> </td> </tr>`;
+          }
+          else {
+            retHtml += `<tr> <td> ${addReductionNextIsZero[i][0].toString(2)} </td> <td>  ${addReductionNextIsZero[i][1]} </td> <td> ${dontAddReductionNextIsZero[i][0].toString(2)} </td> <td>  ${dontAddReductionNextIsZero[i][1]} </td> <tr/>`;
+          }
+        }
+
+        retHtml += '</table> </br> <span>  <h2 style="font-family: Lucida Console"> for adding 1:  </h2> </span> <br/>';
+        retHtml += '<table>'
+          retHtml += '<tr> <td> Messages That Added Reductions </td> <td> Actual Number Of Reductions For Messages From Left </td> <td> Messages That Did Not Added Reductions </td> <td> Actual Number Of Reductions For Messages From Left </td> </tr>';
+
+        const maxNumsOne = Math.max(addReductionNextIsOne.length, dontAddReductionNextIsOne.length);
+        for (let i = 0; i < maxNumsOne; i++) {
+          if (i >= addReductionNextIsOne.length) {
+            retHtml += `<tr> <td> </td> <td> </td> <td> ${dontAddReductionNextIsOne[i][0].toString(2)}  </td> <td> ${dontAddReductionNextIsOne[i][1]}  </td>  <td> </td> <td> </td> </tr>`;
+          }
+          else if (i >= dontAddReductionNextIsOne.length) {
+            retHtml += `<tr> <td> ${addReductionNextIsOne[i][0].toString(2)}   </td> <td> ${addReductionNextIsOne[i][1].toString(2)} </td>  <td> </td> <td> </td> </tr>`;
+          }
+          else {
+            retHtml += `<tr> <td> ${addReductionNextIsOne[i][0].toString(2)}   </td> <td> ${addReductionNextIsOne[i][1].toString(2)} </td> <td> ${dontAddReductionNextIsOne[i][0].toString(2)}   </td> <td> ${dontAddReductionNextIsOne[i][1]} </td> <tr/>`;
+          }
+        }
+        retHtml += '</table> </br>';
+
+
+        document.getElementById(`retOptions`).innerHTML = retHtml;
+      }
+
+      main();
+    </script>
+  </body>
+</html>
+
+
+<span>
+<span style="font-family: Courier New, monospace;">
+class MontgomeryReducer: <br/>
+<br/>
+
+&emsp;def __init__(self, mod):<br/>
+&emsp;&emsp;self.modulus = mod <br/>
+&emsp;&emsp;self.reducerbits = (mod.bit_length // 8 + 1) * 8 <br/>
+&emsp;&emsp;self.reducer = 1 &lt;&lt; self.reducerbits <br/>
+&emsp;&emsp;self.mask = self.reducer = 1 <br/>
+&emsp;&emsp;self.convertedone = self.reducer % mod <br/>
+<br/>
+
+&emsp;# x is the montgomery form of the plaintext, y is the key in normal form, output is in montgomery form <br/>
+&emsp;def pow(self, x, y):<br/>
+&emsp;&emsp;z = self.convertedone <br/>
+&emsp;&emsp;while y != 0: <br/>
+&emsp;&emsp;&emsp;if y & 1 != 0: <br/>
+&emsp;&emsp;&emsp;&emsp;z = self.multiply(z, x) <br/>
+&emsp;&emsp;&emsp;x = self.multiply(x, x) <br/>
+&emsp;&emsp;&emsp;y >>= 1 <br/>
+&emsp;&emsp;return z <br/>
+<br/>
+
+&emsp;def multiply(self, x, y):<br/>
+&emsp;&emsp;product = x * y<br/>
+&emsp;&emsp;temp = ((product & self.mask) * self.factor) & self.mask<br/>
+&emsp;&emsp;reduced = (product + temp * self.modulus) >> self.reducerbits<br/>
+<span style="background-color: rgb(114, 49, 49);">
+&emsp;&emsp;if reduced &lt; self.modulus:<br/>
+&emsp;&emsp;&emsp;results = reduced<br/>
+&emsp;&emsp;else:<br/>
+&emsp;&emsp;&emsp;results = reduced - self.modulus<br/>
+</span>
+&emsp;&emsp;return results<br/>
+</span>
+<br/>
+<br/>
+
+<hr>
+<span style="font-family: Courier New, monospace;">
+  Look on the code that is highlighted in the multiply function. We get an additional minus operation for some inputs! It can be hacked! <br/>
+  The number of minus operations in the highlighted code over the whole input will be referred to as "number of reductions". <br/>
+  We will work with a 5 bit key, and you need to find the key by controlling the input of the function pow (known plaintext attack). <br/>
+  mod = 31 in our calculations. <br/>
+  y in the pow function is the key that you need to find, and it's 5 bits. <br/>
+  The key can be hacked using some JavaScript, but the purpose is learn - so please don't hack yourself! <br/>
+  <br/>
+  You should guess the bits of the key iteratively: start from the leftmost bit and work your way through the 5-bit key. <br/>
+  Each guess, you can click on the "generate examples" button, and it will generate messages after the transformation to Montgomery form. <br/>
+  You will have 2 tables: one for adding a 0 bit to your guess, the other for adding a 1 bit to your guess. <br/>
+  The next bit should be the one that the actual number of reductions of the messages that sohuld add reductions will be significantly different than the number of reductions of the messages that should not add reductions. <br/>
+  Since we use only 5 bits, it can be confusing because the sample space is small (only 2^5=32 possible messages), but it is for easier learning of the attack. <br/>
+  Realistically, you should do this on the timings of the executions, but they just measure the amount of reductions that happened. You are provided with the actual number of reductions to make it easier. <br/>
+</span>
+
+<br/>
+<input type="text" id="guess"> </input>
+<button id='rerun' onclick="generateExamples()"> <span style="font-family: Courier New, monospace; font-size: 17px;"> generate examples </span> </button> <br/>
+<br/>
+<button id='checkKey' onclick="checkKey()"> <span style="font-family: Courier New, monospace; font-size: 16px;"> check key </span> </button>
+&emsp;
+<button id='hint' onclick="hint()"> <span style="font-family: Courier New, monospace; font-size: 16px;"> hint (click only if you must) </span> </button>
+
+
+<br/>
+<span id='retOptions'> </span> 
+</span>
