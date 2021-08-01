@@ -1,0 +1,1097 @@
+"""
+Authors:  Aviv Amsellem
+          Yarden Curiel
+          Adir Biran
+          
+Date:     05/2021
+"""
+
+
+from ._anvil_designer import Form1Template
+from anvil import *
+import anvil.server
+
+class Form1(Form1Template):
+  def __init__(self, **properties):
+    # Set Form properties and Data Bindings.
+    self.init_components(**properties)
+    
+    
+    # Home explanation
+    self.home_explanation = "This is an emulator that shows all the stages of encrypting using the AES algorithm, by a given plaintext and encryption key from the user.\n\n\nThe emulator includes explanations for each of the stages.\n\n"
+    
+    # Encryption and Decryption stages explanations
+    self.substitue_explanation = 'In the Substitute bytes step, we use S-BOX to substitute data. Simply put, we can see the S-BOX as a lookup table. The way to substitute bytes for block is like this: each byte is 8-bit "array", the first 4-bit used as row index and the last 4-bit as column index. This way, every byte is substituted with another byte from the S-BOX table.\n\n'
+    self.shift_rows_explanation = "In the shift rows step, we execute circular left shifting for each row: First row - shift 0 to the left.\nSecond row - shift 1 to the left.\nThird row - shift 2 to the left.\nFourth row - shift 3 to the left.\n\n"
+    self.mix_columns_explanation = "In the mix columns step, we execute matrix-vector multiplication column by column. Take one column than multiply it to predefined circulant MD5 matrix.\n\n"
+    self.add_round_key_explanation = "The last step of the round is adding the round key. At the very begining of the encryption/decryption process, we execute the stage 'Expand Key'. In the expansion stage, we expand the private key received from the user and create 10 different round keys, different key for each round. The round key is added by XOR operation with each of the blocks.\n\n"
+    self.inv_mix_columns_explanation = "In the (Inversed) mix columns step, we execute matrix-vector multiplication column by column. Take one column than multiply it to predefined circulant MD5 inversed matrix.\n\n"
+    self.inv_shift_rows_explanation = "In the (Inversed) shift rows step, we execute circular right shifting for each row: First row - shift 0 to the right.\nSecond row - shift 1 to the right.\nThird row - shift 2 to the right.\nFourth row - shift 3 to the right.\n\n"
+    self.inv_substitue_explanation = 'In the (Inversed) Substitute bytes step, we use inverted S-BOX to substitute data. Simply put, we can see the inverted S-BOX as a lookup table. The way to substitute bytes for block is like this: each byte is 8-bit "array", the first 4-bit used as row index and the last 4-bit as column index. This way, every byte is substituted with another byte from the inverted S-BOX table.\n\n'
+
+    
+    self.initial_all_screens_components()
+    
+    # Indicators for re-calculation of the encryption process
+    self.first_screen_flag = False
+    self.second_screen_flag = False
+    self.third_screen_flag = False
+    self.fourth_screen_flag = False
+    
+    # Indicators for re-calculation of the deecryption process
+    self.first_dec_screen_flag = False
+    self.second_dec_screen_flag = False
+    self.third_dec_screen_flag = False
+    self.fourth_dec_screen_flag = False
+    
+  def grid_panel_show(self, **event_args):
+    """
+    This method called once the program start to run.
+    """
+    self.build_home_screen()
+    
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          HOME SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_home_screen(self, **event_args):
+    """
+    This method builds the home page screen.
+    """
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_explanation_home_screen, row = 1, col_xs = 1, width_xs = 5)
+    self.grid_panel.add_component(self.spacer, row = 2, col_xs = 1, width_xs = 8)
+    self.grid_panel.add_component(self.insert_plaintext_label_home_screen,row = 3, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.plaintext_textbox_home_screen, row = 3, col_xs = 3, width_xs = 3)
+    self.grid_panel.add_component(self.insert_encryption_key_label_home_screen, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.encryption_key_textbox_home_creen, row = 4, col_xs = 3, width_xs = 3) 
+    self.grid_panel.add_component(self.error_label, row = 5, col_xs = 1, width_xs = 4) 
+    self.grid_panel.add_component(self.spacer_2 ,row = 6, col_xs = 1, width_xs = 8)
+    self.grid_panel.add_component(self.start_button_home_screen, row = 7, col_xs = 2, width_xs = 2) 
+    self.grid_panel.add_component(self.instructions_button, row = 7, col_xs = 3, width_xs = 2) 
+    self.grid_panel.add_component(self.footer_home_screen, row = 8, col_xs = 1, width_xs = 5)
+    
+    
+  def on_click_start_encrypting_process(self, **event_args):
+    """
+    This method called when the 'Next' button on the first encryption screen
+    is clicked.
+    """
+    self.error_label.text = ""
+    
+    if len(self.encryption_key_textbox_home_creen.text.strip()) != 16:
+      self.error_label.text = "Error: Key length is not 16 characters"
+    elif len(self.plaintext_textbox_home_screen.text.strip()) == 0:
+      self.error_label.text = "Error: Plaintext field is empty"
+    else:
+      self.grid_panel.clear()
+      self.build_first_encryption_screen()
+
+    
+  def on_click_instructions(self, **event_args):
+    """
+    This method called when the 'Instructions' button on the first encryption screen
+    is clicked.
+    """
+    self.grid_panel.clear()
+    self.build_instructions_screen()
+    
+    
+  def build_instructions_screen(self):
+    """
+    This method build the Instructions Screen componenets.
+    """
+    
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.instructions_header, row = 1, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.instructions_content, row = 2, col_xs = 1, width_xs = 10)
+
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_first_encryption_screen, row = 7, col_xs = 1, width_xs = 2)
+
+  
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          FIRST ENCRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_first_encryption_screen(self):
+    """
+    This method build the first Encryption Screen componenets.
+    """
+    
+    if self.first_screen_flag is False:
+      input_plaintext = self.plaintext_textbox_home_screen.text.strip()
+      input_key = self.encryption_key_textbox_home_creen.text.strip()
+      
+      self.blocks = string_to_blocks(input_plaintext)
+      self.key_bytes = string_to_bytes(input_key)
+  
+      
+      # Before sub-bytes, after data preperation
+      self.rich_text_plaintext_before_first_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        sub_bytes(block)
+      
+      # After sub-bytes
+      self.rich_text_plaintext_after_first_screen.content = prettify_blocks(self.blocks)
+      
+      self.first_screen_flag = True
+      
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_first_encryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_first_encryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_first_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_first_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_first_encryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_first_encryption_screen, row = 7, col_xs = 3, width_xs = 2)
+
+  def on_click_first_encryption_screen_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the first encryption screen
+    is clicked.
+    
+    The method go to the second encyption key screen;
+    """
+    self.grid_panel.clear()
+    self.build_second_encryption_screen()
+
+  def on_click_first_encryption_screen_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the first encryption screen
+    is clicked.
+    
+    The method return to the home screen;
+    """
+    self.grid_panel.clear()
+    self.build_home_screen()
+    
+    self.first_screen_flag = False
+    self.second_screen_flag = False
+    self.third_screen_flag = False
+    self.fourth_screen_flag = False
+    
+    self.first_dec_screen_flag = False
+    self.second_dec_screen_flag = False
+    self.third_dec_screen_flag = False
+    self.fourth_dec_screen_flag = False
+    
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          SECOND ENCRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_second_encryption_screen(self, **event_args):
+    """
+    This method build the second Encryption Screen componenets.
+    """
+    
+    if self.second_screen_flag is False:
+      # Before shift rows
+      self.rich_text_plaintext_before_second_encyption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        shift_rows(block)
+      
+      # After shift rows
+      self.rich_text_plaintext_after_second_encyption_screen.content = prettify_blocks(self.blocks)
+      
+      self.second_screen_flag = True
+    
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_second_encryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_second_encryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_second_encyption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_second_encyption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_second_encryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_second_encryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+    
+  def on_click_second_encryption_screen_next_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the second encryption screen
+    is clicked.
+    
+    The method return to the first encryption screen;
+    """
+    
+    self.grid_panel.clear()
+    self.build_third_encryption_screen()
+  
+  def on_click_second_encryption_screen_prev_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the second encryption screen
+    is clicked.
+    
+    The method continue to the third encryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_first_encryption_screen()
+  
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          THIRD ENCRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_third_encryption_screen(self, **event_args):
+    """
+    This method build the third Encryption Screen componenets.
+    """
+    
+    if self.third_screen_flag is False:
+      # Before mix columns
+      self.rich_text_plaintext_before_third_encyption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        mix_columns(block)
+        
+      # After mix columns
+      self.rich_text_plaintext_after_third_encyption_screen.content = prettify_blocks(self.blocks)
+      
+      self.third_screen_flag = True
+      
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_third_encryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_third_encryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_third_encyption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_third_encyption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_third_encryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_third_encryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+  def on_click_third_encryption_third_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the forth encryption screen
+    is clicked.
+    
+    The method reutrn to the second encryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_second_encryption_screen()
+
+    
+  
+  def on_click_third_encryption_screen_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the third encryption screen
+    is clicked.
+    
+    The method continue to the fourth encryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_fourth_encryption_screen()
+    
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          FORTH ENCRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_fourth_encryption_screen(self, **event_args):
+    """
+    This method build the forth Encryption Screen componenets.
+    """
+    
+    if self.fourth_screen_flag is False:
+      # Before add round key
+      self.rich_text_plaintext_before_fourth_encyption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        add_round_key(block, self.key_bytes)
+        
+      # After round key
+      self.rich_text_plaintext_after_fourth_encyption_screen.content = blocks_to_string(self.blocks, 0)
+      
+      self.fourth_screen_flag = True
+    
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_fourth_encryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_fourth_encryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.cipher_text_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_fourth_encyption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_fourth_encyption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_fourth_encryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_fourth_encryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+  def on_click_fourth_encryption_screen_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the forth encryption screen
+    is clicked.
+    
+    The method return to the third encryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_third_encryption_screen()
+    
+  def on_click_fourth_encryption_screen_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the third encryption screen
+    is clicked.
+    
+    The method continue to the first decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_first_decryption_screen()
+    
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          FIRST DECRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_first_decryption_screen(self, **event_args):
+    """
+    This method build the first decryption Screen componenets.
+    """
+    
+    if self.first_dec_screen_flag is False:
+      # Before add round key
+      self.rich_text_plaintext_before_first_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        add_round_key(block, self.key_bytes)
+        
+      # After round key
+      self.rich_text_plaintext_after_first_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      self.first_dec_screen_flag = True
+      
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_first_decryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_first_decryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_first_decryption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_first_decryption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_first_decryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_first_decryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+  def on_click_first_decryption_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the first decryption screen
+    is clicked.
+    
+    The method return to the fourth encryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_fourth_encryption_screen()
+    
+  def on_click_first_decryption_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the first encryption screen
+    is clicked.
+    
+    The method continue to the second decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_second_decryption_screen()
+
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          SECOND DECRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_second_decryption_screen(self, **event_args):
+    """
+    This method build the second decryption Screen componenets.
+    """
+    
+    if self.second_dec_screen_flag is False:
+      # Before mix columns
+      self.rich_text_plaintext_before_second_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        mix_columns_inverse(block)
+        
+      # After mix columns
+      self.rich_text_plaintext_after_second_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      self.second_dec_screen_flag = True
+    
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_second_decryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_second_decryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_second_decryption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_second_decryption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_second_decryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_second_decryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+  def on_click_second_decryption_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the second decryption screen
+    is clicked.
+    
+    The method return to the first decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_first_decryption_screen()
+  
+  def on_click_second_decryption_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the second encryption screen
+    is clicked.
+    
+    The method continue to the first decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_third_decryption_screen()
+  
+  
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          THIRD DECRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_third_decryption_screen(self, **event_args):
+    """
+    This method build the forth decryption Screen componenets.
+    """
+
+    if self.third_dec_screen_flag is False:
+      # Before shift rows
+      self.rich_text_plaintext_before_third_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        shift_rows_inverse(block)
+        
+      # After shift rows
+      self.rich_text_plaintext_after_third_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      self.third_dec_screen_flag = True
+    
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_third_decryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_third_decryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_third_decryption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.rich_text_plaintext_after_third_decryption_screen, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_third_decryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.next_button_third_decryption_screen, row = 7, col_xs = 3, width_xs = 2)
+  
+  def on_click_third_decryption_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the third decryption screen
+    is clicked.
+    
+    The method return to the second decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_second_decryption_screen()
+  
+  def on_click_third_decryption_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the third encryption screen
+    is clicked.
+    
+    The method continue to the fourth decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_fourth_decryption_screen()
+  
+  """
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                          FOURTH DECRYPTION SCREEN METHODS
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  """
+  def build_fourth_decryption_screen(self, **event_args):
+    """
+    This method build the forth decryption Screen componenets.
+    """
+    
+    if self.fourth_dec_screen_flag is False:
+      # Before sub-bytes
+      self.rich_text_plaintext_before_fourth_decryption_screen.content = prettify_blocks(self.blocks)
+      
+      for block in self.blocks:
+        sub_bytes_inverse(block)
+        
+      # Final decryption    
+      st_decrypted = blocks_to_string(self.blocks, 1)
+      self.plaintext_label.text = st_decrypted
+    
+      self.fourth_dec_screen_flag = True
+      
+    self.grid_panel.add_component(self.static_label, row = 0, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.label_fourth_decryption_screen, row = 2, col_xs = 1, width_xs = 4)
+    self.grid_panel.add_component(self.rich_text_fourth_decryption_screen, row = 3, col_xs = 1, width_xs = 4)
+
+    self.grid_panel.add_component(self.before_label, row = 4, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.after_label, row = 4, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.rich_text_plaintext_before_fourth_decryption_screen, row = 5, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.plaintext_label, row = 5, col_xs = 3, width_xs = 2)
+    
+    self.grid_panel.add_component(self.spacer, row = 6, col_xs = 0, width_xs = 8)
+    
+    self.grid_panel.add_component(self.prev_button_fourth_decryption_screen, row = 7, col_xs = 1, width_xs = 2)
+    self.grid_panel.add_component(self.start_over_button_fourth_decryption_screen, row = 7, col_xs = 3, width_xs = 2)
+   
+  def on_click_fourth_decryption_prev_button(self, **event_args):
+    """
+    This method called when the 'Prev' button on the fourth decryption screen
+    is clicked.
+    
+    The method return to the third decryption screen;
+    """
+    self.grid_panel.clear()
+    self.build_third_decryption_screen()
+  
+  def on_click_fourth_decryption_next_button(self, **event_args):
+    """
+    This method called when the 'Next' button on the fourth encryption screen
+    is clicked.
+    
+    The method return back to the home screen;
+    """
+    self.grid_panel.clear()
+    self.build_home_screen()
+    
+    # Initiate indicators
+    self.first_screen_flag = False
+    self.second_screen_flag = False
+    self.third_screen_flag = False
+    self.fourth_screen_flag = False
+    
+    self.first_dec_screen_flag = False
+    self.second_dec_screen_flag = False
+    self.third_dec_screen_flag = False
+    self.fourth_dec_screen_flag = False
+    
+    
+  def initial_all_screens_components(self, **event_args):
+    
+    # spacers used to create space between lines of the grid.
+    self.spacer = Spacer()
+    self.spacer_2 = Spacer()
+    
+    self.initial_home_components()
+    
+    self.initial_first_encryption_screen_components()
+    self.initial_second_encryption_screen_components()
+    self.initial_third_encryption_screen_components()
+    self.initial_fourth_encryption_screen_components()
+    
+    self.initial_first_decryption_screen_components()
+    self.initial_second_decryption_screen_components()
+    self.initial_third_decryption_screen_components()
+    self.initial_fourth_decryption_screen_components()
+    
+    
+  def initial_home_components(self, **event_args):
+    """
+    The method initial all the home screen components
+    """
+    self.static_label = Label(text = 'AES Algorithm Emulator', bold='True', align= 'center', font_size = 24)
+    self.rich_text_explanation_home_screen = RichText(background= '#C6E0B4', content = self.home_explanation, format = 'plain_text')
+    self.insert_plaintext_label_home_screen = Label(text = 'Insert your plaintext:', bold='True', align= 'left')
+    self.plaintext_textbox_home_screen = TextBox(placeholder = 'Plaintext')
+
+    self.insert_encryption_key_label_home_screen = Label(text = 'Insert your Encryption Key:', bold='True', align= 'left')
+    self.encryption_key_textbox_home_creen = TextBox(placeholder = 'Encryption Key')
+    
+    self.error_label = Label(text = '', bold='True', align= 'left')
+
+    self.instructions_button = Button(text='Instructions', bold=True, background='#A2E07C', align='full')
+    self.instructions_button.set_event_handler('click', self.on_click_instructions)
+    
+    self.start_button_home_screen = Button(text='Start', bold=True, background='#A2E07C', align='full')
+    self.start_button_home_screen.set_event_handler('click', self.on_click_start_encrypting_process)
+    
+    self.footer_home_screen = Label(text = 'Created by Aviv Amsellem, Yarden Curiel and Adir Biran', align= 'center', background= '#8EA9DB')
+
+    self.instructions_header = Label(text = 'Instructions', bold='True', align= 'left')
+    self.instructions_content = Label(text="1. Key length is exactly 16 characters (128 bit)\n\n2. Plaintext's length is at least 1 character\n\n3. The emulator simulates one middle round of the AES algorithm\n\n4. Encryption Flow:\nSubstitute Bytes -> Shift Rows -> Mix Columns -> Add Round Key\n\n5. Decryption Flow:\nAdd Round Key -> Mix Columns (Inversed) -> Shift Rows (Inversed) -> Substitute Bytes (Inversed)", align= 'left')
+    
+  def initial_first_encryption_screen_components(self, **event_args):
+    """
+    The method initial all the first encyption screen components
+    """
+
+    self.label_first_encryption_screen = Label(text = 'Encryption - Stage 1 - Byte Substitution', bold = 'True', align = 'center', background='#FFF2CD')
+    self.rich_text_first_encryption_screen = RichText(background= '#C6E0B4', content = self.substitue_explanation, format = 'plain_text')
+    
+    self.before_label = Label(text = 'Before:', bold='True', align= 'center')
+    self.rich_text_plaintext_before_first_screen = RichText(background= '#D7D7D7', content = 'TODO1', format = 'plain_text', width = 4)
+
+    self.after_label = Label(text = 'After:', bold='True', align= 'center')
+    self.rich_text_plaintext_after_first_screen = RichText(background= '#D7D7D7', content = 'TODO2', format = 'plain_text', width = 4)
+    
+    self.next_button_first_encryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_first_encryption_screen.set_event_handler('click', self.on_click_first_encryption_screen_next_button)
+    
+    self.prev_button_first_encryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_first_encryption_screen.set_event_handler('click', self.on_click_first_encryption_screen_prev_button)
+  
+  def initial_second_encryption_screen_components(self, **event_args):
+    """
+    The method initial all the second encyption screen components
+    """
+    self.label_second_encryption_screen = Label(text = 'Encryption - Stage 2 - Shift Rows', bold = 'True', align = 'center', background='#FFF2CD')
+    self.rich_text_second_encryption_screen = RichText(background= '#C6E0B4', content = self.shift_rows_explanation, format = 'plain_text')
+
+    self.rich_text_plaintext_before_second_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_second_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.next_button_second_encryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_second_encryption_screen.set_event_handler('click', self.on_click_second_encryption_screen_next_button)
+    
+    self.prev_button_second_encryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_second_encryption_screen.set_event_handler('click', self.on_click_second_encryption_screen_prev_button)
+    
+  def initial_third_encryption_screen_components(self, **event_args):
+    """
+    The method initial all the third encyption screen components
+    """
+    self.label_third_encryption_screen = Label(text = 'Encryption - Stage 3 - Mix Columns', bold = 'True', align = 'center', background='#FFF2CD')
+    self.rich_text_third_encryption_screen = RichText(background= '#C6E0B4', content =  self.mix_columns_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_third_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_third_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.next_button_third_encryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_third_encryption_screen.set_event_handler('click', self.on_click_third_encryption_screen_next_button)
+    
+    self.prev_button_third_encryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_third_encryption_screen.set_event_handler('click', self.on_click_third_encryption_third_prev_button)
+    
+  
+  def initial_fourth_encryption_screen_components(self, **event_args):
+    """
+    The method initial all the fourth encyption screen components
+    """
+    self.label_fourth_encryption_screen = Label(text = 'Encryption - Stage 4 - Add round key', bold = 'True', align = 'center', background='#FFF2CD')
+    self.rich_text_fourth_encryption_screen = RichText(background= '#C6E0B4', content =  self.add_round_key_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_fourth_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_fourth_encyption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.cipher_text_label = Label(text = 'Final Cipher Text:', bold='True', align= 'center')
+    
+    self.next_button_fourth_encryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_fourth_encryption_screen.set_event_handler('click', self.on_click_fourth_encryption_screen_next_button)
+    
+    self.prev_button_fourth_encryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_fourth_encryption_screen.set_event_handler('click', self.on_click_fourth_encryption_screen_prev_button)
+    
+  def initial_first_decryption_screen_components(self, **event_args):
+    """
+    The method initial all the first decryption screen components
+    """
+    self.label_first_decryption_screen = Label(text = 'Decryption - Stage 1 - Add round key', bold = 'True', align = 'center', background='#F8CBAD')
+    self.rich_text_first_decryption_screen = RichText(background= '#C6E0B4', content =  self.add_round_key_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_first_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_first_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.next_button_first_decryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_first_decryption_screen.set_event_handler('click', self.on_click_first_decryption_next_button)
+    
+    self.prev_button_first_decryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_first_decryption_screen.set_event_handler('click', self.on_click_first_decryption_prev_button)
+    
+  def initial_second_decryption_screen_components(self, **event_args):
+    """
+    The method initial all the second decryption screen components
+    """
+    self.label_second_decryption_screen = Label(text = 'Decryption - Stage 2 - Mix Columns', bold = 'True', align = 'center', background='#F8CBAD')
+    self.rich_text_second_decryption_screen = RichText(background= '#C6E0B4', content =  self.inv_mix_columns_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_second_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_second_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.next_button_second_decryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_second_decryption_screen.set_event_handler('click', self.on_click_second_decryption_next_button)
+    
+    self.prev_button_second_decryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_second_decryption_screen.set_event_handler('click', self.on_click_second_decryption_prev_button)
+    
+  def initial_third_decryption_screen_components(self, **event_args):
+    """
+    The method initial all the third decryption screen components
+    """
+    self.label_third_decryption_screen = Label(text = 'Decryption - Stage 3 -Shift Rows', bold = 'True', align = 'center', background='#F8CBAD')
+    self.rich_text_third_decryption_screen = RichText(background= '#C6E0B4', content =  self.inv_shift_rows_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_third_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_third_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.next_button_third_decryption_screen = Button(text='Next', bold=True, icon='fa:arrow-circle-right', background='#A2E07C', align='full')
+    self.next_button_third_decryption_screen.set_event_handler('click', self.on_click_third_decryption_next_button)
+    
+    self.prev_button_third_decryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_third_decryption_screen.set_event_handler('click', self.on_click_third_decryption_prev_button)
+    
+  def initial_fourth_decryption_screen_components(self, **event_args):
+    """
+    The method initial all the fourth decryption screen components
+    """
+    self.label_fourth_decryption_screen = Label(text = 'Decryption - Stage 4 -Byte Substitution', bold = 'True', align = 'center', background='#F8CBAD')
+    self.rich_text_fourth_decryption_screen = RichText(background= '#C6E0B4', content =  self.inv_substitue_explanation, format = 'plain_text')
+    
+    self.rich_text_plaintext_before_fourth_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.rich_text_plaintext_after_fourth_decryption_screen = RichText(background= '#D7D7D7', content = '', format = 'plain_text', width = 4)
+    
+    self.plaintext_label = Label(text = '', bold='True', align= 'center')
+    
+    self.start_over_button_fourth_decryption_screen = Button(text='Start Over', bold=True, icon='fa:reply-all', background='#3E82C1', align='full')
+    self.start_over_button_fourth_decryption_screen.set_event_handler('click', self.on_click_fourth_decryption_next_button)
+    
+    self.prev_button_fourth_decryption_screen = Button(text='Prev', bold=True, icon='fa:arrow-circle-left', background='#A2E07C', align='full')
+    self.prev_button_fourth_decryption_screen.set_event_handler('click', self.on_click_fourth_decryption_prev_button)
+    
+    
+def shift_rows(input_data):
+    """
+    Shift rows of the input data to the left
+    """
+
+    input_data_copy = []
+    for i in range(len(input_data)):
+        row = []
+        for j in range(len(input_data[0])):
+           row.append(input_data[i][j])
+
+        input_data_copy.append(row)
+
+
+    #  first 4 bytes stay where they are
+    #  third 4 bytes
+
+    input_data[2][0] = input_data_copy[2][2]
+    input_data[2][1] = input_data_copy[2][3]
+    input_data[2][2] = input_data_copy[2][0]
+    input_data[2][3] = input_data_copy[2][1]
+
+    #  second 4 bytes
+    input_data[1][0] = input_data_copy[1][1]
+    input_data[1][1] = input_data_copy[1][2]
+    input_data[1][2] = input_data_copy[1][3]
+    input_data[1][3] = input_data_copy[1][0]
+
+    #  fourth 4 bytes
+    input_data[3][0] = input_data_copy[3][3]
+    input_data[3][1] = input_data_copy[3][0]
+    input_data[3][2] = input_data_copy[3][1]
+    input_data[3][3] = input_data_copy[3][2]
+
+
+
+
+def shift_rows_inverse(input_data):
+    """
+    Shift rows of the input data to the right
+    """
+
+    input_data_copy = []
+    for i in range(len(input_data)):
+        row = []
+        for j in range(len(input_data[0])):
+           row.append(input_data[i][j])
+
+        input_data_copy.append(row)
+        
+    #  first 4 bytes stay where they are
+    #  third 4 bytes
+
+    input_data[2][0] = input_data_copy[2][2]
+    input_data[2][1] = input_data_copy[2][3]
+    input_data[2][2] = input_data_copy[2][0]
+    input_data[2][3] = input_data_copy[2][1]
+
+    #  second 4 bytes
+    input_data[1][3] = input_data_copy[1][2]
+    input_data[1][2] = input_data_copy[1][1]
+    input_data[1][1] = input_data_copy[1][0]
+    input_data[1][0] = input_data_copy[1][3]
+
+    #  fourth 4 bytes
+    input_data[3][3] = input_data_copy[3][0]
+    input_data[3][0] = input_data_copy[3][1]
+    input_data[3][1] = input_data_copy[3][2]
+    input_data[3][2] = input_data_copy[3][3]
+
+
+# S-BOX for substitution stage
+s_box = (
+    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
+    0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
+    0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15,
+    0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75,
+    0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84,
+    0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF,
+    0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8,
+    0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2,
+    0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73,
+    0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB,
+    0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79,
+    0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08,
+    0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A,
+    0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E,
+    0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
+    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16,
+)
+
+# Inverted S-BOX for inversed substitution stage
+inv_s_box = (
+    0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB,
+    0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB,
+    0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D, 0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E,
+    0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2, 0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25,
+    0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92,
+    0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA, 0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84,
+    0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A, 0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06,
+    0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02, 0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B,
+    0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA, 0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73,
+    0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85, 0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E,
+    0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89, 0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B,
+    0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20, 0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4,
+    0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31, 0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F,
+    0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF,
+    0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61,
+    0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D,
+)
+
+
+def sub_bytes(st):
+    """
+    Substitute the bytes with the s-box table
+    """
+    for i in range(4):
+        for j in range(4):
+            st[i][j] = s_box[st[i][j]]
+
+
+def sub_bytes_inverse(st):
+    """
+    Inverse substitute the bytes with the (inversed) s-box table
+    """
+    for i in range(4):
+        for j in range(4):
+            st[i][j] = inv_s_box[st[i][j]]
+
+
+def string_to_bytes(st):
+    """
+    Converting string to bytes
+    """
+    return str.encode(st)
+
+
+def bytes_to_string(bytes_list):
+    """
+    Converts bytes to string (hex)
+    """
+    return bytes_list.hex()
+
+def final_bytes_to_string(bytes_list):
+    """
+    Converts bytes to string
+    """
+    bytes_list = bytes([b for b in bytes_list if b != 0])
+    return bytes_list.decode(encoding="utf-8", errors="replace")
+
+
+def unite_blocks(blocks):
+    """
+    Unite the blocks of the input/output
+    """
+    bytes_ls = []
+
+    for block in blocks:
+        for line in block:
+            for byte in line:
+                bytes_ls.append(byte)
+
+    return bytes(bytes_ls)
+
+
+def split_to_blocks(bytes):
+    """
+    Split input to blocks and adds zeros as padding
+    """
+    blocks = []
+    curr_block = []
+    curr_line = []
+    counter = 0
+    for b in bytes:
+        curr_line.append(b)
+        counter += 1
+
+        if counter % 4 == 0:
+            curr_block.append(curr_line)
+            curr_line = []
+
+        if counter == 16:
+            blocks.append(curr_block)
+            curr_block = []
+            counter = 0
+
+
+    # Padding
+    if len(curr_block) > 0 or len(curr_line) > 0:
+        while len(curr_line) != 4:
+            curr_line.append(0)
+        curr_block.append(curr_line)
+
+        while len(curr_block) != 4:
+            curr_block.append([0, 0, 0, 0])
+
+        blocks.append(curr_block)
+
+    return blocks
+
+
+def mix_columns(block):
+    """
+    Mix Columns stage - xor operations and multiplication and galois field
+    """
+    for i in range(4):
+        col = [b[i] for b in block]
+
+        a, b, c, d = col[0], col[1], col[2], col[3]
+
+        block[0][i] = gmul(a, 2) ^ gmul(b, 3) ^ gmul(c, 1) ^ gmul(d, 1)
+        block[1][i] = gmul(a, 1) ^ gmul(b, 2) ^ gmul(c, 3) ^ gmul(d, 1)
+        block[2][i] = gmul(a, 1) ^ gmul(b, 1) ^ gmul(c, 2) ^ gmul(d, 3)
+        block[3][i] = gmul(a, 3) ^ gmul(b, 1) ^ gmul(c, 1) ^ gmul(d, 2)
+
+
+def mix_columns_inverse(block):
+    """
+    Inversed Mix Columns stage - xor operations and multiplication and galois field
+    """
+    for i in range(4):
+        col = [b[i] for b in block]
+        a, b, c, d = col[0], col[1], col[2], col[3]
+
+        block[0][i] = gmul(a, 14) ^ gmul(b, 11) ^ gmul(c, 13) ^ gmul(d, 9)
+        block[1][i] = gmul(a, 9) ^ gmul(b, 14) ^ gmul(c, 11) ^ gmul(d, 13)
+        block[2][i] = gmul(a, 13) ^ gmul(b, 9) ^ gmul(c, 14) ^ gmul(d, 11)
+        block[3][i] = gmul(a, 11) ^ gmul(b, 13) ^ gmul(c, 9) ^ gmul(d, 14)
+
+
+
+def gmul(a, b):
+    """
+    Multiplication in the Galois field GF(2^8).
+    """
+    p = 0
+    hi_bit_set = 0
+    for i in range(8):
+        if b & 1 == 1: p ^= a
+        hi_bit_set = a & 0x80
+        a <<= 1
+        if hi_bit_set == 0x80: a ^= 0x1b
+        b >>= 1
+    return p % 256
+
+
+def add_round_key(block, key):
+    """
+    Add round key stage - xor operation with the key
+    """
+    counter = 0
+    for i in range(len(block)):
+        for j in range(len(block[0])):
+            block[i][j] = block[i][j] ^ key[counter]
+            counter += 1
+
+
+def blocks_to_string(blocks, encrypt):
+    """
+    Converts blocks to string
+    """
+    blocks_united = unite_blocks(blocks)
+    if encrypt == 0:
+        st_decrypted = bytes_to_string(blocks_united)
+    else:
+        st_decrypted = final_bytes_to_string(blocks_united)
+    return st_decrypted
+
+
+def string_to_blocks(st):
+    """
+    Converts string to blocks
+    """
+    bytes_st = string_to_bytes(st)
+    blocks = split_to_blocks(bytes_st)
+    return blocks
+
+def pad_number(num):
+  """
+  Padding in the visualization step
+  """
+  hex_num = str(hex(num))[2:]
+  st = ""
+  if len(hex_num) == 1:
+    st += "0"
+    
+  return st + hex_num.upper()
+  
+def prettify_blocks(blocks):
+  """
+  Prettifying the blocks as a string
+  """
+  st = ""
+  delimeter = "|"
+  
+  for block in blocks:
+    st += "⎽⎽⎽⎽⎽⎽⎽⎽⎽ "
+    for row in block:
+      st += "|" + pad_number(row[0]) + delimeter + pad_number(row[1]) + delimeter + pad_number(row[2]) + delimeter + pad_number(row[3]) + "|" + " "
+    st += "⎺⎺⎺⎺⎺⎺⎺⎺⎺ "
+  
+  return st
+    
