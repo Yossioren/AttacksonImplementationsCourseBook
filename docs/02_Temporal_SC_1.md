@@ -12,7 +12,7 @@ Attacks on Implementations of Diffie-Helman, RSA, DSS and other
 systems .
 
 Before it was published, he wrote about it in a mailing list of
-Cypherpunks[1] which included all sorts of people like mathematicians,
+Cypherpunks[^1] which included all sorts of people like mathematicians,
 photographers, artists anarchists and more. The attack was first
 demonstrated in 1997 at a cryptography conference. And later, in 1998 an
 academic paper was published describing how to perform the attack. In
@@ -199,26 +199,25 @@ The group also has an identity element, 1. Which when multiplied by
 another element from the group - does not change it.
 
 The last property this group has is that every element *r* in the group
-has an inverse element
-*r*<sup> − 1</sup> ∈ *Z*<sub>*n*</sub><sup>\*</sup> so that
-*r* \* *r*<sup> − 1</sup> = 1.
+has an inverse element *r*<sup>−1</sup> ∈ *Z*<sub>*n*</sub><sup>\*</sup>
+so that *r* \* *r*<sup>−1</sup> = 1.
 
 Since the exponentiation is just repeated multiplication - we consider
 exponentiation to also be a closed operation under that group. Each
-element has an order, the order always divides (*p* − 1)(*q* − 1)
-(Fermat’s little theorem). When the element is raised to the power of
-the order, the result of the exponentation (under the modulu of course)
-is 1, the identity element in the group.
+element has an order, the order always divides (*p*−1)(*q*−1) (Fermat’s
+little theorem). When the element is raised to the power of the order,
+the result of the exponentation (under the modulu of course) is 1, the
+identity element in the group.
 
-It also important to note that we cannot compute (*p* − 1)(*q* − 1) from
+It also important to note that we cannot compute (*p*−1)(*q*−1) from
 knowing *n*
 
 ### Elementary Operations of RSA
 
 To use the RSA crypto system to encrypt and decrypt messages you first
 have to generate the infrastructure, that means deciding on *p* and *q*,
-both large prime numbers and computing *n* = *p**q* and
-(*p* − 1)(*q* − 1) denoted as *ϕ*(*n*)
+both large prime numbers and computing *n* = *p**q* and (*p*−1)(*q*−1)
+denoted as *ϕ*(*n*)
 
 -   **Choosing a public and private key pairs** Choose
     *e* ∈ *Z*<sub>*ϕ*(*n*)</sub><sup>\*</sup>,
@@ -285,8 +284,8 @@ about the privileged address space layout.
     Applied Information Processing and Communications (IAIK) Graz,
     Austria.
 
-[1] A cypherpunk is any activist advocating widespread use of strong
-cryptography and privacy-enhancing technologies as a route to social and
-political change. Originally communicating through the Cypherpunks
-electronic mailing list, informal groups aimed to achieve privacy and
-security through proactive use of cryptography
+[^1]: A cypherpunk is any activist advocating widespread use of strong
+    cryptography and privacy-enhancing technologies as a route to social
+    and political change. Originally communicating through the
+    Cypherpunks electronic mailing list, informal groups aimed to
+    achieve privacy and security through proactive use of cryptography

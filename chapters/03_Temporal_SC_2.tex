@@ -5,7 +5,7 @@
 In the previous chapter we discussed about RSA cryptosystem~\cite{wikiRSA}. In this chapter, we
 presented the most expensive operation in the RSA algorithm which is when we need to take the
 message (m) and raise it to the power of the key.
-\[ C = m^e(modn) \] The simplest algorithm for raising a number to a power uses
+\[ C = m^e \pmod{n}) \] The simplest algorithm for raising a number to a power uses
 modular multiplication which is an expensive operation.
 
 \begin{figure}[!ht]
@@ -52,7 +52,7 @@ These two ways will reduce the cost of modular multiplication and modular
 exponentiations, and this is something we really want to do in order to make RSA work on
 a device.
 
-So, assumeing we are engineers, we want to implement modular exponentiations very
+So, assuming we are engineers, we want to implement modular exponentiations very
 cheaply. The right thing to do is obviously use some crypto library, but
 let's assume that's not possible, and we are inventing a new CPU. There is a very 
 famous book online called the handbook of applied cryptography
@@ -128,9 +128,9 @@ that any reasonable crypto implementation is not doing the naive method.
 It will use the left to right or the right to left binary exponentiation
 which is basically the same idea as one of the window methods.
 
-But what if we want the modular multiplication to be cheaper? A way to achive this 
+But what if we want the modular multiplication to be cheaper? A way to achieve this 
 is called the Chinese remainder theorem (CRT)~\cite{dingyi1996chinese}, named after 
-Sun Tzu Suan that was a teacher from the \nth{5} century and
+Sun-tzu Suan-ching that was a teacher from the \nth{5} century and
 wrote a book that contained all sorts of riddles and questions.
 
 The Chinese remainder theorem addresses the following type of problem. 
@@ -160,7 +160,7 @@ So what is the size of the operand used by these two modular exponentiations?
 Assuming that $p$ and $q$ are of the same size? 
 Let's say $p$ and $q$ are 1000 bits so the size of $n$ is 2000 bits
 (we add the number of bits of each number in the multiplication).  So each
-number in the multiplicative group is about 2000 bitw because it's mod $N$, so
+number in the multiplicative group is about 2000 bits because it's mod $N$, so
 multiplying two numbers is going to be multiplying two numbers which are 2000
 bits. If we reduce it to modulo $p$ and modulo $q$ the numbers are going to be
 half the size (1000 bits). So if we take a multiplication and now we will
@@ -190,7 +190,7 @@ modular multiplications do not require a reducing step and when you finish
 you just step out of this world and you are back with your result. 
 It's still cost you like a multiplication but it doesn't cost you the 
 extra reduction step. So, what is the idea of the Montgomery reduction? 
-We want to calculate \(g^emodn\) and to do that we need to pay a lot 
+We want to calculate \(g^e \pmod{n}\) and to do that we need to pay a lot 
 for modular reduction.
 So, the first thing we do is enter the Montgomery representation and do the
 Mont(\(g^e\)) and each one of this multiplication steps is going to be about as
@@ -213,7 +213,7 @@ Now lets review how the Montgomery Exponentiation works inside
 	\item  \(Mont(a)=a*R(mod n) =^{def}  a(mod n)\)
 	\item  \(Mont(ab)=a*b*R(mod n)=\underline{a}*\underline{b}*R^{-1} (mod n)\)
 	\item  \( = (\underline{a}*\underline{b} +
-	(\underline{a}*\underline{b}*n'(mod R)*n))/R(modn) \) \newline
+	(\underline{a}*\underline{b}*n'(mod R)*n))/R \pmod{n} \) \newline
 	// if this is more than n, subtract n
 	\item  \( A = A*A = 4 = 7^{(11<<1)} = 7^{(110)} \)
 	\item  Result: Instead of modular reduction, we only (sometimes) subtract
@@ -242,7 +242,7 @@ that using \textbf{a} and \underline{b} we get:
 time we multiply two numbers we need to take out the extra R. Inverting $R$ is
 simple using GCD and can be done before we start the computation. There are much
 more derivations made to get to  \((\underline{a}*\underline{b} +
-(\underline{a}*\underline{b}*n'(mod R)*n))/R(modn) \).
+(\underline{a}*\underline{b}*n'(mod R)*n))/R \pmod{n} \).
 \underline{a}*\underline{b} is just a single multiplication.
 \underline{a}*\underline{b}*n'(mod R) - Notice that \(modR\) is a cheap
 operation because $R$ is 1 with lot of zeroes. ($n$ prime ($n'$) is just precomputed
@@ -277,11 +277,11 @@ sign it". So this card has stored a value inside which means he has money inside
 On the other hand, we want that if we request ``pay Alon 1 million dollars" 
 the smart card will say ``I don't have enough funds! I am going to refuse". 
 As an attacker we would like to be able to sign any message we want,
-mainly messages like ``please send Yosi 1 billion dollars". 
+mainly messages like ``please send Yossi 1 billion dollars". 
 The smart card will not allow it but if we got the private key (signing key)
 we can sign whatever message we want. So we send the
 smart card a message that is unsigned and he in return sends back a signature
-which is the response signed with the private key: \(m^s mod n\) where s is the
+which is the response signed with the private key: \(m^s \pmod{n}\) where $s$ is the
 secret key. We assume that as an attacker we can send as many queries as we want and we
 and recover the responses (the signatures). The goal is to extract the
 secret key. 
@@ -307,7 +307,7 @@ can choose the next query that we will send. So, what is the attack model, we se
 requests, the smart card is signing them, and we get the responses and also
 assuming that the smart card is using Montgomery RSA . So how can we use it to
 extract the key? We are going to use a method
-calles ``Vaizata" method which can be found in the DPA handbook. This is a
+called ``Vaizata" method which can be found in the DPA handbook. This is a
 general way of performing a side channel attack using statistics. \newline
 
 \underline{The ``Vaizata" Method}
@@ -352,13 +352,13 @@ twice and when the car will see consecutive values and it will open,
  Let's assume we can find out when the controller is
 transmitting (it is a very intensive operation that takes battery life and also
 radiates). So we know the moment in time when it is transmitting, did the
-encryption happened before or after the transmition? The ansewr is before. Let's
+encryption happened before or after the transmission? The answer is before. Let's
 assume that the counter stored in the memory and let's say we found the moment in
 time when the chip is reading from memory. Did it happen before or after the
 encryption? The answer is after, since we need the counter to be included in the
 message that will be sent. We can also make more assumptions such as ``the AES
 uses an 8 bit data pack or 16 bit or 32 bit". Some of these assumptions might be
-wrong but the ``vizata" method will help us to find out if they are wrong. 
+wrong but the ``Vaizata" method will help us to find out if they are wrong. 
 
 So first of all we make a simple assumption, that the smart card is using
 left to right binary exponentiation using Montgomery and this is a very
@@ -375,7 +375,7 @@ that if we will guess the bit correctly then something will happen to the
 computation, and if we will guess this key bit correctly it will take more
 power/take longer time/connect to the network more often or some kind of other 
 phenomena we can measure. So, in our case what is the only thing we can measure? Answer:
-The anser is time. We assume that if there is a Montgomery reduction in the calculation of
+The answer is time. We assume that if there is a Montgomery reduction in the calculation of
 this bit then the entire computation is going to take a little more time.
 
 
@@ -384,14 +384,14 @@ to guess the beginning of it but not the end of it. Now we are going to classify
 the measurements according to our hypothesis, in this case two groups (with or
 without Montgomery computation). If we guessed correctly then it will take
 longer to the group we said it will take longer. If not, it might take less or
-more, we can't detrmine. If we guessed correctly, the groups will have meaning,
+more, we can't determine. If we guessed correctly, the groups will have meaning,
 means will be able to statistically tell apart the set of the measurements
 that will take a longer time and the set of measurements that will take less
 time. We are going to guess the left bit of the key, and there is only one option.
 The next bit can be 1 or 0. Now, we can
 simulate the running of this algorithm with our guess, not for the whole key but only
-to the part we know, and if there is going to be Montgomery reduction. So assumeing we
-have $g$, $e$ and $N$. The device under test is calculating \(g^emodn\), but where $g$ came
+to the part we know, and if there is going to be Montgomery reduction. So assuming we
+have $g$, $e$ and $N$. The device under test is calculating \(g^e \pmod{n}\), but where $g$ came
 from? It is supplied by the attacker. What about $e$? Secret we want to discover
 (\(e_t,e_{t-1},..,e_0\)) What about $N$? public variable (known). The first
 thing it does, it enters the Montgomery representation. This information of how
@@ -403,7 +403,7 @@ bit is 1. The next step is \(A=A*A\), now what is next? It depends, if
 then \(A=A*g\). What happens next now we can't know. We can run both
 calculations, in particular we can find out if there was a reduction step in two
 optional operations. There are 4 options: Only one of then containing a reduction step,
-two of them containing a reduction steo or nither of them. We can know exactly, 
+two of them containing a reduction step or neither of them. We can know exactly, 
 assuming we make a guess on \(e_{t-1}\),
 if there is going to be an extra reduction step. We know enough to guess - if we
 guess correctly, we can know if there will be a reduction step because we can
@@ -582,10 +582,10 @@ Timing Attack" which you are encouraged to read.
 \end{figure}
 
 Now let's talk about counter measurements. When Kocher announced the attack to
-the cipherpunks mailing list there was kind of discussion about it. Here is a
-message (see \Cref{fig:paul}) from there that was sent by Ron Riverst. He was
+the cypherpunks mailing list there was kind of discussion about it. Here is a
+message (see \Cref{fig:paul}) from there that was sent by Ron Rivest. He was
 replying to William Simpson, who was the author of Photuris which is related to
-the IPsec protocol and was used for kits change in the IP protocol. 
+the IPsec protocol and was used for key exchange in the IP protocol. 
 
 \begin{figure}[!ht]
     \centering
@@ -663,7 +663,7 @@ we won't be able to attack it, but we could use power analysis.
 If we run this algorithm as is, we have two places in memory for $s$ and for $t$,
 every action we load $s$ then multiply and then edit the memory of $s$. Same goes in
 the multiply section. We load $s$ and $m$ and then multiply and store it in $s$. It's
-always loading and storing $s$, but what happens when it goes to the else statment:
+always loading and storing $s$, but what happens when it goes to the else statement:
 it loads $s$ and $m$ and then store this into something other then $s$. So the power
 consumption is different between the store and the load. You can read more in
 the paper (``defeating RSA multiply-always and message binding" by Marc F.
@@ -682,7 +682,7 @@ but can't read it. One of the speakers in the black hat 2013 used timing attacks
 to find out if a web site was visited or
 not\footnote{\url{https://www.youtube.com/watch?v=KcOQfYlyIqw}}. He also
 demonstrated how he can also use timing attack to read the user's stream. 
-\section{Research highlights} \label{sec:RelatedWork}
+\section{Research highlights} \label{sec:TemporalSCRelatedWork}
 \begin{itemize}
     \item \textbf{Photonic Side Channel Attacks Against RSA} - This paper describes an attack utilizing the
     photonic side channel against a public-key crypto-system. They
@@ -694,7 +694,7 @@ demonstrated how he can also use timing attack to read the user's stream.
 
     \item \textbf{Thermal Covert Channels on Multi-core Platforms} - This paper demonstrates a way to leak information between 2 applications which are running on the same machine but with complete CPU core isolation or timing separation.
 The paper is presenting a way to bypass the first tactic by utilizing the heat factor and describing an attack where one CPU core is generating heat because of running a CPU intensive task (such as RSA decryption looped for 100 milliseconds) and the nearby CPU core picking up the heat as it propagates from the original core to its neighbors (by the laws of physics).
-The way to bypass the second type of isolation is just like the first one, but in this example the applications are not running at the same time. Still, the second application can track the remmant heat generated from the first application.
+The way to bypass the second type of isolation is just like the first one, but in this example the applications are not running at the same time. Still, the second application can track the remanent heat generated from the first application.
 The paper then offers a future work where an application can use these methods in combination with machine learning techniques to be able to learn the purpose of other applications running on the same machine without having the permissions to do so.
     \href{https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/masti}{Thermal Covert Channels on Multi-core Platforms}.
 
@@ -715,13 +715,13 @@ The paper then offers a future work where an application can use these methods i
     The second covert channel type is using atomic instruction over two cache lines when no bus lock mechanism exists. The atomicity is achieved by flushing all inflight memory transactions from all cores which will result in observable latency.
     This work had shown how to solve three obstacles when creating a covert channel in the cloud, first memory addressing uncertainty- the sender and the receiver cannot know the exact cache locations of each other because they are located in different virtual environments with different memory mappings. Second process scheduling uncertainty - in classic cache covert channel the receiver runs after the sender (round-robin scheduling), but when the two processes located in different VMS, this scheduling is not guaranteed. Third physical limitation - processes of the receiver and sender may run on different cores and may not share caches L1 and L2.
 
-    \item \textbf{Cross-Origin Pixel Stealing: Timing Attacks Using CSS Filters} - In the paper \cite{kotcher2013cross}, the authros present the
+    \item \textbf{Cross-Origin Pixel Stealing: Timing Attacks Using CSS Filters} - In the paper \cite{kotcher2013cross}, the authors present the
     following threat model: the attacker runs a malicious domain. His purpose is to tempt his victim to use the malicious domain. He either creates
     an interesting website to attract the victim to use it for a while,or he is able to open another window in front of the window being attacked.
     \\\\
     Hypertext Markup Language (HTML) is the standard markup language for documents designed to be displayed in a web browser. The Document Object Model
     (DOM) is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object
-    representing a part of the document. It is shown in the paper, how the rendrering process of DOM content makes timing attacks possible: CSS filters
+    representing a part of the document. It is shown in the paper, how the rendering process of DOM content makes timing attacks possible: CSS filters
     allow styling of HTML components, CSS Custom filters (a.k.a shaders) have access to the rendering content, which can hold sensitive information, so
     an attack on shaders could lead to information leaks. But even without this access, different type of code parts in shaders could enable timing attacks.
     \begin{enumerate}

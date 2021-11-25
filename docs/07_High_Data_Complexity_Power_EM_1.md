@@ -25,6 +25,8 @@ Hamming distance from the all-zero string of the same length. The chart
 below is brought in order to show the hamming weight of different types
 of strings.
 
+<div class="center">
+
 <div id="hammingWeights">
 
 |          String          | Hamming Weight |
@@ -35,6 +37,8 @@ of strings.
 | **789**0**1234**0**567** |       10       |
 
 Hamming weights of different bit strings 
+
+</div>
 
 </div>
 

@@ -11,7 +11,7 @@ In the previous chapter we discussed about RSA cryptosystem . In this
 chapter, we presented the most expensive operation in the RSA algorithm
 which is when we need to take the message (m) and raise it to the power
 of the key.
-*C* = *m*<sup>*e*</sup>(*m**o**d**n*)
+*C* = *m*<sup>*e*</sup> (mod  *n*))
 The simplest algorithm for raising a number to a power uses modular
 multiplication which is an expensive operation.
 
@@ -23,7 +23,7 @@ Modular multiplication is pretty straightforward. It works just like
 modular addition. You just multiply the two numbers and then calculate
 the standard name. Examples for Modulo 7 and 15 can be found in . Why
 modular multiplication is so expensive? Because we have to take the
-modulo many times which is as expensive as division[1]. So, one way to
+modulo many times which is as expensive as division[^1]. So, one way to
 do this is by keep multiplying and doing the modular reduction only at
 the end. The problem with that approach is that the runtime of
 multiplication grows exponentially with the number of the multiplicands.
@@ -57,7 +57,7 @@ These two ways will reduce the cost of modular multiplication and
 modular exponentiations, and this is something we really want to do in
 order to make RSA work on a device.
 
-So, assumeing we are engineers, we want to implement modular
+So, assuming we are engineers, we want to implement modular
 exponentiations very cheaply. The right thing to do is obviously use
 some crypto library, but let’s assume that’s not possible, and we are
 inventing a new CPU. There is a very famous book online called the
@@ -87,8 +87,8 @@ algorithm *A* will be the result of *g* raised to the power of *e*.
 In the beginning we set *A* to be equal to 1, and go over the bits from
 left to right (from the most significant to the least). Each time we
 square *A* (*A* = *A* \* *A*), but we only multiply by *g*
-(*A* = *A* \* *g*) if the current bit is 1 (the *i*<sup>*t**h*</sup>
-bit). Now, what happens when we do a squaring operation downstairs? What
+(*A*=*A*\**g*) if the current bit is 1 (the *i*<sup>*t**h*</sup> bit).
+Now, what happens when we do a squaring operation downstairs? What
 happens to the exponent upstairs? Its multiplied by 2. So
 *g*<sup>*e*</sup><sup>2</sup> = *g*<sup>2*e*</sup> and
 *g* \* *g*<sup>*e*</sup> = *g*<sup>*e* + 1</sup>. Now, we can think of a
@@ -110,17 +110,17 @@ multiplications.
 Lets review an example. Lets calculate 7<sup>6</sup> = 7<sup>(110)</sup>
 in the group ℤ<sub>15</sub> = 1, 2, 4, 7, 8, 11, 13, 14.
 
-1.  *A* = 1 = 7<sup>(</sup>0)
+1.  *A* = 1 = 7<sup>(0)</sup>
 
-2.  *A* = *A* \* *A* = 1 = 7<sup>(0 &lt;  &lt; 1)</sup> = 7<sup>(0)</sup>
+2.  *A* = *A* \* *A* = 1 = 7<sup>(0\<\<1)</sup> = 7<sup>(0)</sup>
 
-3.  *A* = *A* \* 7 = 7 = 7<sup>(0 + 1)</sup> = 7<sup>(1)</sup>
+3.  *A* = *A* \* 7 = 7 = 7<sup>(0+1)</sup> = 7<sup>(1)</sup>
 
-4.  *A* = *A* \* *A* = 4 = 7<sup>(1 &lt;  &lt; 1)</sup> = 7<sup>(10)</sup>
+4.  *A* = *A* \* *A* = 4 = 7<sup>(1\<\<1)</sup> = 7<sup>(10)</sup>
 
-5.  *A* = *A* \* 7 = 13 = 7<sup>(10 + 1)</sup> = 7<sup>(11)</sup>
+5.  *A* = *A* \* 7 = 13 = 7<sup>(10+1)</sup> = 7<sup>(11)</sup>
 
-6.  *A* = *A* \* *A* = 4 = 7<sup>(11 &lt;  &lt; 1)</sup> = 7<sup>(110)</sup>
+6.  *A* = *A* \* *A* = 4 = 7<sup>(11\<\<1)</sup> = 7<sup>(110)</sup>
 
 Are there any ways doing this even faster? The answer is yes as we can
 see in the handbook of applied cryptography. The general idea of these
@@ -139,9 +139,9 @@ right or the right to left binary exponentiation which is basically the
 same idea as one of the window methods.
 
 But what if we want the modular multiplication to be cheaper? A way to
-achive this is called the Chinese remainder theorem (CRT) , named after
-Sun Tzu Suan that was a teacher from the century and wrote a book that
-contained all sorts of riddles and questions.
+achieve this is called the Chinese remainder theorem (CRT) , named after
+Sun-tzu Suan-ching that was a teacher from the century and wrote a book
+that contained all sorts of riddles and questions.
 
 The Chinese remainder theorem addresses the following type of problem.
 One is asked to find a number that leaves a remainder of 0 when divided
@@ -169,7 +169,7 @@ what is the size of the operand used by these two modular
 exponentiations? Assuming that *p* and *q* are of the same size? Let’s
 say *p* and *q* are 1000 bits so the size of *n* is 2000 bits (we add
 the number of bits of each number in the multiplication). So each number
-in the multiplicative group is about 2000 bitw because it’s mod *N*, so
+in the multiplicative group is about 2000 bits because it’s mod *N*, so
 multiplying two numbers is going to be multiplying two numbers which are
 2000 bits. If we reduce it to modulo *p* and modulo *q* the numbers are
 going to be half the size (1000 bits). So if we take a multiplication
@@ -190,13 +190,13 @@ numbers is pretty easy but the problem is reducing after multiplying. So
 what if there is a way of doing modular multiplications without the
 reduction step? So in 1985 a genius mathematician called peter
 Montgomery published a paper called “modular multiplication without a
-reduction step"  [2]. The idea behind the paper is that we enter into a
+reduction step"  [^2]. The idea behind the paper is that we enter into a
 magical world called the Montgomery representation. When you step into
 the Montgomery world, modular multiplications do not require a reducing
 step and when you finish you just step out of this world and you are
 back with your result. It’s still cost you like a multiplication but it
 doesn’t cost you the extra reduction step. So, what is the idea of the
-Montgomery reduction? We want to calculate *g*<sup>*e*</sup>*m**o**d**n*
+Montgomery reduction? We want to calculate *g*<sup>*e*</sup> (mod  *n*)
 and to do that we need to pay a lot for modular reduction. So, the first
 thing we do is enter the Montgomery representation and do the
 Mont(*g*<sup>*e*</sup>) and each one of this multiplication steps is
@@ -213,18 +213,18 @@ it’s as cheap as regular representation.
 
 Now lets review how the Montgomery Exponentiation works inside
 
-1.  Choose a value R, *R* &gt; *n*, which is easy to use (usually a
-    large power of 2)
+1.  Choose a value R, *R* \> *n*, which is easy to use (usually a large
+    power of 2)
 
 2.  *M**o**n**t*(*a*) = *a* \* *R*(*m**o**d**n*)=<sup>*d**e**f*</sup>*a*(*m**o**d**n*)
 
 3.  $Mont(ab)=a\*b\*R(mod n)=\\underline{a}\*\\underline{b}\*R^{-1} (mod n)$
 
 4.  $= (\\underline{a}\*\\underline{b} +
-        (\\underline{a}\*\\underline{b}\*n'(mod R)\*n))/R(modn)$ // if
-    this is more than n, subtract n
+        (\\underline{a}\*\\underline{b}\*n'(mod R)\*n))/R \\pmod{n}$ //
+    if this is more than n, subtract n
 
-5.  *A* = *A* \* *A* = 4 = 7<sup>(11 &lt;  &lt; 1)</sup> = 7<sup>(110)</sup>
+5.  *A* = *A* \* *A* = 4 = 7<sup>(11\<\<1)</sup> = 7<sup>(110)</sup>
 
 6.  Result: Instead of modular reduction, we only (sometimes) subtract
 
@@ -254,7 +254,7 @@ every time we multiply two numbers we need to take out the extra R.
 Inverting *R* is simple using GCD and can be done before we start the
 computation. There are much more derivations made to get to
 $(\\underline{a}\*\\underline{b} +
-(\\underline{a}\*\\underline{b}\*n'(mod R)\*n))/R(modn)$.
+(\\underline{a}\*\\underline{b}\*n'(mod R)\*n))/R \\pmod{n}$.
 <u>a</u>\*<u>b</u> is just a single multiplication.
 <u>a</u>\*<u>b</u>\*n’(mod R) - Notice that *m**o**d**R* is a cheap
 operation because *R* is 1 with lot of zeroes. (*n* prime (*n*′) is just
@@ -290,12 +290,12 @@ it". So this card has stored a value inside which means he has money
 inside. On the other hand, we want that if we request “pay Alon 1
 million dollars" the smart card will say “I don’t have enough funds! I
 am going to refuse". As an attacker we would like to be able to sign any
-message we want, mainly messages like “please send Yosi 1 billion
+message we want, mainly messages like “please send Yossi 1 billion
 dollars". The smart card will not allow it but if we got the private key
 (signing key) we can sign whatever message we want. So we send the smart
 card a message that is unsigned and he in return sends back a signature
 which is the response signed with the private key:
-*m*<sup>*s*</sup>*m**o**d**n* where s is the secret key. We assume that
+*m*<sup>*s*</sup> (mod  *n*) where *s* is the secret key. We assume that
 as an attacker we can send as many queries as we want and we and recover
 the responses (the signatures). The goal is to extract the secret key.
 
@@ -318,7 +318,7 @@ which means we can look at the response and we can choose the next query
 that we will send. So, what is the attack model, we send requests, the
 smart card is signing them, and we get the responses and also assuming
 that the smart card is using Montgomery RSA . So how can we use it to
-extract the key? We are going to use a method calles “Vaizata" method
+extract the key? We are going to use a method called “Vaizata" method
 which can be found in the DPA handbook. This is a general way of
 performing a side channel attack using statistics.
 
@@ -369,13 +369,13 @@ values and it will open, but if it is too far it won’t open. Let’s
 assume we can find out when the controller is transmitting (it is a very
 intensive operation that takes battery life and also radiates). So we
 know the moment in time when it is transmitting, did the encryption
-happened before or after the transmition? The ansewr is before. Let’s
+happened before or after the transmission? The answer is before. Let’s
 assume that the counter stored in the memory and let’s say we found the
 moment in time when the chip is reading from memory. Did it happen
 before or after the encryption? The answer is after, since we need the
 counter to be included in the message that will be sent. We can also
 make more assumptions such as “the AES uses an 8 bit data pack or 16 bit
-or 32 bit". Some of these assumptions might be wrong but the “vizata"
+or 32 bit". Some of these assumptions might be wrong but the “Vaizata"
 method will help us to find out if they are wrong.
 
 So first of all we make a simple assumption, that the smart card is
@@ -394,7 +394,7 @@ We can say, for example, that if we will guess the bit correctly then
 something will happen to the computation, and if we will guess this key
 bit correctly it will take more power/take longer time/connect to the
 network more often or some kind of other phenomena we can measure. So,
-in our case what is the only thing we can measure? Answer: The anser is
+in our case what is the only thing we can measure? Answer: The answer is
 time. We assume that if there is a Montgomery reduction in the
 calculation of this bit then the entire computation is going to take a
 little more time.
@@ -404,17 +404,17 @@ were able to guess the beginning of it but not the end of it. Now we are
 going to classify the measurements according to our hypothesis, in this
 case two groups (with or without Montgomery computation). If we guessed
 correctly then it will take longer to the group we said it will take
-longer. If not, it might take less or more, we can’t detrmine. If we
+longer. If not, it might take less or more, we can’t determine. If we
 guessed correctly, the groups will have meaning, means will be able to
 statistically tell apart the set of the measurements that will take a
 longer time and the set of measurements that will take less time. We are
 going to guess the left bit of the key, and there is only one option.
 The next bit can be 1 or 0. Now, we can simulate the running of this
 algorithm with our guess, not for the whole key but only to the part we
-know, and if there is going to be Montgomery reduction. So assumeing we
+know, and if there is going to be Montgomery reduction. So assuming we
 have *g*, *e* and *N*. The device under test is calculating
-*g*<sup>*e*</sup>*m**o**d**n*, but where *g* came from? It is supplied
-by the attacker. What about *e*? Secret we want to discover
+*g*<sup>*e*</sup> (mod  *n*), but where *g* came from? It is supplied by
+the attacker. What about *e*? Secret we want to discover
 (*e*<sub>*t*</sub>, *e*<sub>*t* − 1</sub>, .., *e*<sub>0</sub>) What
 about *N*? public variable (known). The first thing it does, it enters
 the Montgomery representation. This information of how to enter the
@@ -428,7 +428,7 @@ because we know that the most significant bit is 1. The next step is
 we can’t know. We can run both calculations, in particular we can find
 out if there was a reduction step in two optional operations. There are
 4 options: Only one of then containing a reduction step, two of them
-containing a reduction steo or nither of them. We can know exactly,
+containing a reduction step or neither of them. We can know exactly,
 assuming we make a guess on *e*<sub>*t* − 1</sub>, if there is going to
 be an extra reduction step. We know enough to guess - if we guess
 correctly, we can know if there will be a reduction step because we can
@@ -446,7 +446,7 @@ which is the data we collected using the side channel attack in this
 case it is only the time. Now we have a vector of size k and each
 element in the vector is the time it took to sign the message. Now, we
 are going to try and guess *s*<sub>*t*</sub>, *s*<sub>*t* − 1</sub>
-(*s* = *s*<sub>*t*</sub>, *s*<sub>*t* − 1</sub>, *s*<sub>*t* − 2</sub>, …, *s*<sub>0</sub>)
+(*s*=*s*<sub>*t*</sub>,*s*<sub>*t* − 1</sub>,*s*<sub>*t* − 2</sub>,…,*s*<sub>0</sub>)
 and try to discover *s*<sub>*t* − 2</sub>.
 
 So for each of the messages and each key guess we are going to simulate
@@ -582,11 +582,11 @@ Implementation of the Timing Attack" which you are encouraged to read.
 </figure>
 
 Now let’s talk about counter measurements. When Kocher announced the
-attack to the cipherpunks mailing list there was kind of discussion
+attack to the cypherpunks mailing list there was kind of discussion
 about it. Here is a message (see ) from there that was sent by Ron
-Riverst. He was replying to William Simpson, who was the author of
-Photuris which is related to the IPsec protocol and was used for kits
-change in the IP protocol.
+Rivest. He was replying to William Simpson, who was the author of
+Photuris which is related to the IPsec protocol and was used for key
+exchange in the IP protocol.
 
 <figure>
 <img src="images/paul.png" id="fig:paul" alt="The message." /><figcaption aria-hidden="true">The message.</figcaption>
@@ -625,12 +625,12 @@ attacker he will eventually retrieve *s*.
 
 So, how do we do blinding? First of all, we can do this even before the
 attacker arrives, we generate random *r* and calculate
-*r*<sup>*v*</sup>*m**o**d**n* and *r*<sup> − 1</sup>*m**o**d**n*. These
+*r*<sup>*v*</sup>*m**o**d**n* and *r*<sup>−1</sup>*m**o**d**n*. These
 calculations are not reviling any secrets because *v* is the public key.
 The attacker gives us *m*, so we calculate:
 
-*X* = (*r*<sup>*v*</sup> \* *m*)*m**o**d**n*
-*Y* = *X*<sup>*s*</sup> = (*r*<sup>*v*</sup> \* *m*)<sup>*s*</sup> = *r*<sup>*v**s*</sup> \* *m*<sup>*s*</sup> = *r* \* *m*<sup>*s*</sup>*m**o**d**n*
+*X* = (*r*<sup>*v*</sup>\**m*)*m**o**d**n*
+*Y* = *X*<sup>*s*</sup> = (*r*<sup>*v*</sup>\**m*)<sup>*s*</sup> = *r*<sup>*v**s*</sup> \* *m*<sup>*s*</sup> = *r* \* *m*<sup>*s*</sup>*m**o**d**n*
 //*v* \* *s**m**o**d**n* = 1*m**o**d**n*)
 
 Now, *Y* is leaking information because we raise a number to the power
@@ -638,7 +638,7 @@ of the secret key, but *r* is a random number which the attacker doesn’t
 know so he can’t simulate the execution. How we remove *r*? We just
 calculate
 
-*S* = *Y* \* *r*<sup> − 1</sup> = *r* \* *m*<sup>*s*</sup> \* *r*<sup> − 1</sup> = *m*<sup>*s*</sup>*m**o**d**n*
+*S* = *Y* \* *r*<sup>−1</sup> = *r* \* *m*<sup>*s*</sup> \* *r*<sup>−1</sup> = *m*<sup>*s*</sup>*m**o**d**n*
 
 Why doesn’t everybody use it? Answer: because it’s expensive, 2 modular
 exponentiations instead of 1. Another problem is the random number
@@ -671,11 +671,11 @@ If we run this algorithm as is, we have two places in memory for *s* and
 for *t*, every action we load *s* then multiply and then edit the memory
 of *s*. Same goes in the multiply section. We load *s* and *m* and then
 multiply and store it in *s*. It’s always loading and storing *s*, but
-what happens when it goes to the else statment: it loads *s* and *m* and
-then store this into something other then *s*. So the power consumption
-is different between the store and the load. You can read more in the
-paper (“defeating RSA multiply-always and message binding" by Marc F.
-Witteman et al. )
+what happens when it goes to the else statement: it loads *s* and *m*
+and then store this into something other then *s*. So the power
+consumption is different between the store and the load. You can read
+more in the paper (“defeating RSA multiply-always and message binding"
+by Marc F. Witteman et al. )
 
 Side channel attacks can get not only computer secrets but human secrets
 too. What exactly is a human secret? Browsing history for example. How
@@ -688,7 +688,7 @@ now update that you have visited the site. The world wide web consortium
 decided that it was a privacy leak and you are not allowed to read the
 color of an HTML element anymore. Now we can set the color but can’t
 read it. One of the speakers in the black hat 2013 used timing attacks
-to find out if a web site was visited or not[3]. He also demonstrated
+to find out if a web site was visited or not[^3]. He also demonstrated
 how he can also use timing attack to read the user’s stream.
 
 ## Research highlights
@@ -716,7 +716,7 @@ how he can also use timing attack to read the user’s stream.
     the original core to its neighbors (by the laws of physics). The way
     to bypass the second type of isolation is just like the first one,
     but in this example the applications are not running at the same
-    time. Still, the second application can track the remmant heat
+    time. Still, the second application can track the remanent heat
     generated from the first application. The paper then offers a future
     work where an application can use these methods in combination with
     machine learning techniques to be able to learn the purpose of other
@@ -784,7 +784,7 @@ how he can also use timing attack to read the user’s stream.
     may not share caches L1 and L2.
 
 -   **Cross-Origin Pixel Stealing: Timing Attacks Using CSS Filters** -
-    In the paper , the authros present the following threat model: the
+    In the paper , the authors present the following threat model: the
     attacker runs a malicious domain. His purpose is to tempt his victim
     to use the malicious domain. He either creates an interesting
     website to attract the victim to use it for a while,or he is able to
@@ -795,7 +795,7 @@ how he can also use timing attack to read the user’s stream.
     Object Model (DOM) is a cross-platform and language-independent
     interface that treats an XML or HTML document as a tree structure
     wherein each node is an object representing a part of the document.
-    It is shown in the paper, how the rendrering process of DOM content
+    It is shown in the paper, how the rendering process of DOM content
     makes timing attacks possible: CSS filters allow styling of HTML
     components, CSS Custom filters (a.k.a shaders) have access to the
     rendering content, which can hold sensitive information, so an
@@ -842,9 +842,9 @@ how he can also use timing attack to read the user’s stream.
     creative, ways e.g. floating-point or hardware implementation of the
     CPU. And so, the fight for security is still ongoing to this day.
 
-[1] Division is the most expensive integer operation exists, and
-therefore we don’t want to do many divisions
+[^1]: Division is the most expensive integer operation exists, and
+    therefore we don’t want to do many divisions
 
-[2] https://www.hackersdelight.org/MontgomeryMultiplication.pdf
+[^2]: https://www.hackersdelight.org/MontgomeryMultiplication.pdf
 
-[3] <https://www.youtube.com/watch?v=KcOQfYlyIqw>
+[^3]: <https://www.youtube.com/watch?v=KcOQfYlyIqw>

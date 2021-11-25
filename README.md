@@ -4,6 +4,10 @@ This is the handbook for the course "Attacks on Secure Implementations", taught 
 
 You can download the PDF of the entire handbook [here](https://github.com/Yossioren/AttacksonImplementationsCourseBook/raw/master/UniversityCourseBookAOI.pdf), or view it online [here](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/). 
 
+The source code for the handbook, experimental labs and other fun material can be found in the GitHub repository:
+
+https://github.com/Yossioren/AttacksonImplementationsCourseBook
+
 Online course page: https://moodle2.bgu.ac.il/moodle/enrol/index.php?id=30088
 
 More information: https://iss.oy.ne.ro/Attacks
@@ -57,7 +61,7 @@ Basic reading is the 3rd chapter of our Coursebook. It starts with a recap and t
 
 - [Basic electric circuit and Ohm's Law](https://youtu.be/KNHn61t1Bmg) - A brief overview/refresh for Ohm's Law (20 minutes);
 - [Open and Short Circuits](https://youtu.be/8cvmVmwj0QY) - An overview on short circuits and open circuits (14 minutes);
-- [Introdcution to transistors(and other electronic components)](https://youtu.be/6W9VeMXTERI) (15 minutes);
+- [Introduction to transistors(and other electronic components)](https://youtu.be/6W9VeMXTERI) (15 minutes);
 - [Sequential circuits based on FET](https://youtu.be/CNa20b0UpBk)(10 minutes);
 - [Computational circuit based on FET - CMOS](https://youtu.be/7YJUMdPCXFA) - Demonstrating combinational circuits and logic gates (17 minutes);
 - [Power consumption: Representation and computation](https://youtu.be/P2HB80Af7v4) - How attackers can exploit device clock frequency, circuit activity, and power consumption to gain knowledge about the device for their own benefit (9 minutes);
@@ -117,7 +121,7 @@ Basic reading is Chapters 7 and 8 of the Coursebook; Whereas chapter 5 mainly fo
 ### Lecture 8 - Micro-Architectural Side Channels
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/06_Cache_Attacks_Guest_Lecture)
 
-- [The Cache - Hierarchy and Structure](https://youtu.be/NJEgH9jgifA) - Discussing the need for caches, their structure, mapping policy and hierarachy and (20 minutes);
+- [The Cache - Hierarchy and Structure](https://youtu.be/NJEgH9jgifA) - Discussing the need for caches, their structure, mapping policy and hierarchy (20 minutes);
 - [Prime + Probe Cache Attack](https://youtu.be/t4jxgga4XIQ) - An explanation of the Prime + Probe cache attack (9 minutes);
 - [Spectre - Toy Example](https://youtu.be/h-CEHjEkIm8) - Discussing the Spectre vulnerability (9 minutes);
 - [From Prime + Probe To Spectre](https://youtu.be/cQ2-toh-kr0) - Demonstrating Spectre vulnerability using the Virgulator emulator (11 minutes);
@@ -135,8 +139,8 @@ Basic reading is chapter 6 of the coursebook that deals CPU Caches and Cache att
 This lecture is based on chapter 9 of the coursebook "Fault Attacks", which is an active attack that allows the attacker to extract information from a device by breaking it. It goes on to discuss different kinds of fault methods (power supply attacks, timing attacks, temperature attacks, and more), further giving examples of classic fault attacks targeting the control flow: [Canon camera blinking](https://chdk.fandom.com/wiki/Obtaining_a_firmware_dump#Q._How_can_I_get_a_firmware_dump.3F), and [Unloopers](https://www.oocities.org/wild_lightning21/hardware/unlooper.htm). We then examine a fault attack on RSA-CRT as presented by Boneh and Lipton in [On the importance of eliminating errors in cryptographic computations](https://doi.org/10.1007/s001450010016); 
 
 ### Lecture 10 - Fault Attacks II
-- [Introduction to Biham Shamir Fault Attack](https://youtu.be/Kmx6huPoDJA) - texty texty text (20 minutes);
-- [Biham Shamir Fault Attack Explained](https://youtu.be/hFDZK5nVYGo) - texty texty text (20 minutes);
+- [Introduction to the Biham-Shamir Fault Attack](https://youtu.be/Kmx6huPoDJA) - texty texty text (20 minutes);
+- [Biham-Shamir Fault Attack Explained](https://youtu.be/hFDZK5nVYGo) - texty texty text (20 minutes);
 - [Introduction to The Boneh, DeMillo, Lipton Fault attack - RSA-CRT](https://youtu.be/kkqEYy-fS0A) - texty texty text (20 minutes);
 - [The Theory of The Boneh, DeMillo, Lipton Fault attack](https://youtu.be/9i02fjm8EPI) - texty texty text (11 minutes);
 - [The Boneh, DeMillo, Lipton Fault attack in practice](https://youtu.be/XLqseoch_wM) - texty texty text (15 minutes);

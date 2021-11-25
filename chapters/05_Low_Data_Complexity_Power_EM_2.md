@@ -45,7 +45,7 @@ far away).
 
 What we need to make Power analysis attack? We need to be physically.
 How do we connect to the device? We need to cut the power supply and
-connect to it diractly to measure the power consumption. This is a very
+connect to it directly to measure the power consumption. This is a very
 invasive attack, we need to be very very close. in 1995 let’s assume
 that it’s true. so if we go to the system architect:” listen there is an
 a power analysis attack that’s can completely compromised the device.
@@ -95,7 +95,7 @@ What are we not exploiting? We’re not doing math and we are not doing
 something that you can do by algorithms. It’s important to know that
 exploiting the power at conception characteristics does not have to be
 actually measuring the power. We saw last week that we can actually
-measure the power consumption with other methods. When Kotcher wrote his
+measure the power consumption with other methods. When Kocher wrote his
 paper he announced three types of power analysis. One of them called
 Simple power analysis, the other one called differential power analysis.
 Let’s see the simple power analysis today.
@@ -113,13 +113,13 @@ if someone is looking at me. We will see the setup that can be used for
 simple analysis.
 
 When you go to a store in Europe, you can’t give the credit card for the
-cashier, they give you this terminale and then you need take your credit
+cashier, they give you this terminal and then you need take your credit
 card insert it and put the pin number. And what is going over here,
 there is something like a cryptographic computer between your card and
 terminal. Let’s assume that we want to attack the card, and it is in my
 possession. This model is very permissive to me and I can do whatever I
-want, I can do a lot of transactions I can do radiat, I can twist it and
-even melt it. so attacking the card is very easy.
+want, I can do a lot of transactions I can irradiate it, I can twist it
+and even melt it. so attacking the card is very easy.
 
 But if I don’t wants to attack the card? I want to attack the terminal
 using power analysis. Maybe the terminal has an SSL private key which is
@@ -290,7 +290,7 @@ going to lower all the relevant bits until what sitting on the memory
 bus and the data bus what I wanted.
 
 Let’s say I want the memory 4, at first I’m going to see on the data bus
-0xFF, then I will see 4 and then going to see agaoxin FF because the
+0xFF, then I will see 4 and then going to see FF again because the
 memory is finished. what was the power-consumption here to go from FF to
 4, how many beats has to change? 7, and again it goes back to FF.
 
@@ -307,11 +307,11 @@ decrypt the message.
 </figure>
 
 The axis are vector of power measurements, x is time, y are the power
-consumption,(how did we measure the power consumption? i put a probe,
-measer the voltege so on.. What is the private key? What is missing? You
-need to do some reverse engineering first. If this is the only chance to
-get the key, I need to tell you a little bit more about the device so
-you will understand what is going on here. This device is
+consumption,(how did we measure the power consumption? I put a probe,
+measure the voltage, and so on. What is the private key? What is
+missing? You need to do some reverse engineering first. If this is the
+only chance to get the key, I need to tell you a little bit more about
+the device so you will understand what is going on here. This device is
 microcontroller, it’s doing RSA decryption using right to left binary
 exponentiation using square and multiply. Is it helping you finding the
 key? Yes. Let me show you the source code.
@@ -486,13 +486,13 @@ about attacks.
 
 How do you implement on 8-bit microcontroller? The state is stored in
 memory so I have 16 bytes of state, you read the first byte of state and
-the Sbox. Is a table that stored in memory and the size of the table?
+the S-Box. Is a table that stored in memory and the size of the table?
 2\*\*8.
 
 So I have this stage registered which is 16 bytes, and the sub box table
 256 bytes. A full loop and I took the first byte, first you read it and
 then I needed to read from the table who is the address that I just read
-and then I get the value the Sbox, (we know inside the microcontroller)
+and then I get the value the S-Box, (we know inside the microcontroller)
 who does right component units the value of the states and the value of
 the Xbox table, no XOR them, no store that value in the stage register.
 Bridge from the state go to the table, reading from the sub byte table
@@ -676,10 +676,10 @@ over the structure
     % - secret_key:
     %   A vector of 16 bytes that represents the secret key.
     % - encrypt:
-    %   Paramter indicating whether an encryption or a decryption is performed
+    %   Parameter indicating whether an encryption or a decryption is performed
     %   (1=encryption, 0=decryption).
     %
-    % RETURNVALUES:
+    % RETURN VALUES:
     %
     % - result:
     %   A matrix of bytes of the same size as the byte matrix 'input_data'.
@@ -687,7 +687,7 @@ over the structure
     %   128-bit output of an AES-128 en/decryption of the corresponding line of
     %   'input_data'.
     % - state:
-    %   A matrix of byte of size |'input_data'| x 41, containins the state
+    %   A matrix of byte of size |'input_data'| x 41, containing the state
     %   progression of the encryption process.  
     %   Legend of the state progression:
     %   (P= plaintext, C=Ciphertext, K=after AddKey, B=after SubBytes, R=after
@@ -697,9 +697,9 @@ over the structure
     %   A matrix of size |'input_data'| x 9 x 4 x 9 (for encryption), or
     %                    |'input_data'| x 9 x 4 x 18 (for decryption),
     %       where mixcolumn_leak(line, subround, col, :) is the list of
-    %       intermediate valutes generated by the 8-bit MC operation on the
+    %       intermediate values generated by the 8-bit MC operation on the
     %       [col] columns of line [line] in the input data during
-    %       subroun [subround]
+    %       subround [subround]
     % EXAMPLE:
     %
     % result = aes_crypt([1:16; 17:32], 1:16, 1)
@@ -838,8 +838,8 @@ the power consumption overtime. so now I have a vector of size that lets
 say a hundred thousand, and I know that AES is there. Now I want to find
 the key out of my measurements from my trace.
 
-<img src="images/Lecture_5/trace1.png" title="fig:" id="fig:traces" alt="Traces" />
-<img src="images/Lecture_5/trace2.png" title="fig:" id="fig:traces" alt="Traces" />
+![image](images/Lecture_5/trace1.png)
+![image](images/Lecture_5/trace2.png)
 
 I have a trace, which was recorded in the same device we saw here. I
 have a vector called 200 of traces of AES encryption, lets plot one of
@@ -926,7 +926,7 @@ Devices performing cryptographic operations can be analyzed by various
 means. Traditional cryptanalysis looks at the relations between input
 and output data and the used keys. However, even if the implemented
 algorithms are secure from a cryptanalysis point of view, side-channel
-attacks pose a serious threat. Sidechannel attacks are a subgroup of
+attacks pose a serious threat. Side-channel attacks are a subgroup of
 implementation attacks. Examples thereof are timing attacks, power
 attacks like DPA or SPA. Traditional DPA style attacks assume the
 following threat model: The secret key stored in the device is used to
@@ -941,10 +941,10 @@ usable side-channel information, is executed just once, the threat model
 is different: The attacker has to reconstruct the secret key using a
 single trace of side-channel information. Besides protocol limitations,
 ephemeral keys can be the reason for such a constraint. Techniques like
-SPA are a general way to tackle this problem. These techniques useeasily
-distinguishable features of operations like double and add, or add and
-multiply, to infer key-bits. The majority of the available literature
-deals with these two types of scenarios. **If the observed
+SPA are a general way to tackle this problem. These techniques use
+easily distinguishable features of operations like double and add, or
+add and multiply, to infer key-bits. The majority of the available
+literature deals with these two types of scenarios. **If the observed
 signal-to-noise ratio is not high enough, or the implementation is done
 in a way that ensures the used operations being independent of the
 key(i. e. no key-dependent jumps), SPA style attacks are not possible
@@ -1102,13 +1102,12 @@ great improvement over the original 3000D model.
 ### Analyzing the Data
 
 Suppose that we’ve picked I points of interest, which are at samples
-*s*<sub>*i*</sub>(0 ≤ *i* &lt; *I*). Then, our goal is to find a mean
-and covariance matrix for every operation (every choice of subkey or
+*s*<sub>*i*</sub>(0≤*i*\<*I*). Then, our goal is to find a mean and
+covariance matrix for every operation (every choice of subkey or
 intermediate Hamming weight). Let’s say that there are K of these
 operations (maybe 256 subkeys or 9 possible Hamming weights).
 
-For now, we’ll look at a single operation k (0 ≤ *k* &lt; *K*). The
-steps are:
+For now, we’ll look at a single operation k (0≤*k*\<*K*). The steps are:
 
 -   Find every power trace t that falls under the category of “operation
     k". (ex: find every power trace where we used a subkey of 0x01.)
@@ -1147,9 +1146,9 @@ of the K different operations that the target can do.
 With a template in hand, we can finish our attack. For the attack, we
 need a smaller number of traces - we’ll say that we have A traces. The
 sample values will be labeled
-*a*<sub>*j*, *s*<sub>*i*</sub></sub>(1 ≤ *j* ≤ *A*). First, let’s apply
-the template to a single trace. Our job is to decide how likely all of
-our key guesses are. We need to do the following:
+*a*<sub>*j*, *s*<sub>*i*</sub></sub>(1≤*j*≤*A*). First, let’s apply the
+template to a single trace. Our job is to decide how likely all of our
+key guesses are. We need to do the following:
 
 -   Put our trace values at the POIs into a vector. This vector will be:
 
@@ -1173,7 +1172,7 @@ combine them as:
 
 ### practical template attacks
 
-In this section we will show a differant ways to select the most
+In this section we will show a different ways to select the most
 important point of a power trace, that will lead us to improved
 computation time and make template attack more practical.  
   
@@ -1239,7 +1238,7 @@ cipher contains some sort of key scheduling mechanism which processes
 the secret key, this generalization is possible. Smartcards often use
 block ciphers for encryption or authentication, hence let us consider
 the following example: A malicious petrol station tenant, named Eve, is
-using a modified smartcard based payment terminal. Everytime a customer
+using a modified smartcard based payment terminal. Every time a customer
 uses this terminal, Eve captures one trace of side-channel information.
 This single trace could already be used by Eve to carry out a template
 attack. However, some customers are coming again and Eve gets hold of
@@ -1325,7 +1324,7 @@ error probability of template classification is reduced by the factor
     for the evaluation. The results show that the CNN based method has a
     100% accuracy of identifying the correct ephemeral key nibble given
     a trace from the attack set, whereas the SVM and Random Forest
-    methods show a slighly lower accuracy and the template attack lags
+    methods show a slightly lower accuracy and the template attack lags
     behind them all. As a consequence, the CNN based method is able to
     iteratively recover the entire 256bit ephemeral key using just a
     single guess of each of its 64 nibbles and the private scalar can be

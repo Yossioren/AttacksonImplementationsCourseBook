@@ -35,7 +35,7 @@ other side of the internet (can Amazon Cloud very far away).
 
 What we need to make Power analysis attack? We need to be physically. How do we
 connect to the device? We need to cut the power supply and connect to it
-diractly to measure the power consumption. This is a very invasive attack, we
+directly to measure the power consumption. This is a very invasive attack, we
 need to be very very close. in 1995 let's assume that it's true. so if we go to
 the system architect:” listen there is an a power analysis attack that's can
 completely compromised the device. Attacker needs to come to the device end cuts
@@ -83,7 +83,7 @@ What are we not exploiting? We're not doing math and we are not doing something
 that you can do by algorithms. It's important to know that exploiting the power
 at conception characteristics does not have to be actually measuring the power.
 We saw last week that we can actually measure the power consumption with other
-methods. When Kotcher wrote his paper he announced three types of power
+methods. When Kocher wrote his paper he announced three types of power
 analysis. One of them called Simple power analysis, the other one called
 differential power analysis. Let's see the simple power analysis today.
 
@@ -99,12 +99,12 @@ for a little time or even if someone is looking at me. We will see the setup
 that can be used for simple analysis. 
 
 When you go to a store in Europe, you can't give the credit card for the
-cashier, they give you this terminale and then you need take your credit card
+cashier, they give you this terminal and then you need take your credit card
 insert it and put the pin number. And what is going over here, there is
 something like a cryptographic computer between your card and terminal. Let's
 assume that we want to attack the card, and it is in my possession. This model
 is very permissive to me and I can do whatever I want, I can do a lot of
-transactions I can do radiat, I can twist it and even melt it. so attacking the
+transactions I can irradiate it, I can twist it and even melt it. so attacking the
 card is very easy.
 
 
@@ -269,7 +269,7 @@ from the address, then the memory is going to lower all the relevant bits until
 what sitting on the memory bus and the data bus what I wanted. 
 
 Let's say I want the memory 4, at first I'm going to see on the data bus 0xFF,
-then I will see 4 and then going to see agaoxin FF because the memory is
+then I will see 4 and then going to see FF again because the memory is
 finished. what was the power-consumption here to go from FF to 4, how many beats
 has to change? 7, and again it goes back to FF.
 
@@ -287,8 +287,8 @@ from the phone, so you really have to decrypt the message.
 \end{figure}
 
 The axis are vector of power measurements, x is time, y are the power
-consumption,(how did we measure the power consumption? i put a probe, measer the
-voltege so on.. What is the private key? What is missing? You need to do some
+consumption,(how did we measure the power consumption? I put a probe, measure the
+voltage, and so on. What is the private key? What is missing? You need to do some
 reverse engineering first. If this is the only chance to get the key, I need to
 tell you a little bit more about the device so you will understand what is going
 on here. This device is microcontroller, it's doing RSA decryption using right
@@ -450,13 +450,13 @@ First one of the AES is sub bytes. Let's talk about this while thinking about
 attacks. 
 
 How do you implement on 8-bit microcontroller? The state is stored in memory so
-I have 16 bytes of state, you read the first byte of state and the Sbox. Is a
+I have 16 bytes of state, you read the first byte of state and the S-Box. Is a
 table that stored in memory and the size of the table? 2**8. 
 
 So I have this stage registered which is 16 bytes, and the sub box table 256
 bytes. A full loop and I took the first byte, first you read it and then I
 needed to read from the table who is the address that I just read and then I get
-the value the Sbox, (we know inside the microcontroller) who does right
+the value the S-Box, (we know inside the microcontroller) who does right
 component units the value of the states and the value of the Xbox table, no XOR
 them, no store that value in the stage register. Bridge from the state go to the
 table, reading from the sub byte table and xor, and write.This operation is very
@@ -644,10 +644,10 @@ aes_crypt_8bit_and_leak(input_data, secret_key, encrypt)
 % - secret_key:
 %   A vector of 16 bytes that represents the secret key.
 % - encrypt:
-%   Paramter indicating whether an encryption or a decryption is performed
+%   Parameter indicating whether an encryption or a decryption is performed
 %   (1=encryption, 0=decryption).
 %
-% RETURNVALUES:
+% RETURN VALUES:
 %
 % - result:
 %   A matrix of bytes of the same size as the byte matrix 'input_data'.
@@ -655,7 +655,7 @@ aes_crypt_8bit_and_leak(input_data, secret_key, encrypt)
 %   128-bit output of an AES-128 en/decryption of the corresponding line of
 %   'input_data'.
 % - state:
-%   A matrix of byte of size |'input_data'| x 41, containins the state
+%   A matrix of byte of size |'input_data'| x 41, containing the state
 %   progression of the encryption process.  
 %   Legend of the state progression:
 %   (P= plaintext, C=Ciphertext, K=after AddKey, B=after SubBytes, R=after
@@ -665,9 +665,9 @@ aes_crypt_8bit_and_leak(input_data, secret_key, encrypt)
 %   A matrix of size |'input_data'| x 9 x 4 x 9 (for encryption), or
 %                    |'input_data'| x 9 x 4 x 18 (for decryption),
 %       where mixcolumn_leak(line, subround, col, :) is the list of
-%       intermediate valutes generated by the 8-bit MC operation on the
+%       intermediate values generated by the 8-bit MC operation on the
 %       [col] columns of line [line] in the input data during
-%       subroun [subround]
+%       subround [subround]
 % EXAMPLE:
 %
 % result = aes_crypt([1:16; 17:32], 1:16, 1)
@@ -888,7 +888,7 @@ solver will fail. what can we do in this case? We try again.
     means. Traditional cryptanalysis looks at the relations between input and
     output data and the used keys. However, even if the implemented algorithms
     are secure from a cryptanalysis point of view, side-channel attacks pose a
-    serious threat. Sidechannel attacks are a subgroup of implementation
+    serious threat. Side-channel attacks are a subgroup of implementation
     attacks. Examples thereof are timing attacks, power attacks like DPA or SPA.
     Traditional DPA style attacks assume the following threat model: The secret
     key stored in the device is used to perform some cryptographic operations.
@@ -902,7 +902,7 @@ solver will fail. what can we do in this case? We try again.
     different: The attacker has to reconstruct the secret key using a single
     trace of side-channel information. Besides protocol limitations, ephemeral
     keys can be the reason for such a constraint. Techniques like SPA are a
-    general way to tackle this problem. These techniques useeasily
+    general way to tackle this problem. These techniques use easily
     distinguishable features of operations like double and add, or add and
     multiply, to infer key-bits. The majority of the available literature deals
     with these two types of scenarios. \textbf{If the observed signal-to-noise
@@ -1147,7 +1147,7 @@ solver will fail. what can we do in this case? We try again.
        \end{figure}
     
     \subsection{practical template attacks}
-    In this section we will show a differant ways to select the most important
+    In this section we will show a different ways to select the most important
     point of a power trace, that will lead us to improved computation time and
     make template attack more practical.\\
     \\
@@ -1219,7 +1219,7 @@ solver will fail. what can we do in this case? We try again.
     generalization is possible. Smartcards often use block ciphers for
     encryption or authentication, hence let us consider the following example: A
     malicious petrol station tenant, named Eve, is using a modified smartcard
-    based payment terminal. Everytime a customer uses this terminal, Eve
+    based payment terminal. Every time a customer uses this terminal, Eve
     captures one trace of side-channel information. This single trace could
     already be used by Eve to carry out a template attack. However, some
     customers are coming again and Eve gets hold of another trace. The template
@@ -1230,7 +1230,7 @@ solver will fail. what can we do in this case? We try again.
     iterations, the error probability of template classification is reduced by
     the factor √n. 
 
-    \section{Related work} \label{sec:RelatedWork}
+    \section{Related work} \label{sec:LowDataComplexityRelatedWork}
     \begin{itemize}
     \item \textbf{Power analysis attacks on the AES}\cite{lo2017power} -
      This paper describes an attack attack on the AES algorithm using the Difference of Means technique was carried out on a Field-Programmable Gate Array (FPGA) board.
@@ -1263,7 +1263,7 @@ solver will fail. what can we do in this case? We try again.
     The attack focuses on the optimized implementation of Elliptic Curve scalar multiplication by Bernstein et al\cite{Bernstein2012} that splits the computation to work on a single nibble of the ephemeral key at a time and uses a lookup table with all possible partial multiplication results.
     The lookup table access is vulnerable to side channel data leakage via power analysis, similarly to the way an SBOX lookup is exploited for side channel attacks on AES.
     The authors evaluate the standard template attack method as well as SVM and RandomForest based attack and finally - a CNN based attack that uses a CNN architecture similar to the well-known VGG model used for computer vision tasks, modified to work with 1D instead of 2D convolutions and fine tuned for SCA in terms of the number of layers and layer sizes. To evaluate the attacks, the authors construct a dataset mapping power traces to the respective ephemeral key nibbles processed when the power trace was recorded. Around 5K profiling (training) traces and 1K attack (test) traces are recorded and used for the evaluation.
-    The results show that the CNN based method has a 100\% accuracy of identifying the correct ephemeral key nibble given a trace from the attack set, whereas the SVM and Random Forest methods show a slighly lower accuracy and the template attack lags behind them all. As a consequence, the CNN based method is able to iteratively recover the entire 256bit ephemeral key using just a single guess of each of its 64 nibbles and the private scalar can be computed from the ephemeral key and the respective signed message using a straightforward mathematical formula, thus giving an attack the ability to forge message signatures.
+    The results show that the CNN based method has a 100\% accuracy of identifying the correct ephemeral key nibble given a trace from the attack set, whereas the SVM and Random Forest methods show a slightly lower accuracy and the template attack lags behind them all. As a consequence, the CNN based method is able to iteratively recover the entire 256bit ephemeral key using just a single guess of each of its 64 nibbles and the private scalar can be computed from the ephemeral key and the respective signed message using a straightforward mathematical formula, thus giving an attack the ability to forge message signatures.
     Another important result is that as few as 500 training traces are sufficient to reach the 100\% accuracy with the CNN based attack.
 
     

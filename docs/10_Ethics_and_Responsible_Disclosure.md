@@ -15,7 +15,7 @@ nav_order: 10
 
 ## Computer Laws
 
-Israel’s computer laws[1] are *case-laws* – meaning there are a few
+Israel’s computer laws[^1] are *case-laws* – meaning there are a few
 written laws, and a judge would use those along with precedents and
 personal judgment to determine whether a person is guilty. This is
 opposed to *continental-law*, in which everything is written and
@@ -76,7 +76,7 @@ follows:
 From this we learn that not any crime committed with the aid of a
 computer constitutes a cyber-crime; if a computer was used in the
 process of the crime, but none of the above computer laws were broken –
-for example while profiteering[2] off an online ticket sale – the
+for example while profiteering[^2] off an online ticket sale – the
 action, while illegal, is not a cyber crime.
 
 ### Unlawful Disruption or Interfering with a Computer System
@@ -186,17 +186,17 @@ tipped off by the NSA.
 In 2017, a piece of malware known as “WannaCry" first appeared; it
 utilized Eternal Blue to spread quickly through computers on which the
 security patch wasn’t yet installed, and encrypt the victim’s files,
-then asking for money to decrypt them[3].
+then asking for money to decrypt them[^3].
 
 <figure>
 <img src="images/EthernalBlue-WannaCry_Timeline.jpg" id="fig:wannacry_timeline" alt="EthernalBlue-WannaCry Timeline" /><figcaption aria-hidden="true">EthernalBlue-WannaCry Timeline</figcaption>
 </figure>
 
 WannaCry was finally beaten when a malware researcher found it made
-requests to an unused control domain, and purchased the domain.[4] As it
-turned out, purchasing the domain triggered the destruction of WannaCry,
-whether by mistake or by design (the domain could have been designed as
-a kill-switch).
+requests to an unused control domain, and purchased the domain.[^4] As
+it turned out, purchasing the domain triggered the destruction of
+WannaCry, whether by mistake or by design (the domain could have been
+designed as a kill-switch).
 
 While WannaCry did not make a lot of money, it had a nasty side-effect
 on healthcare systems; medical equipment that got infected could not
@@ -267,10 +267,10 @@ standards.
 There are two main theories by which the morality of an action is
 judged:
 
--   Deontological ethics (Kant[5]) – what do my rules/morals say about
+-   Deontological ethics (Kant[^5]) – what do my rules/morals say about
     this action? (i.e. judge by motives)
 
--   Utilitarian ethics (Bentham[6]) – what are the consequences of this
+-   Utilitarian ethics (Bentham[^6]) – what are the consequences of this
     action? (i.e. judge by consequences)
 
 Consider the cyber setting. If we were to program ethics into an AI
@@ -327,7 +327,7 @@ the moment its patch is deployed.
 <img src="images/Vulnerability_Timeline.PNG" id="fig:vulnerability_timeline" alt="Timeline of a vulnerability" /><figcaption aria-hidden="true">Timeline of a vulnerability</figcaption>
 </figure>
 
-Symantec, the company founding Nortron[7], had a lot of data regarding
+Symantec, the company founding Nortron[^7], had a lot of data regarding
 vulnerabilities and exploits, and used it to research the matter. shows
 their results.
 
@@ -384,25 +384,25 @@ someone needed to commit the changes, which contained the CVE-ID. Thus
 hackers could see the fix and exploit the vulnerability before a patch
 was posted.
 
-[1] Published in *Sefer Hachukkim* 5755 No. 1534, 25 July 1995 p. 366
-(P.L. 5754 No. 2278 p. 478).
+[^1]: Published in *Sefer Hachukkim* 5755 No. 1534, 25 July 1995 p. 366
+    (P.L. 5754 No. 2278 p. 478).
 
-[2] The activity of taking unfair advantage of a situation to make a
-large profit, often by selling goods that are difficult to get at a very
-high price (Cambridge Business English Dictionary).
+[^2]: The activity of taking unfair advantage of a situation to make a
+    large profit, often by selling goods that are difficult to get at a
+    very high price (Cambridge Business English Dictionary).
 
-[3] This is known as ransomware. Recall that this falls under the first
-section of the computer laws.
+[^3]: This is known as ransomware. Recall that this falls under the
+    first section of the computer laws.
 
-[4] Malware researchers often try to purchase control domains in order
-to gain information on the behavior of the malware.
+[^4]: Malware researchers often try to purchase control domains in order
+    to gain information on the behavior of the malware.
 
-[5] Immanuel Kant was a German philosopher during the Enlightenment era.
-His contributions have had a profound impact on almost every
-philosophical movement that followed him.
+[^5]: Immanuel Kant was a German philosopher during the Enlightenment
+    era. His contributions have had a profound impact on almost every
+    philosophical movement that followed him.
 
-[6] Jeremy Bentham was an English philosopherduring the Enlightenment
-era and a social reformer regarded as the founder of modern
-utilitarianism.
+[^6]: Jeremy Bentham was an English philosopherduring the Enlightenment
+    era and a social reformer regarded as the founder of modern
+    utilitarianism.
 
-[7] Norton is an anti-virus.
+[^7]: Norton is an anti-virus.

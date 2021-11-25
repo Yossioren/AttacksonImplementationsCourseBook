@@ -88,7 +88,7 @@ in Watts. Electricity bills are measured in units of Kilo-Watt x hour,
 i.e. 1 KWH is 1,000 watts used for an hour, and this is the energy that
 we used and we need to pay for.
 
-$$\\label{eq:power\_consumption}
+$$\\label{eq:power_consumption}
     Power = \\frac{Work}{Time}$$
 
 As an example we can consider a smartphone: the battery’s capacity is
@@ -129,10 +129,10 @@ device is the work it does divided by time. It is measured in Watts
 Before we take a look at two simple electronic circuits, we need to
 introduce two additional terms: A **short (closed) circuit** is a piece
 of wire with (almost) zero resistance. The circuit is in a closed state
-and there is electric current flowing through the circuit, simply stated
-- it "works" as normal. An **open circuit** is a circuit which doesn’t
-allow any current to pass through it. The circuit is in an open state
-and there is no current in the circuit. That’s to say - it doesn’t
+and there is electric current flowing through the circuit, simply
+stated - it "works" as normal. An **open circuit** is a circuit which
+doesn’t allow any current to pass through it. The circuit is in an open
+state and there is no current in the circuit. That’s to say - it doesn’t
 “work”.
 
 #### Connecting in serial
@@ -552,7 +552,7 @@ We’ll first define the “Hamming weight” operator:
 *H**W*(*X*) = ∑*x*<sub>*i*</sub>
 
 Then, we’ll define the “Hamming distance”:
-*H**D*(*X*, *Y*) = *H**W*(*V*<sub>1</sub>⨁*V*<sub>2</sub>)
+*H**D*(*X*,*Y*) = *H**W*(*V*<sub>1</sub>⨁*V*<sub>2</sub>)
 
 For CMOS devices, we’ll approximate the power consumption as
 proportional to the amount of bit transitions from one to zero or from

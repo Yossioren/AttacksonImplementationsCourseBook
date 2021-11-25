@@ -5,7 +5,13 @@ nav_order: 09
 1. Table of Contents
 {:toc}
 
+<div class="centering">
+
 ## Topics
+
+<div class="enumerate">
+
+<div class="centering">
 
 Introduction to Fault Attacks
 
@@ -14,6 +20,12 @@ Fault Attack on RSA-CRT
 DRAM and Rowhammer
 
 Flip-Feng-Shui: Rowhammer attack on RSA  
+
+</div>
+
+</div>
+
+</div>
 
 ## Introduction to Fault Attacks
 
@@ -280,7 +292,7 @@ What could be targeted by a fault attack?
 
 4.  Instruction Processing/Control Flow: inject a fault in the IP
     register and change the instruction flow. There are various examples
-    that demonstrate the usefulness of this type of taget
+    that demonstrate the usefulness of this type of target
 
     -   change the program counter to compromise control flow
 
@@ -294,7 +306,7 @@ What could be targeted by a fault attack?
 
 ##### Two examples of Fault Attacks targeting Control Flow:
 
-1.  The CHDK hacking community, used to dump the firmwares of Canon
+1.  The CHDK hacking community, used to dump the firmware of Canon
     cameras via blinking one of their LEDs .
 
 2.  The “Unlooper”: Back in the 90’s pay-tv devices started
@@ -310,14 +322,14 @@ What could be targeted by a fault attack?
 ### RSA decryption
 
 *n* = *p* ⋅ *q*,
-$M \\equiv C^d  \\equiv M^{ed \\pmod{\\phi(n)}} \\equiv M^1 \\equiv M \\pmod{n}$
+*M* ≡ *C*<sup>*d*</sup> ≡ *M*<sup>*e**d* (mod  *ϕ*(*n*))</sup> ≡ *M*<sup>1</sup> ≡ *M* (mod  *n*)
 
 RSA decryption is hard!
 
 Let’s speed it up using CRT (the Chinese Remainder Theorem):
 Multiplication operations are *O*(\|*n*\|<sup>2</sup>). If we can do
-operations (*m**o**d* *p*) and then (*m**o**d* *q*) instead
-of (*m**o**d* *n*), we will reduce computation time by half.
+operations (mod *p*) and then (mod *q*) instead of (mod *n*), we will
+reduce computation time by half.
 
 ##### Explanation:
 
@@ -333,24 +345,24 @@ So if we could multiply by *p* and *q* instead of by *n*, we would cut
 #### Chinese Remainder Theorem
 
 <figure>
-<img src="images/chapter_9/soldiers.jpeg" id="fig:chinese_remainder" alt="Chinese Remainder Theorem (Source: https://russinoff.com/papers/crt.html)" /><figcaption aria-hidden="true">Chinese Remainder Theorem (Source: <a href="https://russinoff.com/papers/crt.html">https://russinoff.com/papers/crt.html</a>)</figcaption>
+<img src="images/chapter_9/soldiers.jpeg" id="fig:chinese_remainder" alt="Chinese Remainder Theorem (Source: https://russinoff.com/papers/crt.html)" /><figcaption aria-hidden="true">Chinese Remainder Theorem (Source: <a href="https://russinoff.com/papers/crt.html" class="uri">https://russinoff.com/papers/crt.html</a>)</figcaption>
 </figure>
 
-The idea is that if we know both *x* (*m**o**d* *p*) and
-*x* (*m**o**d* *q*) then we can easily calculate *x* (*m**o**d* *n*).
+The idea is that if we know both *x* (mod *p*) and *x* (mod *q*) then we
+can easily calculate *x* (mod *n*).
 
 So, given a message *M*, calculate *M*<sub>*p*</sub> and
-*M*<sub>*q*</sub>: $M\_p \\equiv C^d
-\\pmod{n} \\equiv C^d \\pmod{p}$,
-$M\_q \\equiv C^d \\pmod{n} \\equiv C^d \\pmod{q}$
+*M*<sub>*q*</sub>:
+*M*<sub>*p*</sub> ≡ *C*<sup>*d*</sup> (mod  *n*) ≡ *C*<sup>*d*</sup> (mod  *p*),
+*M*<sub>*q*</sub> ≡ *C*<sup>*d*</sup> (mod  *n*) ≡ *C*<sup>*d*</sup> (mod  *q*)
 
 To combine the values, we do:
-*M*<sup>\*</sup> = *C**R**T*(*M*<sub>*p*</sub>, *M*<sub>*q*</sub>)=
-*M*<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup> − 1</sup> (*m**o**d* *q*))
+*M*<sup>\*</sup> = *C**R**T*(*M*<sub>*p*</sub>,*M*<sub>*q*</sub>)=
+*M*<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup>−1</sup> (mod *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup>−1</sup> (mod *q*))
 
 It is easily provable that
-*M*<sup>\*</sup> (*m**o**d* *p*) = *M*<sub>*q*</sub> and
-*M*<sup>\*</sup> (*m**o**d* *q*) = *M*<sub>*p*</sub>, so by the Chinese
+*M*<sup>\*</sup> (mod *p*) = *M*<sub>*q*</sub> and
+*M*<sup>\*</sup> (mod *q*) = *M*<sub>*p*</sub>, so by the Chinese
 Remainder Theorem, this value *must* be equal to *M*.
 
 #### The Boneh, DeMillo & Lipton Fault Attack on RSA-CRT 
@@ -362,25 +374,25 @@ Finally, let us assume that the attacker can inject a fault (any fault)
 in the decryption process.
 
 The attacker first gets
-*M* = *M*<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup> − 1</sup> (*m**o**d* *q*))
+*M* = *M*<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup>−1</sup> (mod *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup>−1</sup> (mod *q*))
 through the regular decryption process.
 
 Then, the attacker primes the device to re-calculate the message from
 the same cipher, this time injecting a *transient fault* during the
 calculation of *M*<sub>*p*</sub>, resulting in the device erroneously
 producing *M*′<sub>*p*</sub> instead:
-*M*′<sub>*p*</sub> ≠ *C*<sup>*d*</sup> (*m**o**d* *p*) The device will
-then proceed to combine *M*′<sub>*p*</sub> with the correct result of
+*M*′<sub>*p*</sub> ≠ *C*<sup>*d*</sup> (mod *p*) The device will then
+proceed to combine *M*′<sub>*p*</sub> with the correct result of
 *M*<sub>*q*</sub>, resulting in:
-*M*′ = *M*′<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup> − 1</sup> (*m**o**d* *q*))
+*M*′ = *M*′<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup>−1</sup> (mod *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup>−1</sup> (mod *q*))
 
 Now the attacker can calculate the value of *M* − *M*′:
-\[*M*<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup> − 1</sup> (*m**o**d* *q*))\]−
-\[*M*′<sub>*p*</sub> ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)) + *M*<sub>*q*</sub> ⋅ *p* ⋅ (*p*<sup> − 1</sup> (*m**o**d* *q*))\]=
-(*M*<sub>*p*</sub> − *M*′<sub>*p*</sub>) ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*))
+\[*M*<sub>*p*</sub>⋅*q*⋅(*q*<sup>−1</sup> (mod *p*))+*M*<sub>*q*</sub>⋅*p*⋅(*p*<sup>−1</sup> (mod *q*))\]−
+\[*M*′<sub>*p*</sub>⋅*q*⋅(*q*<sup>−1</sup> (mod *p*))+*M*<sub>*q*</sub>⋅*p*⋅(*p*<sup>−1</sup> (mod *q*))\]=
+(*M*<sub>*p*</sub>−*M*′<sub>*p*</sub>) ⋅ *q* ⋅ (*q*<sup>−1</sup> (mod *p*))
 
 Finally, calculating the gcd  of *n* and *M* − *M*′ yields:
-gcd (*n*, *M* − *M*′) = gcd (*p* ⋅ *q*, (*M*<sub>*p*</sub> − *M*′<sub>*p*</sub>) ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*))) = *q*
+gcd (*n*,*M*−*M*′) = gcd (*p*⋅*q*,(*M*<sub>*p*</sub>−*M*′<sub>*p*</sub>)⋅*q*⋅(*q*<sup>−1</sup> (mod *p*))) = *q*
 
 ##### Why does this work?
 
@@ -388,7 +400,7 @@ The greatest common divisor of *n* and anything can be only *p*, *q*,
 *n* or 1. On the other hand, *M*<sub>*p*</sub> and *M*′<sub>*p*</sub>
 can never be multiples of *p*, otherwise both would equal 0. So, by that
 reasoning,
-gcd (*p* ⋅ *q*, (*M*<sub>*p*</sub> − *M*′<sub>*p*</sub>) ⋅ *q* ⋅ (*q*<sup> − 1</sup> (*m**o**d* *p*)))
+gcd (*p*⋅*q*,(*M*<sub>*p*</sub>−*M*′<sub>*p*</sub>)⋅*q*⋅(*q*<sup>−1</sup> (mod *p*)))
 <u>must</u> equal *q*, and thus we have cracked the cipher using a
 single fault attack.
 
@@ -521,29 +533,83 @@ time to compute, and this gives the attacker a window of opportunity.
 We will describe here Rowhammer based attack called RAMbleed which was
 presented in  . While Rowhammer breaks data integrity, RAMBleed breaks
 also data confidentiality by allow the attacker read unauthorized memory
-areas. RAMBleed attack was implementes against OpenSSH server allowing
+areas. RAMBleed attack was implements against OpenSSH server allowing
 the attacker read RSA secret private keys.
 
 <figure>
 <img src="images/chapter_9/rambleed_memory_layout.png" id="fig:rambleed_memory_layout" alt="RAMBleed memory layout" /><figcaption aria-hidden="true">RAMBleed memory layout</figcaption>
 </figure>
 
-In order to perform this attack, the attacker need to get to spesific
+In order to perform this attack, the attacker need to get to specific
 memory layout, as describe in . The attacker own A0, A1 and A2 block.
 Then attacker force OpenSSH server to put its private RSA key in oranges
-blocks by exploting linux buddy allocator which works in deterministic
+blocks by exploiting linux buddy allocator which works in deterministic
 way. Then the attacker repeatedly accessing A0 and A2 blocks - this will
 access orange blocks as well because when DRAM access a part of the row,
 it access the whole row as well. This will hammer the red block and
 cause bit flips over there. The attacker can then read the red block-
 because he own it, and gets the RSA secret key.
 
-The performence from this paper shows accuracy of 82% when reading
+The performance from this paper shows accuracy of 82% when reading
 OpenSSH host key. Reading the victim’s secret in 0.31 bits/seconds.
 
 Suggested mitigations may be memory encryption, flushing keys from
 memory, probabilistic memory allocator and Hardware mitigations such as
 targeted row refresh and increasing refresh intervals.
+
+#### Throwhammer - Rowhammer Attack over the Internet  
+
+There are some sophisticated Rowhammer exploits which allow an attacker,
+that can execute code on a vulnerable system, to escalate privileges and
+compromise browsers, clouds, and mobile systems. In all these attacks,
+the common assumption is that attackers first need to obtain code
+execution on the victim machine to be able to exploit Rowhammer, either
+by having (unprivileged) code execution on the victim machine or by
+luring the victim to a website that employs a malicious JavaScript
+application.
+
+In Contrary to those attacks, In the ThrowHammer attack, the attacker
+can trigger and exploit Rowhammer bit flips directly from a remote
+machine by only sending network packets.
+
+While it is true that millions of DRAM accesses per second is harder to
+accomplish from across the network than from code executing locally,
+today’s networks are becoming very fast. To achieve high-performance
+networking, some systems entirely remove the interruptions and expensive
+privilege switching, and instead deliver network packets directly to the
+applications. This approach might create large load on the cpu, so to
+reduce that load, some networking equipment include the possibility for
+Remote Direct Memory Access (RDMA). With RDMA, there is no need to
+involve the CPU on both client and server for packet transfer. The
+server and client applications both configure DMA buffers to the NIC
+(Network interface controller) through interfaces that are provided by
+the operating system. When the client application wants to send a packet
+to a server application, it directly writes it to its buffer as shown in
+.
+
+<figure>
+<img src="images/chapter_9/RDMA.jpeg" id="fig:RDMA_vs_non-RDMA" alt="RDMA vs non-RDMA (standard TCP connection)" /><figcaption aria-hidden="true">RDMA vs non-RDMA (standard TCP connection)</figcaption>
+</figure>
+
+In the ThrowHammer attack, the attacker is assumed to be able to
+generate and send legitimate traffic through a high-speed network to a
+target server (A common example is a client that sends requests to a
+cloud or data center machine that runs a server application), and that
+the target machine is vulnerable to Rowhammer bit flips. The end goal of
+the attacker is to bypass RDMA’s security model by modifying bits
+outside of memory areas that are registered for DMA in order to
+compromise the system.
+
+The attack is executed by repeatedly asking the server’s NIC to send the
+client packets with data from various offsets within the shared buffer
+used by the RDMA protocol. This allows the attacker to perform
+double-sided Rowhammer similar to Flip Feng Shui .
+
+<figure>
+<img src="images/chapter_9/Unique-Flips.jpeg" id="fig:Unique-Flips" alt="Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network  " /><figcaption aria-hidden="true">Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network  <span class="citation" data-cites="throwhammer"></span></figcaption>
+</figure>
+
+An overview of the chapter can be found in the following link:
 
 ## Related Work
 
@@ -573,8 +639,8 @@ Additional related work on the topic of fault attacks includes:
 
     -   **Plundervolt** - a paper by Murdock et al. , the first one that
         describes the use of voltage scaling for corruption of integrity
-        and confidentiality of Intel SGX enclaved computations. The
-        authors demonstrate full key recovery PoC attacks against
+        and confidentiality of computations inside Intel SGX enclaves.
+        The authors demonstrate full key recovery PoC attacks against
         RSA-CRT and AES-NI.
 
 -   **Speculative Fault Attacks** - Such attacks make use of the
@@ -582,7 +648,7 @@ Additional related work on the topic of fault attacks includes:
     speculate the next instructions to be executed for maximum
     performance. CPUs will try to execute instructions ahead of time.
 
-    -   **Spectre - Exploting Speculative Execution** - a paper by
+    -   **Spectre - Exploiting Speculative Execution** - a paper by
         Kocher et al that describes a speculative fault attack that
         involves inducing a victim to speculatively perform operations
         that would not occur during correct program execution and which
@@ -602,11 +668,11 @@ The attack was demonstrated in two use-cases that breach the system-wide
 secure technology in billions of ARM-based devices - TrustZone; (1)
 obtaining AES key, and (2) forge RSA signatures of unauthorized and
 possibly malicious applications. VoltJockey proved to be successful in a
-commerical device, the Google Nexus 6, and has demonstrated its
+commercial device, the Google Nexus 6, and has demonstrated its
 dangerous implications in the secure execution environment TrustZone.
 
 An illustration of the VoltJockey attack process can be found in
-Figure <a href="#algo:voltjockey" data-reference-type="ref" data-reference="algo:voltjockey">[algo:voltjockey]</a>.
+Figure <a href="#fig:voltjockey" data-reference-type="ref" data-reference="fig:voltjockey">1.9</a>.
 
 <figure>
 <img src="images/chapter8/voltjockey_process.jpg" id="fig:voltjockey" alt="VoltJockey attack process." /><figcaption aria-hidden="true">VoltJockey attack process.</figcaption>

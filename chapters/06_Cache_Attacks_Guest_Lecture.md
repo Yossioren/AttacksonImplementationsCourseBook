@@ -39,8 +39,12 @@ costumer, Java-Script code running in a browser and others.
 
 ### Example: Cache attack on RSA Square-and-Multiply Exponentiation
 
-*X* ← 1 *X* ← *m**u**l**t**i**p**l**y*(*X*, *X*)
-*X* ← *m**u**l**t**i**p**l**y*(*X*, *b*) **return** X
+<div class="algorithm">
+
+*X* ← 1 *X* ← *m**u**l**t**i**p**l**y*(*X*,*X*)
+*X* ← *m**u**l**t**i**p**l**y*(*X*,*b*) **return** X
+
+</div>
 
 Consider the binary exponentiation algorithm presented in Algorithm
 <a href="#algo:SaM" data-reference-type="ref" data-reference="algo:SaM">[algo:SaM]</a>.
@@ -512,7 +516,7 @@ in the same slice and an *eviction strategy*.
 
 #### Eviction Set
 
-[1] We want to target the L3 for cross-core attacks and we need
+[^1] We want to target the L3 for cross-core attacks and we need
 addresses that have the same set index. Consider the following cache
 settings, L3 for a 2-core CPU: 4096 sets, 64B-lines, 12 or 16 ways.
 Since each memory address indicates one memory byte, the 6 least
@@ -619,8 +623,8 @@ implementation of AES and RSA, this does not imply that AES and RSA are
 defective. Not all implementations are created equal.
 
 To sum up, hardware will most likely stay vulnerable, so patch
-implementations when you can. And remember, constant time is not enough
-- because an attacker can modify the internal state of the
+implementations when you can. And remember, constant time is not
+enough - because an attacker can modify the internal state of the
 micro-architecture.
 
 ## Step by Step Attack Demo
@@ -762,9 +766,9 @@ exploit phase.
 ### Step 3: Exploitation
 
 Equipped with the addresses from the previous step, we can now go to the
-exploitation dir, change the threshold constant
-(MIN\_CACHE\_MISS\_CYCLES) as we did for the profiler, and run `make`.
-Then we can run the program by
+exploitation dir, change the threshold constant (MIN_CACHE_MISS_CYCLES)
+as we did for the profiler, and run `make`. Then we can run the program
+by
 
 ``` bash
 ./spy <library-file> <offset>
@@ -814,5 +818,91 @@ can automate the event triggering and other stuff as shown in .
     [Cache Template Attacks
     Paper](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-gruss.pdf).
 
-[1] From now on, most of the details are correct for a common Intel CPU
-architecture.
+## Cache size test
+
+In order to test the cache size we use a random cyclic permutation
+access pattern, where each cache line (64 bytes) in an array is accessed
+exactly once in a random order before the sequence repeats. Each access
+is data-dependent so this measures the full access latency (not
+bandwidth) of the cache. The cache size test can run on google colab or
+on private computer, in case the test will run on google colab the test
+will measure google server cache size. first, we check the value of the
+TSC then we perforn The function that execute in loop dereferencing
+dpointer-address and jumping to the value the value is random address
+(index) of the data buffer
+
+Pseudo code of the assembly:
+
+``` c
+p = dpointer_address
+    for (int i=ITS;i;i--)
+    {
+        p = *(void**)p;
+        p = *(void**)p;
+        ...
+        ASM_BLOCK_SIZE
+        ...
+        p = *(void**)p;
+    }
+```
+
+and then we check for the TSC once again and saving the average time.
+
+## Micro architecture buffers sizes testing tool
+
+The instruction window constrains how many instructions ahead of the
+most recent unfinished instruction a processor can look at to find
+instructions to execute in parallel. In this tests we use a suitable
+long-latency instruction to block instruction commit, it is able to
+observe using CPU cycles measurements how many instructions ahead the
+processor is able to execute once the instruction commit is stalled.
+Between two long-latency instructions we put a dynamic number of filter
+opcode that allow us to measurement different micro architecture
+component size.
+
+<figure>
+<img src="images/chapter_6/Re-ordering-buffer-size.png" alt="Re-ordering buffer size test with nop instruction" /><figcaption aria-hidden="true">Re-ordering buffer size test with nop instruction</figcaption>
+</figure>
+
+### Filter number 0
+
+On microarchitectures that rename registers using a physical register
+file (PRF), there are often fewer registers than reorder buffer entries
+(because some instructions don’t produce a register result, such as
+branches). If the filler instruction is produces a register result
+(ADD), we can measure the size of the speculative portion of the PRF.
+This uses a series of general-purpose register for ADD operation, each
+one of which should consume a physical register, to test the size of the
+speculative register file.
+
+### Filter number 2 and 3
+
+Repeating the test with MOV or CMP filter instructions can show whether
+register to register moves are executed by manipulating pointers in the
+register renamer rather than copying or comparing values. This uses a
+series of general-purpose register for MOV operation, each one of which
+should consume a physical register, to test the size of the manipulating
+pointers rename optimization.
+
+### Filter number 1 and 4
+
+These tests use single byte or double byte NOPs to detect the
+Re-ordering buffer (ROB) size. They should both give the same answer,
+since only difference is that single byte NOPs tend to disable the use
+of micro-op cache since they are too dense, while double-byte NOPs use
+the cache. I wouldn’t expect that to affect the apparent ROB size, but
+it’s nice to be able to check!
+
+### Filter number 32 and 33
+
+These determine the load buffer size (test 32) and store buffer size
+(test 33) respectively, by using loads and stores as the filler
+instructions. This is a python testing tool for micro architecture
+buffers sizes like
+[ROB](https://https//en.wikipedia.org/wiki/Re-order_buffer) size
+described by [Henry Wong on his
+blog](https://blog.stuffedcow.net/2013/05/measuring-rob-capacity)
+inspired by [robsize](https://travisdowns/robsize) github repository.
+
+[^1]: From now on, most of the details are correct for a common Intel
+    CPU architecture.

@@ -421,7 +421,7 @@ of all, we find the plain text XOR the key, at first, we are looking
 only at the first byte, a result is a number in the range of 0-255. Then
 we apply the AES subByte operation. Then we are calculating the hamming
 weight of the outcome. The values of the results are between 0 to 8. By
-doing this, we get the hypothesis\_vector for each particular input.
+doing this, we get the hypothesis_vector for each particular input.
 
 <figure>
 <img src="images/chapter8/hypothesis_vector_values.png" id="c8_Matlab_hypothesis_vector_values:fig" style="width:100.0%" alt="Hypothesis vector values" /><figcaption aria-hidden="true">Hypothesis vector values</figcaption>
@@ -429,8 +429,8 @@ doing this, we get the hypothesis\_vector for each particular input.
 
 Figure
 <a href="#c8_Matlab_hypothesis_vector_values:fig" data-reference-type="ref" data-reference="c8_Matlab_hypothesis_vector_values:fig">1.7</a>
-presents the hypothesis\_vector values (the X-axis is not important).
-For each trace (Y-axis) we calculate the hamming distance (presented by
+presents the hypothesis_vector values (the X-axis is not important). For
+each trace (Y-axis) we calculate the hamming distance (presented by
 different colors). Now that we have figure
 <a href="#fig:c8_Matlab_power_as_sample_number" data-reference-type="ref" data-reference="fig:c8_Matlab_power_as_sample_number">1.5</a>
 and figure
@@ -619,7 +619,7 @@ information.
 
 Recall that an activation function of some node is a function
 *f* : ℝ → ℝ, as in:
-*f*(*x*) = *A**c**t**i**v**a**t**i**o**n*(∑(*W**e**i**g**h**t**s* \* *i**n**p**u**t**s*) + *b**i**a**s*)
+*f*(*x*) = *A**c**t**i**v**a**t**i**o**n*(∑(*W**e**i**g**h**t**s*\**i**n**p**u**t**s*)+*b**i**a**s*)
 There are many popular activation functions, with the most common ones
 being Sigmoid, Softmax, and ReLU. The timing behavior of the various
 functions was observed directly on the electromagnetic (EM) trace, with
@@ -655,10 +655,10 @@ parameters, or the weights of a layer. CPA targets the multiplication
 operation *m* = *x* \* *w* where *x* is a known input and *w* a secret
 parameter. Using the HW model, the adversary correlates the activity of
 the predicted output *m* for all hypothesis of the weight. Thus, the
-attack computes *p*(*t*, *w*) for all hypothesis of the weight *w*,
-where *p* is the Pearson correlation coefficient and *t* is the
-side-channel measurement. The correct value of the weight will result in
-a higher correlation, standing out from all other wrong hypothesis
+attack computes *p*(*t*,*w*) for all hypothesis of the weight *w*, where
+*p* is the Pearson correlation coefficient and *t* is the side-channel
+measurement. The correct value of the weight will result in a higher
+correlation, standing out from all other wrong hypothesis
 *w*<sup>\*</sup>, given we capture enough measurements. We first need to
 understand the way the compiler is handling floating-point operations in
 our target device. By analyzing the generated assembly, it can be
@@ -696,10 +696,10 @@ recovery individually using *x*<sub>*i*</sub>, for
 1 ≤ *i* ≤ *N*<sub>0</sub>. For the second hypothesis, assume that
 *y*<sub>*n*</sub> is in the next hidden layer (the second hidden layer).
 Perform weight recovery individually using *y*<sub>*i*</sub>, for
-1 ≤ *i* ≤ (*n* − *i*). For each hypothesis, record the maximum
-(absolute) correlation value, and compare both. Since the correlation
-depends on both inputs to the multiplication operation, the incorrect
-hypothesis will result in a lower correlation value.
+1 ≤ *i* ≤ (*n*−*i*). For each hypothesis, record the maximum (absolute)
+correlation value, and compare both. Since the correlation depends on
+both inputs to the multiplication operation, the incorrect hypothesis
+will result in a lower correlation value.
 
 <figure>
 <img src="images/chapter8/layer-a.JPG" id="fig:layer-a" style="width:50.0%" alt="One hidden layer with 6 neurons." /><figcaption aria-hidden="true">One hidden layer with 6 neurons.</figcaption>
@@ -764,7 +764,7 @@ all the nodes, performing basic arithmetic operations. This arithmetic
 operation with different weights and common unknown input leads to input
 recovery attack via side-channel. The power consumption of loading data
 x is:
-$$HW(x) = \\sum\_{i=1}^{n} {x\_i}$$
+$$HW(x) = \\sum\_{i=1}^{n} {x_i}$$
 where *x*<sub>*i*</sub> represents the *i*<sup>*t**h*</sup> bit of x. In
 our case, it is the product of secret input and known weight which is
 regularly stored to the memory after computation and results in the HW
@@ -964,7 +964,7 @@ is mapped to a specific register, which is used to access it by the
 software (the address of this register varies between different chips).
 HRNG are mostly secure.  
 Different constants mark the state of the PRNG, one of them
-("RBG\_CONST\_READY") is kind of a standard, so it can be also used to
+("RBG_CONST_READY") is kind of a standard, so it can be also used to
 find the relevant disassembled code in a binary. If the HRNG is not
 available, there is a RNG fallback, looking at the RNG Variant 2
 implementation it was found that it is computed using the system and
@@ -982,11 +982,12 @@ the vulnerability. Investigating 20 more devices and firmwares had
 trouble as some devices are slow(4 byte packages) and 1GB of data is
 needed to test the output quality of the random devices.
 
+<div class="adjustbox">
+
 width=
 
-|            |                                    |             |               |     |
-|:-----------|:-----------------------------------|:------------|:--------------|:----|
 | **Chip**   | **Device**                         | **Samples** | **Dieharder** |     |
+|:-----------|:-----------------------------------|:------------|:--------------|:----|
 | BCM4335C0  | Google Nexus 5                     | 2.7GB       | Passed        |     |
 | BCM4358A3  | Samsung Galaxy S6, Google Nexus 6P | 2.1GB       | Passed        |     |
 | BCM43430A1 | Raspberry Pi 3/Zero W              | 1.3GB       | Passed        |     |
@@ -999,17 +1000,20 @@ width=
 | BCM2046A2  | iMac Late 2009                     | \-          | HRNG          |     |
 | BCM4375B1  | Samsung Galaxy S10/S20             | \-          | HRNG          |     |
 | BCM4378B1  | iPhone 11                          | \-          | HRNG          |     |
-|            |                                    |             |               |     |
 
 Chips challenged with Dieharder test
+
+</div>
 
 Many devices passed the Dieharder tests, for sample sizes of 1GB+, so
 they look ok.
 
 Other RNG variants, such as Variant 1, used by 2009 iMac or a 2010 Asus
-Dongle, which is the Fallback of the HRNG, used the basic rbg\_rand
+Dongle, which is the Fallback of the HRNG, used the basic rbg_rand
 function which is only using the system clock and a static value and a
 register as an input for it’s PRNG, which is really bad.
+
+<div class="adjustbox">
 
 width=
 
@@ -1021,26 +1025,32 @@ width=
 
 Variant 1
 
+</div>
+
 More investigation found that RNG Variants 2 and 3 is used by many more
 devices, from 2012 till 2018, and also being used by some ciphers chips:
 
+<div class="adjustbox">
+
 width=
 
-| **Device**                         | **Chip Date** | **Variant** | **HRNG Location** | **PRNG**                           | **Cache**                     |
-|:-----------------------------------|:--------------|:------------|:------------------|:-----------------------------------|:------------------------------|
-| Google Nexus 5                     | Dec 11 2012   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| iPhone 6                           | Jul 15 2013   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| Raspberry Pi 3/Zero W              | Jun 2 2014    | 2           | 0x352600, 3 regs  | Yes (inline)                       | No                            |
-| Raspberry Pi 3+/4                  | Aug 19 2014   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| Samsung Galaxy S6, Google Nexus 6P | Oct 23 2014   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| iPhone SE                          | Jan 27 2015   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| iPhone 7                           | Sep 14 2015   | 2           | 0x352600, 3 regs  | Yes (inline)                       | No                            |
-| MacBook 2016/2017, iMac 2017       | Oct 22 2015   | 2           | 0x314004, 3 regs  | Yes (inline)                       | No                            |
-| CYW20719B1                         | Jan 17 2017   | 2           | 0x352600, 3 regs  | Yes (inline)                       | No                            |
-| CYW20735B1                         | Jan 18 2018   | 3           | 0x352600, 3 regs  | Yes (rbg\_get\_psrng), 8 registers | Yes, breaks after 32 elements |
-| CYW20819A1                         | May 22 2018   | 3           | 0x352600, 3 regs  | Yes (rbg\_get\_psrng), 5 registers | Yes (with minor fixes)        |
+| **Device**                         | **Chip Date** | **Variant** | **HRNG Location** | **PRNG**                         | **Cache**                     |
+|:-----------------------------------|:--------------|:------------|:------------------|:---------------------------------|:------------------------------|
+| Google Nexus 5                     | Dec 11 2012   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| iPhone 6                           | Jul 15 2013   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| Raspberry Pi 3/Zero W              | Jun 2 2014    | 2           | 0x352600, 3 regs  | Yes (inline)                     | No                            |
+| Raspberry Pi 3+/4                  | Aug 19 2014   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| Samsung Galaxy S6, Google Nexus 6P | Oct 23 2014   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| iPhone SE                          | Jan 27 2015   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| iPhone 7                           | Sep 14 2015   | 2           | 0x352600, 3 regs  | Yes (inline)                     | No                            |
+| MacBook 2016/2017, iMac 2017       | Oct 22 2015   | 2           | 0x314004, 3 regs  | Yes (inline)                     | No                            |
+| CYW20719B1                         | Jan 17 2017   | 2           | 0x352600, 3 regs  | Yes (inline)                     | No                            |
+| CYW20735B1                         | Jan 18 2018   | 3           | 0x352600, 3 regs  | Yes (rbg_get_psrng), 8 registers | Yes, breaks after 32 elements |
+| CYW20819A1                         | May 22 2018   | 3           | 0x352600, 3 regs  | Yes (rbg_get_psrng), 5 registers | Yes (with minor fixes)        |
 
 Variant 2,3
+
+</div>
 
 Variant 5 is used by much newer devices, iPhone 8 from 2016 till iPhone
 11 and Samsung Galaxy S10 from 2018, where PRNG is gone and it has a
@@ -1052,22 +1062,24 @@ bitchanges, and even some constant values, all of these are bad habits
 for defining a PRNG. Inspecting Variant 4 inputs shows that they are not
 so random:
 
+<div class="adjustbox">
+
 width=
 
-|             |               |                                                                                             |     |     |
-|:------------|:--------------|:--------------------------------------------------------------------------------------------|:----|:----|
-| **Address** | **Register**  | **Entropy**                                                                                 |     |     |
-| \-          | Rand          | Previous 4 B random value (leaks over-the-air)                                              |     |     |
-| 0x3180088   | dc\_nbtc\_clk | Bluetooth clock, publicly available over-the-air                                            |     |     |
-| 0x32A004    | timer1value   | Hardware clock, 4 B "random" before first leak, unpatched attacks for clock reset available |     |     |
-| 0x3186A0    | dc\_fhout     | Changes a bit (0x02-0x50)                                                                   |     |     |
-| 0x410434    | agcStatus     | Changes a bit (0xc00 during whole measurement, slight changes within 0xcnn after reboot)    |     |     |
-| 0x41079C    | rxInitAngle   | Changes a bit but within similar range                                                      |     |     |
-| 0X410548    | spurFreqErr1  | Constant 2B value (0x04ed, also after reboot)                                               |     |     |
-| 0x410548    | rxPskPhErr5   | Always 0                                                                                    |     |     |
-|             |               |                                                                                             |     |     |
+| **Address** | **Register** | **Entropy**                                                                                 |     |     |
+|:------------|:-------------|:--------------------------------------------------------------------------------------------|:----|:----|
+| \-          | Rand         | Previous 4 B random value (leaks over-the-air)                                              |     |     |
+| 0x3180088   | dc_nbtc_clk  | Bluetooth clock, publicly available over-the-air                                            |     |     |
+| 0x32A004    | timer1value  | Hardware clock, 4 B "random" before first leak, unpatched attacks for clock reset available |     |     |
+| 0x3186A0    | dc_fhout     | Changes a bit (0x02-0x50)                                                                   |     |     |
+| 0x410434    | agcStatus    | Changes a bit (0xc00 during whole measurement, slight changes within 0xcnn after reboot)    |     |     |
+| 0x41079C    | rxInitAngle  | Changes a bit but within similar range                                                      |     |     |
+| 0X410548    | spurFreqErr1 | Constant 2B value (0x04ed, also after reboot)                                               |     |     |
+| 0x410548    | rxPskPhErr5  | Always 0                                                                                    |     |     |
 
 Variant 4 inputs
+
+</div>
 
 In addition, looking at IDA’s disassembly, the random function is used
 by a lot of other functions, which are, in their turn, also used by many

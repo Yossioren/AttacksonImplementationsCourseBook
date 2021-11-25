@@ -254,7 +254,7 @@ Comparison of Word and LaTeX
 Finally, for footnotes, there is the command `\footnote{}`. You can
 place it anywhere you like, LaTeX will then automatically add the number
 of the footnote at that place, and put the footnote text into the footer
-area. It looks like this.[1] The challenge here relates to grammar:
+area. It looks like this.[^1] The challenge here relates to grammar:
 footnotes start with capital letters, parentheses with lower case, and
 the footnote comes after the period, the parentheses have to start
 before the period.
@@ -332,4 +332,4 @@ commands is beyond the scope of this book, so I recommend three options:
 -   Check out the few example TikZ pictures from my two books  in the
     *tex-images* directory.
 
-[1] This is a footnote.
+[^1]: This is a footnote.

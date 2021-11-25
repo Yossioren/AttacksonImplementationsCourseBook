@@ -257,7 +257,7 @@ What could be targeted by a fault attack?
 	different answer.
 	\item Instruction Processing/Control Flow: inject a fault in the IP register
 	and change the instruction flow. There are various examples that demonstrate
-	the usefulness of this type of taget
+	the usefulness of this type of target
 	\begin{itemize}
 		\item change the program counter to compromise control flow
 		\item ARM32 instructions are very densely packed, thus there is a very
@@ -271,7 +271,7 @@ What could be targeted by a fault attack?
 
 \paragraph{Two examples of Fault Attacks targeting Control Flow:}
 \begin{enumerate}
-	\item The CHDK hacking community, used to dump the firmwares of Canon
+	\item The CHDK hacking community, used to dump the firmware of Canon
 	cameras via blinking one of their LEDs~\cite{chdk, canon}.
 
 	\item The ``Unlooper'': Back in the 90's pay-tv devices started
@@ -462,7 +462,7 @@ compute, and this gives the attacker a window of opportunity.
 
 \subsection{Rowhammer-based attacks}
 \subsubsection{RAMBleed}
-We will describe here Rowhammer based attack called RAMbleed which was presented in ~\cite{rambleed_paper}. While Rowhammer breaks data integrity, RAMBleed breaks also data confidentiality by allow the attacker read unauthorized memory areas. RAMBleed attack was implementes against OpenSSH server allowing the attacker read RSA secret private keys. 
+We will describe here Rowhammer based attack called RAMbleed which was presented in ~\cite{rambleed_paper}. While Rowhammer breaks data integrity, RAMBleed breaks also data confidentiality by allow the attacker read unauthorized memory areas. RAMBleed attack was implements against OpenSSH server allowing the attacker read RSA secret private keys. 
 
 \begin{figure}[!ht]
 	\centering
@@ -470,17 +470,17 @@ We will describe here Rowhammer based attack called RAMbleed which was presented
 	\caption{RAMBleed memory layout}
 	\label{fig:rambleed_memory_layout}
 \end{figure}
-In order to perform this attack, the attacker need to get to spesific memory layout, as describe in \Cref{fig:rambleed_memory_layout}. The attacker own A0, A1 and A2 block. Then attacker force OpenSSH server to put its private RSA key in oranges blocks by exploting linux buddy allocator which works in deterministic way. Then the attacker repeatedly accessing A0 and A2 blocks - this will access orange blocks 
+In order to perform this attack, the attacker need to get to specific memory layout, as describe in \Cref{fig:rambleed_memory_layout}. The attacker own A0, A1 and A2 block. Then attacker force OpenSSH server to put its private RSA key in oranges blocks by exploiting linux buddy allocator which works in deterministic way. Then the attacker repeatedly accessing A0 and A2 blocks - this will access orange blocks 
 as well because when DRAM access a part of the row, it access the whole row as well. This will hammer the red block and cause bit flips over there. The attacker can then read the red block- because he own it, and gets the RSA secret key.
 
-The performence from this paper shows accuracy of 82\% when reading OpenSSH host key. Reading the victim’s secret in 0.31 bits/seconds.
+The performance from this paper shows accuracy of 82\% when reading OpenSSH host key. Reading the victim’s secret in 0.31 bits/seconds.
 
 Suggested mitigations may be memory encryption, flushing keys from memory, probabilistic memory allocator and Hardware mitigations such as targeted row refresh and increasing refresh intervals.
 
 \subsubsection{Throwhammer - Rowhammer Attack over the Internet ~\cite{throwhammer}}
 There are some sophisticated Rowhammer exploits which allow an attacker, that can execute code on a vulnerable system, to escalate privileges and compromise browsers, clouds, and mobile systems. In all these attacks, the common assumption is that attackers first need to obtain code execution on the victim machine to be able to exploit Rowhammer, either by having (unprivileged) code execution on the victim machine or by luring the victim to a website that employs a malicious JavaScript application. 
 
-In Contrary to those attacks, In the Throwhammmer attack, the attacker can trigger and exploit Rowhammer bit flips directly from a remote machine by only sending network packets.
+In Contrary to those attacks, In the ThrowHammer attack, the attacker can trigger and exploit Rowhammer bit flips directly from a remote machine by only sending network packets.
 
 While it is true that millions of DRAM accesses per second is harder to accomplish from across 
 the network than from code executing locally, today’s networks are becoming very fast.
@@ -497,7 +497,7 @@ and client applications both configure DMA buffers to the NIC (Network interface
 	\label{fig:RDMA_vs_non-RDMA}
 \end{figure}
 
-In the Throwhammer attack, the attacker is assumed to be able to generate and send legitimate
+In the ThrowHammer attack, the attacker is assumed to be able to generate and send legitimate
 traffic through a high-speed network to a target server (A common example is a client that sends requests to a cloud or data center machine that runs a server application), and that the target machine is vulnerable to Rowhammer bit flips.
 The end goal of the attacker is to bypass RDMA’s security model by modifying bits outside of memory areas that are registered for DMA in order to compromise the system.
 
@@ -539,7 +539,7 @@ Additional related work on the topic of fault attacks includes:
 		
 		\item \textbf{Plundervolt} - a paper by Murdock et al. \cite{murdock2020plundervolt}, the first one that describes 
 		the use of voltage scaling for corruption of integrity and confidentiality
-		of Intel SGX enclaved computations. The authors demonstrate full key recovery PoC attacks
+		of computations inside Intel SGX enclaves. The authors demonstrate full key recovery PoC attacks
 		against RSA-CRT and AES-NI.
 		
 		
@@ -551,7 +551,7 @@ Additional related work on the topic of fault attacks includes:
 
 	\begin{itemize}
 
-		\item \textbf{Spectre - Exploting Speculative Execution} - a paper by Kocher et al that describes
+		\item \textbf{Spectre - Exploiting Speculative Execution} - a paper by Kocher et al that describes
 		a speculative fault attack that involves inducing a victim to speculatively perform operations
 		that would not occur during correct program execution and which leak the victim's confidential
 		information via a side-channel to the adversary.
@@ -566,9 +566,9 @@ VoltJockey was deployed on the Krait multi-core processor, whose frequencies for
 However, the processor voltage is controlled with a shared hardware regulator, which introduces the main vulnerability that is exploited in this attack.
 VoltJockey uses software-controlled core frequency manipulation that is based on the susceptibility of DVFS.
 The attack was demonstrated in two use-cases that breach the system-wide secure technology in billions of ARM-based devices - TrustZone; (1) obtaining AES key, and (2) forge RSA signatures of unauthorized and possibly malicious applications.
-VoltJockey proved to be successful in a commerical device, the Google Nexus 6, and has demonstrated its dangerous implications in the secure execution environment TrustZone.
+VoltJockey proved to be successful in a commercial device, the Google Nexus 6, and has demonstrated its dangerous implications in the secure execution environment TrustZone.
 
-An illustration of the VoltJockey attack process can be found in Figure~\ref{algo:voltjockey}.
+An illustration of the VoltJockey attack process can be found in Figure~\ref{fig:voltjockey}.
 
 \begin{figure}[!ht]
 	\centering
