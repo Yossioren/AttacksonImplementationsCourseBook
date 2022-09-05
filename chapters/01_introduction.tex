@@ -21,22 +21,18 @@ Attackers are unable to decrypt the ciphertext and discover the key because of t
 Suppose the computer is incapable of performing the encryption during World War II without resistors oriterative circuits 
 - what can the adversary do to find the key?
 
-The adversary can build a machine which does the decryption - insert the
-ciphertext into the machine and try all the keys (brute force). But\ldots how do
-you know which key is the correct one? Simple, there is a logic to the plaintext.
-It could be a chat in English, a weather broadcast, even an executable - in general, it is
-something you can check the syntax for, so with a very high probability, if you get
-an output that starts with ``Heil Hitler'' -  the key you used to decrypt the
-ciphertext is the correct key. We need to remember that the encryption machine
-was not very complex in those years, and to keep the secure messages safe, they
-had to find a way to protect their ciphertexts. The solution to that issue is a
-one-time pad.
+The adversary can build a machine that performs decryption; insert the ciphertext into the machine and test each keys (brute force). 
+But, how to determine the correct key?. It is simple because the plaintext follows a logic, making the possibility of 
+one of the following circumstances very high:  an English chat, a weather report, or 
+even an executable format - in general, Simple to check by glancing at the syntax.
+The key you used to decrypt the ciphertext is accurate if you receive an output that begins with "Heil Hitler". 
+The encryption technology at the time was not extremely sophisticated. As a result, they had to discover a technique 
+to safeguard their ciphertexts in order to keep the secure messages safe. A \textit{one-time pad} is indeed the solution to the issue.
 
-One-time pad, also called Vernam Cipher, is a simple and powerful encryption
-system. The idea behind this technique is that the length of the key is the same
-length as the plain text, and to encrypt you just add them together - if we use
-digital bits we use XOR, and if we use letters we define an addition operation.
-It's called a one-time pad because you can use your pre-shared key only once.
+The One-time pad, also called Vernam Cipher, is a simple and powerful encryption
+system. The concept behind this method is that the plain text and the key have the same length, 
+and simply add them together for encryption - XOR is used when using digital bits, and addition is defined when using letters.
+The term "one-time pad" refers to a pre-shared key that can only be used once.
 
 Why does this one-time pad protect from brute force attacks? Because $plaintext
 \oplus key = ciphertext$ and $ciphertext \oplus key = plaintext$, meaning we can
