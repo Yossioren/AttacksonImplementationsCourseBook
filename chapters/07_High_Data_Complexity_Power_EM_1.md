@@ -5,6 +5,9 @@ nav_order: 07
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-7---high-data-complexity-attacks-power-em-i)
+
 So far, we have attacked two cryptographic systems in the course:
 
 -   **RSA:** using Montgomery reduction with time as a side-channel.
@@ -46,7 +49,11 @@ The picture below is a nice visualization of how the hamming weight of
 binary numbers fluctuates when the binary number is growing.
 
 <figure>
-<img src="images/Lecture6/HammingWeightBinary.png" id="fig:HammingWeightBinary " style="width:80.0%" alt="Hamming weight for binary numbers (0-256)" /><figcaption aria-hidden="true">Hamming weight for binary numbers (0-256)</figcaption>
+<img src="images/Lecture6/HammingWeightBinary.png"
+id="fig:HammingWeightBinary " style="width:80.0%"
+alt="Hamming weight for binary numbers (0-256)" />
+<figcaption aria-hidden="true">Hamming weight for binary numbers
+(0-256)</figcaption>
 </figure>
 
 For AES, we have 84 classifiers that we did not care about how these
@@ -217,7 +224,10 @@ at the same relative time. So now our output is not a vector but rather
 a Matrix *M*<sub>*D**x**T*</sub>.
 
 <figure>
-<img src="images/Lecture6/DPA_Illustration.png" id="fig:DPA_Illustration" style="width:80.0%" alt="many measurements over time" /><figcaption aria-hidden="true">many measurements over time</figcaption>
+<img src="images/Lecture6/DPA_Illustration.png"
+id="fig:DPA_Illustration" style="width:80.0%"
+alt="many measurements over time" />
+<figcaption aria-hidden="true">many measurements over time</figcaption>
 </figure>
 
 The suspicious reader should ask: how is it possible that we measure the
@@ -258,7 +268,9 @@ that is not related to the key.
     meaningful
 
 <figure>
-<img src="images/Lecture6/vaizata.png" id="fig:vaizata" style="height:90.0%" alt="Vaizata method stages" /><figcaption aria-hidden="true">Vaizata method stages</figcaption>
+<img src="images/Lecture6/vaizata.png" id="fig:vaizata"
+style="height:90.0%" alt="Vaizata method stages" />
+<figcaption aria-hidden="true">Vaizata method stages</figcaption>
 </figure>
 
 Now, we are looking for a stage during the AES algorithm, where a small
@@ -267,7 +279,9 @@ state. The intuition here is that we want to find a stage in the
 algorithm, where the power consumption depends on the key value.
 
 <figure>
-<img src="images/Lecture6/AES-stages-figure.png" id="fig:aes-stages" style="width:80.0%" alt="AES stages" /><figcaption aria-hidden="true">AES stages</figcaption>
+<img src="images/Lecture6/AES-stages-figure.png" id="fig:aes-stages"
+style="width:80.0%" alt="AES stages" />
+<figcaption aria-hidden="true">AES stages</figcaption>
 </figure>
 
 We might consider measuring the power consumption just before the start
@@ -320,7 +334,11 @@ out of them will be meaningless, and only one is the correct guess,
 which should have statistical significance.
 
 <figure>
-<img src="images/Lecture6/dpa-separation-figure.png" id="fig:dpa-separation-figure" style="width:80.0%" alt="The way we separate the data to groups based on the guess" /><figcaption aria-hidden="true">The way we separate the data to groups based on the guess</figcaption>
+<img src="images/Lecture6/dpa-separation-figure.png"
+id="fig:dpa-separation-figure" style="width:80.0%"
+alt="The way we separate the data to groups based on the guess" />
+<figcaption aria-hidden="true">The way we separate the data to groups
+based on the guess</figcaption>
 </figure>
 
 The problem is that we have many different points each time, and we
@@ -332,7 +350,11 @@ significant, except to the point where the guess was made correctly. We
 illustrate it at .
 
 <figure>
-<img src="images/Lecture6/meansDiffFigure.png" id="fig:meansDiffFigure" style="width:80.0%" alt="the difference of means as a function of time" /><figcaption aria-hidden="true">the difference of means as a function of time</figcaption>
+<img src="images/Lecture6/meansDiffFigure.png" id="fig:meansDiffFigure"
+style="width:80.0%"
+alt="the difference of means as a function of time" />
+<figcaption aria-hidden="true">the difference of means as a function of
+time</figcaption>
 </figure>
 
 On the *X* − *a**x**i**s* we have the time, and on the
@@ -357,18 +379,23 @@ dimension of color intensity, which will depend on the power
 consumption.
 
 <figure>
-<img src="images/Lecture6/traceByTime.png" id="fig:traceByTime" style="width:80.0%" alt="the traces’ power consumption by time" /><figcaption aria-hidden="true">the traces’ power consumption by time</figcaption>
+<img src="images/Lecture6/traceByTime.png" id="fig:traceByTime"
+style="width:80.0%" alt="the traces’ power consumption by time" />
+<figcaption aria-hidden="true">the traces’ power consumption by
+time</figcaption>
 </figure>
 
-In plot
-<a href="#fig:traceByTime" data-reference-type="ref" data-reference="fig:traceByTime">1.7</a>,
-there are very aligned columns which indicate that the traces are
-appropriately aligned. Our goal is to separate the power traces of the
-correct key from all the other traces. To do that, we start by showing
-in by comparing the power consumption of two traces based on time.
+In plot <a href="#fig:traceByTime" data-reference-type="ref"
+data-reference="fig:traceByTime">1.7</a>, there are very aligned columns
+which indicate that the traces are appropriately aligned. Our goal is to
+separate the power traces of the correct key from all the other traces.
+To do that, we start by showing in by comparing the power consumption of
+two traces based on time.
 
 <figure>
-<img src="images/Lecture6/2traces-by-time.png" id="fig:2traces-by-time" style="width:80.0%" alt="2 groups of traces by times" /><figcaption aria-hidden="true">2 groups of traces by times</figcaption>
+<img src="images/Lecture6/2traces-by-time.png" id="fig:2traces-by-time"
+style="width:80.0%" alt="2 groups of traces by times" />
+<figcaption aria-hidden="true">2 groups of traces by times</figcaption>
 </figure>
 
 We can see that both of them overlap, but if we had a difference, we
@@ -377,14 +404,22 @@ test for each key guess and input, what was the power consumption,
 whereas yellow represents less power and blue more power.
 
 <figure>
-<img src="images/Lecture6/intensity_by_guess.png" id="fig:intensity_by_guess" style="width:80.0%" alt="power consumption by guess and input" /><figcaption aria-hidden="true">power consumption by guess and input</figcaption>
+<img src="images/Lecture6/intensity_by_guess.png"
+id="fig:intensity_by_guess" style="width:80.0%"
+alt="power consumption by guess and input" />
+<figcaption aria-hidden="true">power consumption by guess and
+input</figcaption>
 </figure>
 
 Now we calculate the mean of power consumption for each guess, and we
 plot if over time.
 
 <figure>
-<img src="images/Lecture6/avg_of_many_traces.png" id="fig:avg_of_many_traces" style="width:80.0%" alt="mean of each guess across the different inputs by time" /><figcaption aria-hidden="true">mean of each guess across the different inputs by time</figcaption>
+<img src="images/Lecture6/avg_of_many_traces.png"
+id="fig:avg_of_many_traces" style="width:80.0%"
+alt="mean of each guess across the different inputs by time" />
+<figcaption aria-hidden="true">mean of each guess across the different
+inputs by time</figcaption>
 </figure>
 
 If we did the split correctly, this power trace average would be
@@ -395,7 +430,11 @@ the distance of means of each key guess by time and then to search for
 the moment with the maximum difference (“the right time") like in .
 
 <figure>
-<img src="images/Lecture6/intensity_represents_means_diff.png" id="fig:intensity_represents_means_diff" style="width:80.0%" alt="distance of means by time and key guess, color intensity represents the distance" /><figcaption aria-hidden="true">distance of means by time and key guess, color intensity represents the distance</figcaption>
+<img src="images/Lecture6/intensity_represents_means_diff.png"
+id="fig:intensity_represents_means_diff" style="width:80.0%"
+alt="distance of means by time and key guess, color intensity represents the distance" />
+<figcaption aria-hidden="true">distance of means by time and key guess,
+color intensity represents the distance</figcaption>
 </figure>
 
 While it might be hard to spot it on this chart, there is a certain
@@ -406,7 +445,11 @@ What if we focus on the correct time across the different key guesses?
 We should be able to spot the correct guess, as shown in .
 
 <figure>
-<img src="images/Lecture6/the-correct-time.png" id="fig:the-correct-time" style="width:80.0%" alt="means distance at the correct time" /><figcaption aria-hidden="true">means distance at the correct time</figcaption>
+<img src="images/Lecture6/the-correct-time.png"
+id="fig:the-correct-time" style="width:80.0%"
+alt="means distance at the correct time" />
+<figcaption aria-hidden="true">means distance at the correct
+time</figcaption>
 </figure>
 
 We finish by plotting the distance of means across time for all the
@@ -415,7 +458,10 @@ we can see that at the right time, it is separated from the other keys
 as shown in .
 
 <figure>
-<img src="images/Lecture6/all.png" id="fig:all" style="width:80.0%" alt="distance of means for all key guesses across time " /><figcaption aria-hidden="true">distance of means for all key guesses across time </figcaption>
+<img src="images/Lecture6/all.png" id="fig:all" style="width:80.0%"
+alt="distance of means for all key guesses across time " />
+<figcaption aria-hidden="true">distance of means for all key guesses
+across time </figcaption>
 </figure>
 
 #### Research Highlights

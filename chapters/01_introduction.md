@@ -5,54 +5,58 @@ nav_order: 01
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-1---introduction)
+
 ## Motivation
 
-The following story is a true story about the NSA - the US intelligence
-agency and their classified internal journal named "Cryptologic
-Spectrum". In the US, there is a law called “The Freedom of Information
-Act” (FOIA). This law states that in general, any person can ask for an
-access to government documents. So, in 2007, a lawyer named Michael
-Ravnitzky, went ahead and asked for the table of contents of all the
-articles in the NSA journal. The NSA tried postponing his request for
-several years, but finally granted him what he asked, along with a
-censorship on some classified titles. Then, after receiving that, he
-simply continued asking for the other classified titles!
+There is a an inspiring real story about the National Security Agency
+(NSA). The "Cryptologic Spectrum" is a classified internal journal
+regarding cryptology issued by the NSA, a US intelligence agency. The
+"Freedom of Information Act" (FOIA) is one of the finest examples of US
+legislation. According to this law, anyone may request access to
+official documents in general. In 2007, Michael Ravnitzky, a lawyer,
+requested the table of contents for each article in the NSA journal. The
+NSA tried to postpone his request for several years, but ultimately gave
+him what he requested subject to censorship on some categorised titles.
+He simply kept requesting the additional classified titles after getting
+that information!
 
-One article that was published in the journal, named “Tempest: A Signal
-Problem”, tells us about something that happened in the years of World
-War II. In those years, there were some significant scientific
-developments, one of them being digital wireless communication. People
-were able to send messages from one side of the world to the other,
-using digital signals. However, the US army that actually used this way
-of communication was not willing to be intercepted by the enemy so in
-order to protect those transmissions, it had to encrypt them.
+"Tempest: A Signal Problem," one of the significant article in the NSA
+journal, describes an event that took place during World War II.
+Significant technological advancements were made during that time,
+including the development of digital wireless communication. Digital
+signals allow people to transmit messages across the globe. The US army
+wanted to employ this type of communication without the opponent being
+able to intercept it. Thus, encryption was required to safeguard those
+transmissions.
 
-At the end of the encryption process, we get a ciphertext, which can be
-transmitted without any concern. The obstacle which prevents attackers
-from decrypting the ciphertext and discover the key is the algorithm
-which has been implemented very well. Let us assume we have a weak
-computer to perform the encryption, given that in the years of World War
-II there were no resistors, no iterative circuits - what can the
-adversary do to find the key?
+The outcome of the encryption procedure is a ciphertext that can be
+transmitted without any hassles. Attackers are unable to decrypt the
+ciphertext and discover the key because of the excellent implementation
+of algorithm. Suppose the computer is incapable of performing the
+encryption during World War II without resistors oriterative circuits -
+what can the adversary do to find the key?
 
-The adversary can build a machine which does the decryption - insert the
-ciphertext into the machine and try all the keys (brute force). But…how
-do you know which key is the correct one? Simple, there is a logic to
-the plaintext. It could be a chat in English, a weather broadcast, even
-an executable - in general, it is something you can check the syntax
-for, so with a very high probability, if you get an output that starts
-with “Heil Hitler” - the key you used to decrypt the ciphertext is the
-correct key. We need to remember that the encryption machine was not
-very complex in those years, and to keep the secure messages safe, they
-had to find a way to protect their ciphertexts. The solution to that
-issue is a one-time pad.
+The adversary can build a machine that performs decryption; insert the
+ciphertext into the machine and test each keys (brute force). But, how
+to determine the correct key?. It is simple because the plaintext
+follows a logic, making the possibility of one of the following
+circumstances very high: an English chat, a weather report, or even an
+executable format - in general, Simple to check by glancing at the
+syntax. The key you used to decrypt the ciphertext is accurate if you
+receive an output that begins with "Heil Hitler". The encryption
+technology at the time was not extremely sophisticated. As a result,
+they had to discover a technique to safeguard their ciphertexts in order
+to keep the secure messages safe. A *one-time pad* is indeed the
+solution to the issue.
 
-One-time pad, also called Vernam Cipher, is a simple and powerful
-encryption system. The idea behind this technique is that the length of
-the key is the same length as the plain text, and to encrypt you just
-add them together - if we use digital bits we use XOR, and if we use
-letters we define an addition operation. It’s called a one-time pad
-because you can use your pre-shared key only once.
+The One-time pad, also called Vernam Cipher, is a simple and powerful
+encryption system. The concept behind this method is that the plain text
+and the key have the same length, and simply add them together for
+encryption - XOR is used when using digital bits, and addition is
+defined when using letters. The term "one-time pad" refers to a
+pre-shared key that can only be used once.
 
 Why does this one-time pad protect from brute force attacks? Because
 *p**l**a**i**n**t**e**x**t* ⊕ *k**e**y* = *c**i**p**h**e**r**t**e**x**t*
@@ -71,7 +75,11 @@ Back to the years of World War II, to use one-time pad those days, they
 used machine which called **AN/FGQ-1 mixer**  as can be seen in .
 
 <figure>
-<img src="images/ch1_Intro/MIxer.jpg" id="fig:Mixer" style="width:80.0%" alt="AN/FGQ-1 Mixer. Two-way teletypewriter repeater and mixer equipment enclosed in a wooden Table-type cabinet." /><figcaption aria-hidden="true"><strong>AN/FGQ-1 Mixer</strong>. Two-way teletypewriter repeater and mixer equipment enclosed in a wooden Table-type cabinet.</figcaption>
+<img src="images/ch1_Intro/MIxer.jpg" id="fig:Mixer" style="width:80.0%"
+alt="AN/FGQ-1 Mixer. Two-way teletypewriter repeater and mixer equipment enclosed in a wooden Table-type cabinet." />
+<figcaption aria-hidden="true"><strong>AN/FGQ-1 Mixer</strong>. Two-way
+teletypewriter repeater and mixer equipment enclosed in a wooden
+Table-type cabinet.</figcaption>
 </figure>
 
 This machine is a kind of a box, and next to the box, was seated a
@@ -111,7 +119,12 @@ the voltage in the room drops a little, and then the lines in the
 Oscilloscope, without being connected to anything, just “jump”.
 
 <figure>
-<img src="images/ch1_Intro/oscilloscope.jpg" id="fig:Oscillo" style="width:80.0%" alt="Oscilloscope. An electronic test instrument which graphically displays varying signal voltages as a function of time." /><figcaption aria-hidden="true"><strong>Oscilloscope</strong>. An electronic test instrument which graphically displays varying signal voltages as a function of time.</figcaption>
+<img src="images/ch1_Intro/oscilloscope.jpg" id="fig:Oscillo"
+style="width:80.0%"
+alt="Oscilloscope. An electronic test instrument which graphically displays varying signal voltages as a function of time." />
+<figcaption aria-hidden="true"><strong>Oscilloscope</strong>. An
+electronic test instrument which graphically displays varying signal
+voltages as a function of time.</figcaption>
 </figure>
 
 The engineers discovered  that the top-secret information inside this
@@ -146,7 +159,12 @@ story above, we can see it was broken. So, what was broken? **The
 implementation**.
 
 <figure>
-<img src="images/ch1_Intro/modern_systems.png" id="fig:Modern Systems" style="width:80.0%" alt="Modern Systems. A few modern systems that are vulnerable to implementation attacks." /><figcaption aria-hidden="true"><strong>Modern Systems</strong>. A few modern systems that are vulnerable to implementation attacks.</figcaption>
+<img src="images/ch1_Intro/modern_systems.png" id="fig:Modern Systems"
+style="width:80.0%"
+alt="Modern Systems. A few modern systems that are vulnerable to implementation attacks." />
+<figcaption aria-hidden="true"><strong>Modern Systems</strong>. A few
+modern systems that are vulnerable to implementation
+attacks.</figcaption>
 </figure>
 
 Here are a couple of **Modern Systems** which will break using attacks
@@ -201,7 +219,12 @@ in . We assume that our system contains a secret, which is not revealed
 to anyone before, during and after the computation process.
 
 <figure>
-<img src="images/ch1_Intro/Secure_device1.png" id="fig:SecDev1" style="width:80.0%" alt="Simplest Model. The device make a computation using the secret and the input, and outputs the result." /><figcaption aria-hidden="true"><strong>Simplest Model</strong>. The device make a computation using the secret and the input, and outputs the result.</figcaption>
+<img src="images/ch1_Intro/Secure_device1.png" id="fig:SecDev1"
+style="width:80.0%"
+alt="Simplest Model. The device make a computation using the secret and the input, and outputs the result." />
+<figcaption aria-hidden="true"><strong>Simplest Model</strong>. The
+device make a computation using the secret and the input, and outputs
+the result.</figcaption>
 </figure>
 
 But, if that all what the “system” has, it is not a system, it is just
@@ -222,7 +245,11 @@ in fact outputs that the system designer did not intend to produce.
 Those outputs are demonstrated in
 
 <figure>
-<img src="images/ch1_Intro/Secure_device2.png" id="fig:SecDev2" style="width:80.0%" alt="Side Channels of the System. Caused by the implementation of the system" /><figcaption aria-hidden="true"><strong>Side Channels of the System</strong>. Caused by the implementation of the system</figcaption>
+<img src="images/ch1_Intro/Secure_device2.png" id="fig:SecDev2"
+style="width:80.0%"
+alt="Side Channels of the System. Caused by the implementation of the system" />
+<figcaption aria-hidden="true"><strong>Side Channels of the
+System</strong>. Caused by the implementation of the system</figcaption>
 </figure>
 
 For example, we can measure the time it takes to complete an operation,
@@ -239,7 +266,11 @@ actual secret, but we will get some kind of errors that can tell us a
 lot about the secret.
 
 <figure>
-<img src="images/ch1_Intro/Secure_device3.png" id="fig:SecDev3" style="width:80.0%" alt="Fault Attacks. Manipulating the device through side channels" /><figcaption aria-hidden="true"><strong>Fault Attacks</strong>. Manipulating the device through side channels</figcaption>
+<img src="images/ch1_Intro/Secure_device3.png" id="fig:SecDev3"
+style="width:80.0%"
+alt="Fault Attacks. Manipulating the device through side channels" />
+<figcaption aria-hidden="true"><strong>Fault Attacks</strong>.
+Manipulating the device through side channels</figcaption>
 </figure>
 
 ## Security of a System
@@ -279,7 +310,13 @@ key and a 16-bytes plaintext (in case of different amount of bytes we
 can use block cipher like CBC), and the output is a ciphertext.
 
 <figure>
-<img src="images/ch1_Intro/cia.jpg" id="fig:CIA" style="width:50.0%" alt="CIA Triangle. The classic model for information security. Defines three objectives of security: maintaining confidentiality, integrity, and availability. Each objective addresses a different aspect of providing protection for information." /><figcaption aria-hidden="true"><strong>CIA Triangle</strong>. The classic model for information security. Defines three objectives of security: maintaining confidentiality, integrity, and availability. Each objective addresses a different aspect of providing protection for information.</figcaption>
+<img src="images/ch1_Intro/cia.jpg" id="fig:CIA" style="width:50.0%"
+alt="CIA Triangle. The classic model for information security. Defines three objectives of security: maintaining confidentiality, integrity, and availability. Each objective addresses a different aspect of providing protection for information." />
+<figcaption aria-hidden="true"><strong>CIA Triangle</strong>. The
+classic model for information security. Defines three objectives of
+security: maintaining confidentiality, integrity, and availability. Each
+objective addresses a different aspect of providing protection for
+information.</figcaption>
 </figure>
 
 The millionaire problem  is a classic problem by Yao and which introduce
@@ -341,7 +378,10 @@ give the attacker, the less impressive the attack becomes.
 Let us have a look at a little system where the assumptions were broken:
 
 <figure>
-<img src="images/ch1_Intro/Bank.jpg" id="fig:Bank" style="width:80.0%" alt="ATM theft. The thieves simply ripped the machine out of the wall." /><figcaption aria-hidden="true"><strong>ATM theft.</strong> The thieves simply ripped the machine out of the wall.</figcaption>
+<img src="images/ch1_Intro/Bank.jpg" id="fig:Bank" style="width:80.0%"
+alt="ATM theft. The thieves simply ripped the machine out of the wall." />
+<figcaption aria-hidden="true"><strong>ATM theft.</strong> The thieves
+simply ripped the machine out of the wall.</figcaption>
 </figure>
 
 presents a wall of a bank in Ireland, on which an ATM was constructed.

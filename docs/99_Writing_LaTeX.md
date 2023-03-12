@@ -175,7 +175,8 @@ example, if you have defined a section
 could write “We will discuss chapters and sections in section
 `\cref{sec:c1_chaptersandsections}` ” which results in the document in
 “We will discuss chapters and sections in
-<a href="#sec:c1_chaptersandsections" data-reference-type="ref" data-reference="sec:c1_chaptersandsections">1.4</a>”.
+<a href="#sec:c1_chaptersandsections" data-reference-type="ref"
+data-reference="sec:c1_chaptersandsections">1.4</a>”.
 
 ## Tables
 
@@ -289,7 +290,9 @@ surrounded with the figure environment. The `[`ht\]! instructs LaTeX to
 try to place the image exactly where it is in the LaTeX code.
 
 <figure>
-<img src="images/cover.jpg" id="fig:c1_cover" alt="The cover of this book." /><figcaption aria-hidden="true">The cover of this book.</figcaption>
+<img src="images/cover.jpg" id="fig:c1_cover"
+alt="The cover of this book." />
+<figcaption aria-hidden="true">The cover of this book.</figcaption>
 </figure>
 
 In , you can see the result of the command. Instead of graphics, you can

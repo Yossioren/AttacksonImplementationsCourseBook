@@ -5,7 +5,10 @@ nav_order: 08
 1. Table of Contents
 {:toc}
 
-this lecture is the last technical lecture of the course about High Data
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-8---micro-architectural-side-channels)
+
+This lecture is the last technical lecture of the course about High Data
 Complexity Power Analysis, CPA.
 
 ## Previous lectures recap
@@ -84,7 +87,9 @@ device, and maybe it is not a reasonable assumption to make. The second
 way is the electromagnetic (EM). What does Does EM mean?
 
 <figure>
-<img src="images/chapter8/right_hand_rule.jpeg" id="c8_right_hand_rule:fig" alt="Right hand rule" /><figcaption aria-hidden="true">Right hand rule</figcaption>
+<img src="images/chapter8/right_hand_rule.jpeg"
+id="c8_right_hand_rule:fig" alt="Right hand rule" />
+<figcaption aria-hidden="true">Right hand rule</figcaption>
 </figure>
 
 Current (I) flowing through a wire and the change in the current
@@ -199,7 +204,9 @@ statistically meaningful classification for correct guesses. We refer
 readers to for a further detailed explanation of the AES algorithm.
 
 <figure>
-<img src="images/chapter8/aes_process.jpg" id="c8_aes:fig" style="width:100.0%" alt="AES illustration" /><figcaption aria-hidden="true">AES illustration</figcaption>
+<img src="images/chapter8/aes_process.jpg" id="c8_aes:fig"
+style="width:100.0%" alt="AES illustration" />
+<figcaption aria-hidden="true">AES illustration</figcaption>
 </figure>
 
 In the timing attack days, we achieved a meaningful conclusion by
@@ -322,7 +329,11 @@ such numbers. Each of the rows will now have plain text, trace, and
 hypothesis.
 
 <figure>
-<img src="images/chapter8/cpa_warmup_example.jpg" id="c8_cpa_warmup_example:fig" style="width:100.0%" alt="Graphic way of CPA warm up example" /><figcaption aria-hidden="true">Graphic way of CPA warm up example</figcaption>
+<img src="images/chapter8/cpa_warmup_example.jpg"
+id="c8_cpa_warmup_example:fig" style="width:100.0%"
+alt="Graphic way of CPA warm up example" />
+<figcaption aria-hidden="true">Graphic way of CPA warm up
+example</figcaption>
 </figure>
 
 The next step is to take the hypothesis and to sweep it across all
@@ -377,7 +388,10 @@ number of columns as we have times. This is full CPA, and hopefully, in
 one of these rows, we will have a peak, and we will be happy.
 
 <figure>
-<img src="images/chapter8/cpa_example.jpg" id="c8_cpa_example:fig" style="width:100.0%" alt="Graphic way of full CPA example" /><figcaption aria-hidden="true">Graphic way of full CPA example</figcaption>
+<img src="images/chapter8/cpa_example.jpg" id="c8_cpa_example:fig"
+style="width:100.0%" alt="Graphic way of full CPA example" />
+<figcaption aria-hidden="true">Graphic way of full CPA
+example</figcaption>
 </figure>
 
 ### CPA in Matlab examples
@@ -393,7 +407,11 @@ plain text is known. describes the 200 traces of power consumption as a
 function of the sample number.
 
 <figure>
-<img src="images/chapter8/DataSet.png" id="fig:c8_Matlab_power_as_sample_number" style="width:100.0%" alt="Power consumption as a function of sample number" /><figcaption aria-hidden="true">Power consumption as a function of sample number</figcaption>
+<img src="images/chapter8/DataSet.png"
+id="fig:c8_Matlab_power_as_sample_number" style="width:100.0%"
+alt="Power consumption as a function of sample number" />
+<figcaption aria-hidden="true">Power consumption as a function of sample
+number</figcaption>
 </figure>
 
 The density of the colors indicates the instantaneous power consumption
@@ -403,10 +421,15 @@ setup, so it is easy to align. We can see that the device is doing the
 same thing at the same time for all of these devices. If we zoom in, we
 will see a variation between the traces. If we zoom in to two different
 traces, we will get figure
-<a href="#c8_Matlab_zoomin_on_two_traces:fig" data-reference-type="ref" data-reference="c8_Matlab_zoomin_on_two_traces:fig">1.6</a>.
+<a href="#c8_Matlab_zoomin_on_two_traces:fig" data-reference-type="ref"
+data-reference="c8_Matlab_zoomin_on_two_traces:fig">1.6</a>.
 
 <figure>
-<img src="images/chapter8/TwoSamples.png" id="c8_Matlab_zoomin_on_two_traces:fig" style="width:100.0%" alt="Zoom-in on two different traces" /><figcaption aria-hidden="true">Zoom-in on two different traces</figcaption>
+<img src="images/chapter8/TwoSamples.png"
+id="c8_Matlab_zoomin_on_two_traces:fig" style="width:100.0%"
+alt="Zoom-in on two different traces" />
+<figcaption aria-hidden="true">Zoom-in on two different
+traces</figcaption>
 </figure>
 
 The X-axis represents the time (in samples), and the Y-axis represents
@@ -424,26 +447,37 @@ weight of the outcome. The values of the results are between 0 to 8. By
 doing this, we get the hypothesis_vector for each particular input.
 
 <figure>
-<img src="images/chapter8/hypothesis_vector_values.png" id="c8_Matlab_hypothesis_vector_values:fig" style="width:100.0%" alt="Hypothesis vector values" /><figcaption aria-hidden="true">Hypothesis vector values</figcaption>
+<img src="images/chapter8/hypothesis_vector_values.png"
+id="c8_Matlab_hypothesis_vector_values:fig" style="width:100.0%"
+alt="Hypothesis vector values" />
+<figcaption aria-hidden="true">Hypothesis vector values</figcaption>
 </figure>
 
-Figure
-<a href="#c8_Matlab_hypothesis_vector_values:fig" data-reference-type="ref" data-reference="c8_Matlab_hypothesis_vector_values:fig">1.7</a>
-presents the hypothesis_vector values (the X-axis is not important). For
-each trace (Y-axis) we calculate the hamming distance (presented by
-different colors). Now that we have figure
-<a href="#fig:c8_Matlab_power_as_sample_number" data-reference-type="ref" data-reference="fig:c8_Matlab_power_as_sample_number">1.5</a>
-and figure
-<a href="#c8_Matlab_hypothesis_vector_values:fig" data-reference-type="ref" data-reference="c8_Matlab_hypothesis_vector_values:fig">1.7</a>
-we are going to sweep the later figure over the former, and for each
-time we are going to calculate the Pearson Correlation Coefficient.
-Thus, for each position, we are going to get a number, and this number
-will be between -1 and 1. Figure
-<a href="#c8_Matlab_pearson_correlation:fig" data-reference-type="ref" data-reference="c8_Matlab_pearson_correlation:fig">1.8</a>
-describes the results.
+Figure <a href="#c8_Matlab_hypothesis_vector_values:fig"
+data-reference-type="ref"
+data-reference="c8_Matlab_hypothesis_vector_values:fig">1.7</a> presents
+the hypothesis_vector values (the X-axis is not important). For each
+trace (Y-axis) we calculate the hamming distance (presented by different
+colors). Now that we have figure
+<a href="#fig:c8_Matlab_power_as_sample_number"
+data-reference-type="ref"
+data-reference="fig:c8_Matlab_power_as_sample_number">1.5</a> and figure
+<a href="#c8_Matlab_hypothesis_vector_values:fig"
+data-reference-type="ref"
+data-reference="c8_Matlab_hypothesis_vector_values:fig">1.7</a> we are
+going to sweep the later figure over the former, and for each time we
+are going to calculate the Pearson Correlation Coefficient. Thus, for
+each position, we are going to get a number, and this number will be
+between -1 and 1. Figure
+<a href="#c8_Matlab_pearson_correlation:fig" data-reference-type="ref"
+data-reference="c8_Matlab_pearson_correlation:fig">1.8</a> describes the
+results.
 
 <figure>
-<img src="images/chapter8/pearson_correlation_numbers.png" id="c8_Matlab_pearson_correlation:fig" style="width:100.0%" alt="Pearson correlation graph" /><figcaption aria-hidden="true">Pearson correlation graph</figcaption>
+<img src="images/chapter8/pearson_correlation_numbers.png"
+id="c8_Matlab_pearson_correlation:fig" style="width:100.0%"
+alt="Pearson correlation graph" />
+<figcaption aria-hidden="true">Pearson correlation graph</figcaption>
 </figure>
 
 The X-axis is the time in samples, and the Y-axis is the Correlation
@@ -457,23 +491,32 @@ not know the key. A real attack is very similar to the warm-up example,
 expect that we are padding the key guessing by a loop and at this loop,
 we are checking all the 256 available for the key. A real attack is
 described at Figure
-<a href="#c8_Matlab_real_attack_scenario:fig" data-reference-type="ref" data-reference="c8_Matlab_real_attack_scenario:fig">1.9</a>.
+<a href="#c8_Matlab_real_attack_scenario:fig" data-reference-type="ref"
+data-reference="c8_Matlab_real_attack_scenario:fig">1.9</a>.
 
 <figure>
-<img src="images/chapter8/real_attack_scenario.png" id="c8_Matlab_real_attack_scenario:fig" style="width:100.0%" alt="Real attack scenario" /><figcaption aria-hidden="true">Real attack scenario</figcaption>
+<img src="images/chapter8/real_attack_scenario.png"
+id="c8_Matlab_real_attack_scenario:fig" style="width:100.0%"
+alt="Real attack scenario" />
+<figcaption aria-hidden="true">Real attack scenario</figcaption>
 </figure>
 
 The X-axis is time, and the Y-axis is the key guesses. The color is the
 correlation. Figure
-<a href="#c8_Matlab_classification_matrix:fig" data-reference-type="ref" data-reference="c8_Matlab_classification_matrix:fig">1.10</a>
-is the trace classification matrix. The X-axis is time, and the Y-axis
-is the key guess. The color is the correlation. From first glance, the
+<a href="#c8_Matlab_classification_matrix:fig" data-reference-type="ref"
+data-reference="c8_Matlab_classification_matrix:fig">1.10</a> is the
+trace classification matrix. The X-axis is time, and the Y-axis is the
+key guess. The color is the correlation. From first glance, the
 correlation is more or less 0. However, there is on this matrix one high
 value. If we print out the maximum of this matrix, we will get 0.9168,
 which is very far from zero.
 
 <figure>
-<img src="images/chapter8/real_attack_classification_matrix.png" id="c8_Matlab_classification_matrix:fig" style="width:100.0%" alt="Real attack scenario classification matrix" /><figcaption aria-hidden="true">Real attack scenario classification matrix</figcaption>
+<img src="images/chapter8/real_attack_classification_matrix.png"
+id="c8_Matlab_classification_matrix:fig" style="width:100.0%"
+alt="Real attack scenario classification matrix" />
+<figcaption aria-hidden="true">Real attack scenario classification
+matrix</figcaption>
 </figure>
 
 Now, we are going to find the correct time. The correct time is where
@@ -481,34 +524,51 @@ there is a maximum correlation, and the correct key is the row number of
 this value.
 
 <figure>
-<img src="images/chapter8/correct_time_graph.png" id="c8_Matlab_correct_time:fig" style="width:100.0%" alt="Correct time graph" /><figcaption aria-hidden="true">Correct time graph</figcaption>
+<img src="images/chapter8/correct_time_graph.png"
+id="c8_Matlab_correct_time:fig" style="width:100.0%"
+alt="Correct time graph" />
+<figcaption aria-hidden="true">Correct time graph</figcaption>
 </figure>
 
 In Figure
-<a href="#c8_Matlab_correct_time:fig" data-reference-type="ref" data-reference="c8_Matlab_correct_time:fig">1.11</a>
-we are taking the classification matrix shown in Figure
-<a href="#c8_Matlab_classification_matrix:fig" data-reference-type="ref" data-reference="c8_Matlab_classification_matrix:fig">1.10</a>
-and we are looking at the correct time. It has 256 different key
-guesses. The X-axis is the key guess, and the Y-axis is the correlation
-at the correct time. Most of the time, the correlation is around 0.3,
-but at the correct key guess the correlation is 0.9.
+<a href="#c8_Matlab_correct_time:fig" data-reference-type="ref"
+data-reference="c8_Matlab_correct_time:fig">1.11</a> we are taking the
+classification matrix shown in Figure
+<a href="#c8_Matlab_classification_matrix:fig" data-reference-type="ref"
+data-reference="c8_Matlab_classification_matrix:fig">1.10</a> and we are
+looking at the correct time. It has 256 different key guesses. The
+X-axis is the key guess, and the Y-axis is the correlation at the
+correct time. Most of the time, the correlation is around 0.3, but at
+the correct key guess the correlation is 0.9.
 
 <figure>
-<img src="images/chapter8/correlation_around_correct_time.png" id="c8_Matlab_correlation_around_the_correct_time:fig" style="width:100.0%" alt="Correlation around the correct time" /><figcaption aria-hidden="true">Correlation around the correct time</figcaption>
+<img src="images/chapter8/correlation_around_correct_time.png"
+id="c8_Matlab_correlation_around_the_correct_time:fig"
+style="width:100.0%" alt="Correlation around the correct time" />
+<figcaption aria-hidden="true">Correlation around the correct
+time</figcaption>
 </figure>
 
-In Figure
-<a href="#c8_Matlab_correlation_around_the_correct_time:fig" data-reference-type="ref" data-reference="c8_Matlab_correlation_around_the_correct_time:fig">1.12</a>
+In Figure <a href="#c8_Matlab_correlation_around_the_correct_time:fig"
+data-reference-type="ref"
+data-reference="c8_Matlab_correlation_around_the_correct_time:fig">1.12</a>
 we can see the correlation around the correct time. The green line is
 the correlation between the correct key guesses, while the other lines
 indicate the wrong key guesses at the correct time.
 
 <figure>
-<img src="images/chapter8/power_consumption_around_correct_time.png" id="c8_Matlab_power_consumption_correlation_around_the_correct_time:fig" style="width:100.0%" alt="Power consumption correlation around the correct time" /><figcaption aria-hidden="true">Power consumption correlation around the correct time</figcaption>
+<img src="images/chapter8/power_consumption_around_correct_time.png"
+id="c8_Matlab_power_consumption_correlation_around_the_correct_time:fig"
+style="width:100.0%"
+alt="Power consumption correlation around the correct time" />
+<figcaption aria-hidden="true">Power consumption correlation around the
+correct time</figcaption>
 </figure>
 
-In addition, we can see in Figure
-<a href="#c8_Matlab_power_consumption_correlation_around_the_correct_time:fig" data-reference-type="ref" data-reference="c8_Matlab_power_consumption_correlation_around_the_correct_time:fig">1.13</a>
+In addition, we can see in Figure <a
+href="#c8_Matlab_power_consumption_correlation_around_the_correct_time:fig"
+data-reference-type="ref"
+data-reference="c8_Matlab_power_consumption_correlation_around_the_correct_time:fig">1.13</a>
 the real power consumption of the DUT vs. the hypothesis. The blue line
 is the power consumption of the DUT at the correct time. The Y-axis is
 traced. The red line is the hypothesis that we tested. These two lines
@@ -570,15 +630,18 @@ measurements (i.e., of power or electromagnetics) and hypothetical
 physical signatures (i.e., predictions on intermediate data). The
 hypothetical signature is based on a leakage model and key hypothesis. A
 more detailed illustration can be found in
-Figure <a href="#fig:chapter8_dpa" data-reference-type="ref" data-reference="fig:chapter8_dpa">1.14</a>.
-The statistical analysis performed can be either difference of means or
-Pearson correlation, which will make it a differential analysis or
-correlation analysis, respectively. The authors of this work used
-Pearson correlation, and therefore perform a correlation power analysis
-(CPA).
+Figure <a href="#fig:chapter8_dpa" data-reference-type="ref"
+data-reference="fig:chapter8_dpa">1.14</a>. The statistical analysis
+performed can be either difference of means or Pearson correlation,
+which will make it a differential analysis or correlation analysis,
+respectively. The authors of this work used Pearson correlation, and
+therefore perform a correlation power analysis (CPA).
 
 <figure>
-<img src="images/chapter8/dpa.JPG" id="fig:chapter8_dpa" style="width:90.0%" alt="An illustration of the analysis process." /><figcaption aria-hidden="true">An illustration of the analysis process.</figcaption>
+<img src="images/chapter8/dpa.JPG" id="fig:chapter8_dpa"
+style="width:90.0%" alt="An illustration of the analysis process." />
+<figcaption aria-hidden="true">An illustration of the analysis
+process.</figcaption>
 </figure>
 
 #### Experimental Setup
@@ -586,13 +649,13 @@ Pearson correlation, and therefore perform a correlation power analysis
 The experiment was conducted using electromagnetics To gain a cleaner
 signal, the target microcontroller needed to be mechanically
 decapsulated, as shown in
-Figure <a href="#fig:chapter8_mc" data-reference-type="ref" data-reference="fig:chapter8_mc">1.15</a>
-along with the electromagnetic probe in
-Figure <a href="#fig:chapter8_probe" data-reference-type="ref" data-reference="fig:chapter8_probe">1.16</a>
-and the complete setup in
-Figure <a href="#fig:chapter8_complete" data-reference-type="ref" data-reference="fig:chapter8_complete">1.17</a>.
-The exploited leakage model of the target device is the Hamming Weight
-(HW) model:
+Figure <a href="#fig:chapter8_mc" data-reference-type="ref"
+data-reference="fig:chapter8_mc">1.15</a> along with the electromagnetic
+probe in Figure <a href="#fig:chapter8_probe" data-reference-type="ref"
+data-reference="fig:chapter8_probe">1.16</a> and the complete setup in
+Figure <a href="#fig:chapter8_complete" data-reference-type="ref"
+data-reference="fig:chapter8_complete">1.17</a>. The exploited leakage
+model of the target device is the Hamming Weight (HW) model:
 *H**W*(*x*) = ∑*x*<sub>*i*</sub>
 A microcontroller loads sensitive data to a data bus in order to perform
 indicated instructions. Note that the actual training phase is executed
@@ -604,15 +667,23 @@ decomposed to four sub-goals, according to the type of target
 information.
 
 <figure>
-<img src="images/chapter8/exp_a.JPG" id="fig:chapter8_mc" style="width:90.0%" alt="8-bit microcontroller decomposed." /><figcaption aria-hidden="true">8-bit microcontroller decomposed.</figcaption>
+<img src="images/chapter8/exp_a.JPG" id="fig:chapter8_mc"
+style="width:90.0%" alt="8-bit microcontroller decomposed." />
+<figcaption aria-hidden="true">8-bit microcontroller
+decomposed.</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/exp-b.JPG" id="fig:chapter8_probe" style="width:90.0%" alt="Probe." /><figcaption aria-hidden="true">Probe.</figcaption>
+<img src="images/chapter8/exp-b.JPG" id="fig:chapter8_probe"
+style="width:90.0%" alt="Probe." />
+<figcaption aria-hidden="true">Probe.</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/exp-c.JPG" id="fig:chapter8_complete" style="width:90.0%" alt="Complete experimental setup and tools." /><figcaption aria-hidden="true">Complete experimental setup and tools.</figcaption>
+<img src="images/chapter8/exp-c.JPG" id="fig:chapter8_complete"
+style="width:90.0%" alt="Complete experimental setup and tools." />
+<figcaption aria-hidden="true">Complete experimental setup and
+tools.</figcaption>
 </figure>
 
 #### Reverse-Engineering Activation Functions
@@ -625,27 +696,38 @@ being Sigmoid, Softmax, and ReLU. The timing behavior of the various
 functions was observed directly on the electromagnetic (EM) trace, with
 a total of 2000 EM measurements captured. By plotting the measurements,
 the difference in timings between the function can be easily observed
-(Figures <a href="#fig:activ-relu" data-reference-type="ref" data-reference="fig:activ-relu">1.18</a>
-<a href="#fig:activ-sigmoid" data-reference-type="ref" data-reference="fig:activ-sigmoid">1.19</a>
-<a href="#fig:activ-tanh" data-reference-type="ref" data-reference="fig:activ-tanh">1.20</a>
-<a href="#fig:activ-softmax" data-reference-type="ref" data-reference="fig:activ-softmax">1.21</a>),
-as well as statistically analyzed using maximum, minimum and mean
-values.
+(Figures <a href="#fig:activ-relu" data-reference-type="ref"
+data-reference="fig:activ-relu">1.18</a>
+<a href="#fig:activ-sigmoid" data-reference-type="ref"
+data-reference="fig:activ-sigmoid">1.19</a>
+<a href="#fig:activ-tanh" data-reference-type="ref"
+data-reference="fig:activ-tanh">1.20</a>
+<a href="#fig:activ-softmax" data-reference-type="ref"
+data-reference="fig:activ-softmax">1.21</a>), as well as statistically
+analyzed using maximum, minimum and mean values.
 
 <figure>
-<img src="images/chapter8/activ-relu-a.JPG" id="fig:activ-relu" style="width:50.0%" alt="ReLU" /><figcaption aria-hidden="true">ReLU</figcaption>
+<img src="images/chapter8/activ-relu-a.JPG" id="fig:activ-relu"
+style="width:50.0%" alt="ReLU" />
+<figcaption aria-hidden="true">ReLU</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/activ-sigmoid-b.JPG" id="fig:activ-sigmoid" style="width:50.0%" alt="Sigmoid" /><figcaption aria-hidden="true">Sigmoid</figcaption>
+<img src="images/chapter8/activ-sigmoid-b.JPG" id="fig:activ-sigmoid"
+style="width:50.0%" alt="Sigmoid" />
+<figcaption aria-hidden="true">Sigmoid</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/activ-tanh-c.JPG" id="fig:activ-tanh" style="width:50.0%" alt="tanh" /><figcaption aria-hidden="true">tanh</figcaption>
+<img src="images/chapter8/activ-tanh-c.JPG" id="fig:activ-tanh"
+style="width:50.0%" alt="tanh" />
+<figcaption aria-hidden="true">tanh</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/activ-softmax-d.JPG" id="fig:activ-softmax" style="width:50.0%" alt="Softmax" /><figcaption aria-hidden="true">Softmax</figcaption>
+<img src="images/chapter8/activ-softmax-d.JPG" id="fig:activ-softmax"
+style="width:50.0%" alt="Softmax" />
+<figcaption aria-hidden="true">Softmax</figcaption>
 </figure>
 
 #### Reverse-Engineering Weights
@@ -678,16 +760,18 @@ may require a substantial amount of effort, while it is still feasible.
 #### Reverse-Engineering Layers and Neurons
 
 Simple observations of
-Figures <a href="#fig:layer-a" data-reference-type="ref" data-reference="fig:layer-a">1.22</a>,<a href="#fig:layer-b" data-reference-type="ref" data-reference="fig:layer-b">1.23</a>,<a href="#fig:layer-c" data-reference-type="ref" data-reference="fig:layer-c">1.24</a>
-would show repeating patterns in each graph, which actually reveal the
-number of neurons. As for the number of layers, or where the computation
-of each layer begins or ends (the red lines in the figures), we use CPA.
-To determine if the targeted neuron is in the same layer as previously
-attacked neurons, or in the next layer, we perform a weight recovery
-using two sets of data. Let us assume that we are targeting the first
-hidden layer (the same approach can be done on different layers as
-well). Assume that the input is a vector of length *N*<sub>0</sub>, so
-the input x can be represented x =
+Figures <a href="#fig:layer-a" data-reference-type="ref"
+data-reference="fig:layer-a">1.22</a>,<a href="#fig:layer-b" data-reference-type="ref"
+data-reference="fig:layer-b">1.23</a>,<a href="#fig:layer-c" data-reference-type="ref"
+data-reference="fig:layer-c">1.24</a> would show repeating patterns in
+each graph, which actually reveal the number of neurons. As for the
+number of layers, or where the computation of each layer begins or ends
+(the red lines in the figures), we use CPA. To determine if the targeted
+neuron is in the same layer as previously attacked neurons, or in the
+next layer, we perform a weight recovery using two sets of data. Let us
+assume that we are targeting the first hidden layer (the same approach
+can be done on different layers as well). Assume that the input is a
+vector of length *N*<sub>0</sub>, so the input x can be represented x =
 *x*<sub>1</sub>,...,*x*<sub>*N*<sub>0</sub></sub> For the targeted
 neuron *y*<sub>*n*</sub> in the hidden layer, perform the weight
 recovery on 2 different hypotheses. For the first hypothesis, assume
@@ -702,15 +786,25 @@ both inputs to the multiplication operation, the incorrect hypothesis
 will result in a lower correlation value.
 
 <figure>
-<img src="images/chapter8/layer-a.JPG" id="fig:layer-a" style="width:50.0%" alt="One hidden layer with 6 neurons." /><figcaption aria-hidden="true">One hidden layer with 6 neurons.</figcaption>
+<img src="images/chapter8/layer-a.JPG" id="fig:layer-a"
+style="width:50.0%" alt="One hidden layer with 6 neurons." />
+<figcaption aria-hidden="true">One hidden layer with 6
+neurons.</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/layer-b.JPG" id="fig:layer-b" style="width:50.0%" alt="Two hidden layers with 5 and 6 neurons respectively." /><figcaption aria-hidden="true">Two hidden layers with 5 and 6 neurons respectively.</figcaption>
+<img src="images/chapter8/layer-b.JPG" id="fig:layer-b"
+style="width:50.0%"
+alt="Two hidden layers with 5 and 6 neurons respectively." />
+<figcaption aria-hidden="true">Two hidden layers with 5 and 6 neurons
+respectively.</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/layer-c.JPG" id="fig:layer-c" style="width:50.0%" alt="Three hidden layers (6, 5, 5)." /><figcaption aria-hidden="true">Three hidden layers (6, 5, 5).</figcaption>
+<img src="images/chapter8/layer-c.JPG" id="fig:layer-c"
+style="width:50.0%" alt="Three hidden layers (6, 5, 5)." />
+<figcaption aria-hidden="true">Three hidden layers (6, 5,
+5).</figcaption>
 </figure>
 
 #### Recovery of the Full Network Layout
@@ -728,7 +822,10 @@ the activation function can be built. The same steps are repeated in the
 subsequent layers *L*<sub>1</sub>, ..., *L*<sub>*N* − 1</sub>
 
 <figure>
-<img src="images/chapter8/reverse_methodology.PNG" style="width:100mm" alt="Methodology to reverse engineer the target neural network" /><figcaption aria-hidden="true">Methodology to reverse engineer the target neural network</figcaption>
+<img src="images/chapter8/reverse_methodology.PNG" style="width:100mm"
+alt="Methodology to reverse engineer the target neural network" />
+<figcaption aria-hidden="true">Methodology to reverse engineer the
+target neural network</figcaption>
 </figure>
 
 #### Results
@@ -814,10 +911,14 @@ with precision error (bottom).](images/chapter8/letters.PNG)
 
 Throughout history, many deep learning models have been built as
 described in Figure
-<a href="#fig:deeplearning" data-reference-type="ref" data-reference="fig:deeplearning">1.25</a>.
+<a href="#fig:deeplearning" data-reference-type="ref"
+data-reference="fig:deeplearning">1.25</a>.
 
 <figure>
-<img src="images/chapter8/deeplearning.PNG" id="fig:deeplearning" alt="The history of the deep learning models" /><figcaption aria-hidden="true">The history of the deep learning models</figcaption>
+<img src="images/chapter8/deeplearning.PNG" id="fig:deeplearning"
+alt="The history of the deep learning models" />
+<figcaption aria-hidden="true">The history of the deep learning
+models</figcaption>
 </figure>
 
 Deep learning is part of a broader family of machine learning methods
@@ -852,101 +953,141 @@ in other domains. From the operational perspective, CNNs are similar to
 ordinary neural networks: they consist of a number of layers where each
 layer is made up of neurons. CNNs use three main types of layers:
 convolutional layers, pooling layers, and fully-connected layers as
-described in Figure
-<a href="#fig:cna" data-reference-type="ref" data-reference="fig:cna">1.26</a>
-.
+described in Figure <a href="#fig:cna" data-reference-type="ref"
+data-reference="fig:cna">1.26</a> .
 
 <figure>
-<img src="images/chapter8/CNA.PNG" id="fig:cna" alt="Convolutional Neural Networks - Convolution Layer" /><figcaption aria-hidden="true">Convolutional Neural Networks - Convolution Layer</figcaption>
+<img src="images/chapter8/CNA.PNG" id="fig:cna"
+alt="Convolutional Neural Networks - Convolution Layer" />
+<figcaption aria-hidden="true">Convolutional Neural Networks -
+Convolution Layer</figcaption>
 </figure>
 
 The description of Convolutional Neural Network in SCA is described in
-Figure
-<a href="#fig:cna_sca" data-reference-type="ref" data-reference="fig:cna_sca">1.27</a>
-.
+Figure <a href="#fig:cna_sca" data-reference-type="ref"
+data-reference="fig:cna_sca">1.27</a> .
 
 <figure>
-<img src="images/chapter8/cnn_sca.PNG" id="fig:cna_sca" alt="Convolutional Neural Network in SCA" /><figcaption aria-hidden="true">Convolutional Neural Network in SCA</figcaption>
+<img src="images/chapter8/cnn_sca.PNG" id="fig:cna_sca"
+alt="Convolutional Neural Network in SCA" />
+<figcaption aria-hidden="true">Convolutional Neural Network in
+SCA</figcaption>
 </figure>
 
 In our experiment we used 4 datasets as described in Figure
-<a href="#fig:dbs_cna" data-reference-type="ref" data-reference="fig:dbs_cna">1.28</a>
-.
+<a href="#fig:dbs_cna" data-reference-type="ref"
+data-reference="fig:dbs_cna">1.28</a> .
 
 <figure>
-<img src="images/chapter8/dbs_cna.PNG" id="fig:dbs_cna" alt="Databases used for our experiment" /><figcaption aria-hidden="true">Databases used for our experiment</figcaption>
+<img src="images/chapter8/dbs_cna.PNG" id="fig:dbs_cna"
+alt="Databases used for our experiment" />
+<figcaption aria-hidden="true">Databases used for our
+experiment</figcaption>
 </figure>
 
 The results described in Figures
-<a href="#fig:dpav4_results" data-reference-type="ref" data-reference="fig:dpav4_results">1.29</a>
-<a href="#fig:aes_rd_results" data-reference-type="ref" data-reference="fig:aes_rd_results">1.30</a>
-<a href="#fig:ascad_results" data-reference-type="ref" data-reference="fig:ascad_results">1.31</a>
-.
+<a href="#fig:dpav4_results" data-reference-type="ref"
+data-reference="fig:dpav4_results">1.29</a>
+<a href="#fig:aes_rd_results" data-reference-type="ref"
+data-reference="fig:aes_rd_results">1.30</a>
+<a href="#fig:ascad_results" data-reference-type="ref"
+data-reference="fig:ascad_results">1.31</a> .
 
 <figure>
-<img src="images/chapter8/dpav4.PNG" id="fig:dpav4_results" alt="Results for DPAv4 database" /><figcaption aria-hidden="true">Results for DPAv4 database</figcaption>
+<img src="images/chapter8/dpav4.PNG" id="fig:dpav4_results"
+alt="Results for DPAv4 database" />
+<figcaption aria-hidden="true">Results for DPAv4 database</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/aes_rd.PNG" id="fig:aes_rd_results" alt="Results for AES_RD database" /><figcaption aria-hidden="true">Results for AES_RD database</figcaption>
+<img src="images/chapter8/aes_rd.PNG" id="fig:aes_rd_results"
+alt="Results for AES_RD database" />
+<figcaption aria-hidden="true">Results for AES_RD database</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/ascad.PNG" id="fig:ascad_results" alt="Results for ASCAD database" /><figcaption aria-hidden="true">Results for ASCAD database</figcaption>
+<img src="images/chapter8/ascad.PNG" id="fig:ascad_results"
+alt="Results for ASCAD database" />
+<figcaption aria-hidden="true">Results for ASCAD database</figcaption>
 </figure>
 
 There are two devices: one for training and the second one for attack.
 Two devices means there are two different keys. Usually, we make our
 lives simpler and assume only one device and the same key, but this is
 not the same. The setup for our experiment described in Figure
-<a href="#fig:exp_setup" data-reference-type="ref" data-reference="fig:exp_setup">1.32</a>
-.
+<a href="#fig:exp_setup" data-reference-type="ref"
+data-reference="fig:exp_setup">1.32</a> .
 
 <figure>
-<img src="images/chapter8/setup.PNG" id="fig:exp_setup" alt="Experiment setup" /><figcaption aria-hidden="true">Experiment setup</figcaption>
+<img src="images/chapter8/setup.PNG" id="fig:exp_setup"
+alt="Experiment setup" />
+<figcaption aria-hidden="true">Experiment setup</figcaption>
 </figure>
 
 We tried multiple models. Same key and device as in
-<a href="#fig:same_key_same_device" data-reference-type="ref" data-reference="fig:same_key_same_device">1.33</a>
-, Different key and same device as in
-<a href="#fig:different_key_same_device" data-reference-type="ref" data-reference="fig:different_key_same_device">1.35</a>
-, same key and different device as in
-<a href="#fig:same_key_differnet_device" data-reference-type="ref" data-reference="fig:same_key_differnet_device">1.34</a>,
-and different key and device as in
-<a href="#fig:different_key_differnet_device" data-reference-type="ref" data-reference="fig:different_key_differnet_device">1.36</a>
-.The validation for our models describe in figure
-<a href="#fig:validation" data-reference-type="ref" data-reference="fig:validation">1.37</a>
-.
+<a href="#fig:same_key_same_device" data-reference-type="ref"
+data-reference="fig:same_key_same_device">1.33</a> , Different key and
+same device as in
+<a href="#fig:different_key_same_device" data-reference-type="ref"
+data-reference="fig:different_key_same_device">1.35</a> , same key and
+different device as in
+<a href="#fig:same_key_differnet_device" data-reference-type="ref"
+data-reference="fig:same_key_differnet_device">1.34</a>, and different
+key and device as in
+<a href="#fig:different_key_differnet_device" data-reference-type="ref"
+data-reference="fig:different_key_differnet_device">1.36</a> .The
+validation for our models describe in figure
+<a href="#fig:validation" data-reference-type="ref"
+data-reference="fig:validation">1.37</a> .
 
 <figure>
-<img src="images/chapter8/same_key_same_device.PNG" id="fig:same_key_same_device" alt="Same key same device results" /><figcaption aria-hidden="true">Same key same device results</figcaption>
+<img src="images/chapter8/same_key_same_device.PNG"
+id="fig:same_key_same_device" alt="Same key same device results" />
+<figcaption aria-hidden="true">Same key same device results</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/same_key_different_device.PNG" id="fig:same_key_differnet_device" alt="Same key different device results" /><figcaption aria-hidden="true">Same key different device results</figcaption>
+<img src="images/chapter8/same_key_different_device.PNG"
+id="fig:same_key_differnet_device"
+alt="Same key different device results" />
+<figcaption aria-hidden="true">Same key different device
+results</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/different_key_same_device.PNG" id="fig:different_key_same_device" alt="Different key same device results" /><figcaption aria-hidden="true">Different key same device results</figcaption>
+<img src="images/chapter8/different_key_same_device.PNG"
+id="fig:different_key_same_device"
+alt="Different key same device results" />
+<figcaption aria-hidden="true">Different key same device
+results</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/different_key_different_device.PNG" id="fig:different_key_differnet_device" alt="Different key different device results" /><figcaption aria-hidden="true">Different key different device results</figcaption>
+<img src="images/chapter8/different_key_different_device.PNG"
+id="fig:different_key_differnet_device"
+alt="Different key different device results" />
+<figcaption aria-hidden="true">Different key different device
+results</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter8/validation.PNG" id="fig:validation" alt="Validation for our experiment" /><figcaption aria-hidden="true">Validation for our experiment</figcaption>
+<img src="images/chapter8/validation.PNG" id="fig:validation"
+alt="Validation for our experiment" />
+<figcaption aria-hidden="true">Validation for our
+experiment</figcaption>
 </figure>
 
 Regarding multiple device model, instead of validating on the same
 device as training, we need one more device. Separate devices for train,
 validation, attack. If we do not have a third device, we can use
 artificial noise. The multiple model describe in Figure
-<a href="#fig:multidevice" data-reference-type="ref" data-reference="fig:multidevice">1.38</a>
-.
+<a href="#fig:multidevice" data-reference-type="ref"
+data-reference="fig:multidevice">1.38</a> .
 
 <figure>
-<img src="images/chapter8/multidevice.PNG" id="fig:multidevice" alt="Multidevice model results" /><figcaption aria-hidden="true">Multidevice model results</figcaption>
+<img src="images/chapter8/multidevice.PNG" id="fig:multidevice"
+alt="Multidevice model results" />
+<figcaption aria-hidden="true">Multidevice model results</figcaption>
 </figure>
 
 ### Guest Lecture - Jiska Classen
@@ -973,7 +1114,10 @@ functions, as crc32. Also, the input data is shown to not distribute
 equally. As a good thing, it does not use cache.
 
 <figure>
-<img src="images/PRNG_Nexus5.png" alt="PRNG measurements taken on a Google Nexus 5 (BCM4335C0)" /><figcaption aria-hidden="true">PRNG measurements taken on a Google Nexus 5 (BCM4335C0)</figcaption>
+<img src="images/PRNG_Nexus5.png"
+alt="PRNG measurements taken on a Google Nexus 5 (BCM4335C0)" />
+<figcaption aria-hidden="true">PRNG measurements taken on a Google Nexus
+5 (BCM4335C0)</figcaption>
 </figure>
 
 After finding that, CVE-2020-6616 was assigned to this discovery, which

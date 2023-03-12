@@ -47,17 +47,23 @@ costumer, Java-Script code running in a browser and others.
 </div>
 
 Consider the binary exponentiation algorithm presented in Algorithm
-<a href="#algo:SaM" data-reference-type="ref" data-reference="algo:SaM">[algo:SaM]</a>.
-Notice that the execution flow of the algorithm relies heavily on the
-value of the bit *e*<sub>*i*</sub> of the private key. Now consider a
-scenario in which an attacker has information on the changes regarding
-the buffer holding the multiplier *b*. Such information can be
-considered as a query to the buffer and receiving as a result the
-latency of the query. If the buffer is in use, the query will be longer
-than if the buffer is unused.
+<a href="#algo:SaM" data-reference-type="ref"
+data-reference="algo:SaM">[algo:SaM]</a>. Notice that the execution flow
+of the algorithm relies heavily on the value of the bit
+*e*<sub>*i*</sub> of the private key. Now consider a scenario in which
+an attacker has information on the changes regarding the buffer holding
+the multiplier *b*. Such information can be considered as a query to the
+buffer and receiving as a result the latency of the query. If the buffer
+is in use, the query will be longer than if the buffer is unused.
 
 <figure>
-<img src="images/chapter_6/PPSM.PNG" id="fig:PPSQ" alt="Querying the buffer holding the multiplier b. The y axis is a latency scale, and the x axis represent the query index. The dotted plot is a scatter plot while the solid line is the normalized moving average." /><figcaption aria-hidden="true">Querying the buffer holding the multiplier <span class="math inline"><em>b</em></span>. The y axis is a latency scale, and the x axis represent the query index. The dotted plot is a scatter plot while the solid line is the normalized moving average.</figcaption>
+<img src="images/chapter_6/PPSM.PNG" id="fig:PPSQ"
+alt="Querying the buffer holding the multiplier b. The y axis is a latency scale, and the x axis represent the query index. The dotted plot is a scatter plot while the solid line is the normalized moving average." />
+<figcaption aria-hidden="true">Querying the buffer holding the
+multiplier <span class="math inline"><em>b</em></span>. The y axis is a
+latency scale, and the x axis represent the query index. The dotted plot
+is a scatter plot while the solid line is the normalized moving
+average.</figcaption>
 </figure>
 
 In , the graph of the querying result, the actual bits of the exponent
@@ -137,7 +143,10 @@ for such design is to ensure that most of the data the processor needs
 is kept in the closer and faster levels.
 
 <figure>
-<img src="images/chapter_6/MemHier.PNG" id="fig:MemHier" alt="Memory Hierarchy of a common CPU." /><figcaption aria-hidden="true">Memory Hierarchy of a common CPU.</figcaption>
+<img src="images/chapter_6/MemHier.PNG" id="fig:MemHier"
+alt="Memory Hierarchy of a common CPU." />
+<figcaption aria-hidden="true">Memory Hierarchy of a common
+CPU.</figcaption>
 </figure>
 
 The memory hierarchy can be seen in , where data can reside in, at a
@@ -213,7 +222,11 @@ since the cache set is expected to be full. An abstraction can be seen
 in
 
 <figure>
-<img src="images/chapter_6/SetWay.PNG" id="fig:SetWay" alt="Set-Associative Cache - The set index of a line derives from the set index bits of the address. The cache way is determine according to the cache replacement policy." /><figcaption aria-hidden="true">Set-Associative Cache - The set index of a line derives from the set index bits of the address. The cache way is determine according to the cache replacement policy.</figcaption>
+<img src="images/chapter_6/SetWay.PNG" id="fig:SetWay"
+alt="Set-Associative Cache - The set index of a line derives from the set index bits of the address. The cache way is determine according to the cache replacement policy." />
+<figcaption aria-hidden="true">Set-Associative Cache - The set index of
+a line derives from the set index bits of the address. The cache way is
+determine according to the cache replacement policy.</figcaption>
 </figure>
 
 Consider the following example: The cache has 8B cache lines, 16 cache
@@ -308,7 +321,11 @@ evict the whole set from the cache.
 ### Caches on Intel CPUs
 
 <figure>
-<img src="images/chapter_6/IntelCPU.PNG" id="fig:IntelCPU" alt="Basic Intel CPU - each core has its own L1 and L2 caches, while all connected to a larger sliced L3 cache which can be accessed from all cores. " /><figcaption aria-hidden="true">Basic Intel CPU - each core has its own L1 and L2 caches, while all connected to a larger sliced L3 cache which can be accessed from all cores. </figcaption>
+<img src="images/chapter_6/IntelCPU.PNG" id="fig:IntelCPU"
+alt="Basic Intel CPU - each core has its own L1 and L2 caches, while all connected to a larger sliced L3 cache which can be accessed from all cores. " />
+<figcaption aria-hidden="true">Basic Intel CPU - each core has its own
+L1 and L2 caches, while all connected to a larger sliced L3 cache which
+can be accessed from all cores. </figcaption>
 </figure>
 
 In we can see an abstraction of an Intel CPU architecture, on which
@@ -398,7 +415,11 @@ Having the two histograms, as in , we determine the threshold to be as
 high as possible such that there will be no cache misses below.
 
 <figure>
-<img src="images/chapter_6/cache_hits_misses_hist.JPG" id="fig:cache_hits_misses_hist" alt="Timing differences histogram of cache hits and cache misses." /><figcaption aria-hidden="true">Timing differences histogram of cache hits and cache misses.</figcaption>
+<img src="images/chapter_6/cache_hits_misses_hist.JPG"
+id="fig:cache_hits_misses_hist"
+alt="Timing differences histogram of cache hits and cache misses." />
+<figcaption aria-hidden="true">Timing differences histogram of cache
+hits and cache misses.</figcaption>
 </figure>
 
 #### How to Measure Time Accurately
@@ -437,11 +458,20 @@ The attack is made of four basic steps and it goes as following:
     infers that the victim did not load the data on the previous step.
 
 <figure>
-<img src="images/chapter_6/fr_sharedlib.JPG" id="fig:fr_sharedlib" alt="Attacker maps shared library (shared memory, in cache), the shared cache line is marked in red" /><figcaption aria-hidden="true">Attacker maps shared library (shared memory, in cache), the shared cache line is marked in red</figcaption>
+<img src="images/chapter_6/fr_sharedlib.JPG" id="fig:fr_sharedlib"
+alt="Attacker maps shared library (shared memory, in cache), the shared cache line is marked in red" />
+<figcaption aria-hidden="true">Attacker maps shared library (shared
+memory, in cache), the shared cache line is marked in red</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter_6/fr_flow.png" id="fig:fr_flow" alt="Flush+Reload attack flow. Between the first flush and the first reload the victim did not access the shared cache line, so the first reload resulted with a cache hit. Then, after the second flush the victim accessed the shared cache line and hence, the second reload resulted with a miss." /><figcaption aria-hidden="true">Flush+Reload attack flow. Between the first flush and the first reload the victim did not access the shared cache line, so the first reload resulted with a cache hit. Then, after the second flush the victim accessed the shared cache line and hence, the second reload resulted with a miss.</figcaption>
+<img src="images/chapter_6/fr_flow.png" id="fig:fr_flow"
+alt="Flush+Reload attack flow. Between the first flush and the first reload the victim did not access the shared cache line, so the first reload resulted with a cache hit. Then, after the second flush the victim accessed the shared cache line and hence, the second reload resulted with a miss." />
+<figcaption aria-hidden="true">Flush+Reload attack flow. Between the
+first flush and the first reload the victim did not access the shared
+cache line, so the first reload resulted with a cache hit. Then, after
+the second flush the victim accessed the shared cache line and hence,
+the second reload resulted with a miss.</figcaption>
 </figure>
 
 The first step (Mapping a shared library) can be done once, while steps
@@ -494,7 +524,9 @@ another core. The attack is made of the three following steps:
     the cache set has been accessed.
 
 <figure>
-<img src="images/chapter_6/pp_flow.JPG" id="fig:pp_flow" alt="Prime+Probe flow." /><figcaption aria-hidden="true">Prime+Probe flow.</figcaption>
+<img src="images/chapter_6/pp_flow.JPG" id="fig:pp_flow"
+alt="Prime+Probe flow." />
+<figcaption aria-hidden="true">Prime+Probe flow.</figcaption>
 </figure>
 
 In comparison to Flush+Reload, this attack technique is less
@@ -546,7 +578,9 @@ takes all the address bits as input, including physical page number bits
 the address bit indication for both typical pages and huge pages.
 
 <figure>
-<img src="images/chapter_6/slicedcache.JPG" id="fig:slicedcache" alt="Sliced cache." /><figcaption aria-hidden="true">Sliced cache.</figcaption>
+<img src="images/chapter_6/slicedcache.JPG" id="fig:slicedcache"
+alt="Sliced cache." />
+<figcaption aria-hidden="true">Sliced cache.</figcaption>
 </figure>
 
 Also, the mentioned hash function is undocumented; it designed for
@@ -555,7 +589,11 @@ same set in the same slice. Previous work  showed that the hash function
 could be reverse engineered, for example, in .
 
 <figure>
-<img src="images/chapter_6/hashfunc.JPG" id="fig:hashfunc" alt="Three reversed engineered hash functions, depending on the number of cores. Function valid for Sandy Bridge, Ivy Bridge, Haswell, Broadwell" /><figcaption aria-hidden="true">Three reversed engineered hash functions, depending on the number of cores. Function valid for Sandy Bridge, Ivy Bridge, Haswell, Broadwell</figcaption>
+<img src="images/chapter_6/hashfunc.JPG" id="fig:hashfunc"
+alt="Three reversed engineered hash functions, depending on the number of cores. Function valid for Sandy Bridge, Ivy Bridge, Haswell, Broadwell" />
+<figcaption aria-hidden="true">Three reversed engineered hash functions,
+depending on the number of cores. Function valid for Sandy Bridge, Ivy
+Bridge, Haswell, Broadwell</figcaption>
 </figure>
 
 If the function is unknown, the process will be somewhat slower. But an
@@ -598,7 +636,12 @@ e.g. 75% on Haswell. For non-LRU caches, we can use some heuristics, as
 in , that will result in a higher eviction rate.
 
 <figure>
-<img src="images/chapter_6/haswellstrategy.JPG" id="fig:haswellstrategy" alt="a_1\dots a_9 are in the same cache set. Fast and effective on Haswell: eviction rate &gt; 99.97\%" /><figcaption aria-hidden="true"><span class="math inline"><em>a</em><sub>1</sub>…<em>a</em><sub>9</sub></span> are in the same cache set. Fast and effective on Haswell: eviction rate <span class="math inline"> &gt; 99.97%</span></figcaption>
+<img src="images/chapter_6/haswellstrategy.JPG" id="fig:haswellstrategy"
+alt="a_1\dots a_9 are in the same cache set. Fast and effective on Haswell: eviction rate &gt; 99.97\%" />
+<figcaption aria-hidden="true"><span
+class="math inline"><em>a</em><sub>1</sub>…<em>a</em><sub>9</sub></span>
+are in the same cache set. Fast and effective on Haswell: eviction rate
+<span class="math inline"> &gt; 99.97%</span></figcaption>
 </figure>
 
 #### Conclusion
@@ -639,8 +682,8 @@ requirement to perform the attack is having an Intel CPU, as we need the
 inclusive property of the L3 cache. The code for performing the attack
 can be cloned from the git repository . It is based on the Flush+Reload
 cache attack that we mentioned in
-<a href="#subsec:flushreload" data-reference-type="ref" data-reference="subsec:flushreload">1.2.2</a>
-presented in  and .
+<a href="#subsec:flushreload" data-reference-type="ref"
+data-reference="subsec:flushreload">1.2.2</a> presented in  and .
 
 The attack is performed in 3 steps: calibration, profiling and exploit.
 For each of these steps, a folder exists in the repository.
@@ -666,9 +709,10 @@ rid of the noise.
 
 We build a histogram of cache hits and cache misses as described in
 previous
-<a href="#subsubsec:buildingthehistogram" data-reference-type="ref" data-reference="subsubsec:buildingthehistogram">1.2.1.1</a>.
-The output of the calibration program is a histogram of the cache misses
-and hits as shown in .
+<a href="#subsubsec:buildingthehistogram" data-reference-type="ref"
+data-reference="subsubsec:buildingthehistogram">1.2.1.1</a>. The output
+of the calibration program is a histogram of the cache misses and hits
+as shown in .
 
 We can then find the threshold so it satisfies the following
 requirements:
@@ -748,7 +792,9 @@ hits, and we want the ones that have at least a non zero value when
 profiling.
 
 <figure>
-<img src="images/chapter_6/profiling-cache-hits.png" id="fig:profiling-cache-hits" alt="Addresses with cache hits." /><figcaption aria-hidden="true">Addresses with cache hits.</figcaption>
+<img src="images/chapter_6/profiling-cache-hits.png"
+id="fig:profiling-cache-hits" alt="Addresses with cache hits." />
+<figcaption aria-hidden="true">Addresses with cache hits.</figcaption>
 </figure>
 
 Running the profiler with offset 0 while jamming a key, doesn’t seem to
@@ -794,7 +840,11 @@ keystroke, we can try to group the keystrokes to different addresses and
 eliminate some guesses if we can spy on more than one address at a time.
 
 <figure>
-<img src="images/chapter_6/cache-keymap-matrix.png" id="fig:cache-keymap-matrix" style="width:80.0%" alt="Complete matrix for each keystroke." /><figcaption aria-hidden="true">Complete matrix for each keystroke.</figcaption>
+<img src="images/chapter_6/cache-keymap-matrix.png"
+id="fig:cache-keymap-matrix" style="width:80.0%"
+alt="Complete matrix for each keystroke." />
+<figcaption aria-hidden="true">Complete matrix for each
+keystroke.</figcaption>
 </figure>
 
 Finally, as it may be annoying to perform the above process manually, we
@@ -861,7 +911,10 @@ opcode that allow us to measurement different micro architecture
 component size.
 
 <figure>
-<img src="images/chapter_6/Re-ordering-buffer-size.png" alt="Re-ordering buffer size test with nop instruction" /><figcaption aria-hidden="true">Re-ordering buffer size test with nop instruction</figcaption>
+<img src="images/chapter_6/Re-ordering-buffer-size.png"
+alt="Re-ordering buffer size test with nop instruction" />
+<figcaption aria-hidden="true">Re-ordering buffer size test with nop
+instruction</figcaption>
 </figure>
 
 ### Filter number 0

@@ -5,6 +5,9 @@ nav_order: 05
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-5---power-em-side-channels-ii)
+
 We want to see what is power analysis all about and see a very simple
 power analysis attack that we can actually perform. Then we will dive
 into AES and its implementation.
@@ -191,7 +194,9 @@ runs it one after another, if you want to write a new software for this
 computer you can write it in C or Java, they’re cheap and commonly used.
 
 <figure>
-<img src="images/Lecture_5/ledger.png" id="fig:Bitcoin Wallet" alt="Bitcoin Wallet" /><figcaption aria-hidden="true">Bitcoin Wallet</figcaption>
+<img src="images/Lecture_5/ledger.png" id="fig:Bitcoin Wallet"
+alt="Bitcoin Wallet" />
+<figcaption aria-hidden="true">Bitcoin Wallet</figcaption>
 </figure>
 
 This is a Bitcoin wallet. The Bitcoin is basically numbers and if
@@ -223,7 +228,9 @@ we are going to see them more often than ASICs. But you will know enough
 to open the book attacking ASIC.
 
 <figure>
-<img src="images/Lecture_5/arduino.png" id="fig:Arduino" alt="Arduino" /><figcaption aria-hidden="true">Arduino</figcaption>
+<img src="images/Lecture_5/arduino.png" id="fig:Arduino"
+alt="Arduino" />
+<figcaption aria-hidden="true">Arduino</figcaption>
 </figure>
 
 So what is the line between microcontroller and an ASIC? On one of the
@@ -245,7 +252,9 @@ this is where the magic happens, this piece of silicone can actually do
 logic like multiply, add, shift or compare.
 
 <figure>
-<img src="images/Lecture_5/8bit-mc.png" id="fig:8-bit microcontroller" alt="8-bit microcontroller" /><figcaption aria-hidden="true">8-bit microcontroller</figcaption>
+<img src="images/Lecture_5/8bit-mc.png" id="fig:8-bit microcontroller"
+alt="8-bit microcontroller" />
+<figcaption aria-hidden="true">8-bit microcontroller</figcaption>
 </figure>
 
 The entire process of life is to get a line of code which represent an
@@ -303,7 +312,9 @@ do it by sending encrypted emails from the phone, so you really have to
 decrypt the message.
 
 <figure>
-<img src="images/Lecture_5/RSA-PA.png" id="fig:RSA Power Analysis" alt="RSA Power Analysis" /><figcaption aria-hidden="true">RSA Power Analysis</figcaption>
+<img src="images/Lecture_5/RSA-PA.png" id="fig:RSA Power Analysis"
+alt="RSA Power Analysis" />
+<figcaption aria-hidden="true">RSA Power Analysis</figcaption>
 </figure>
 
 The axis are vector of power measurements, x is time, y are the power
@@ -358,7 +369,9 @@ can ask him to encrypt and decrypt, we send the command in the serial
 line.
 
 <figure>
-<img src="images/Lecture_5/AES_setup.png" id="fig:AES Setup" alt="AES Setup" /><figcaption aria-hidden="true">AES Setup</figcaption>
+<img src="images/Lecture_5/AES_setup.png" id="fig:AES Setup"
+alt="AES Setup" />
+<figcaption aria-hidden="true">AES Setup</figcaption>
 </figure>
 
 While he’s doing this operation it is going to consume different amount
@@ -499,7 +512,9 @@ Bridge from the state go to the table, reading from the sub byte table
 and xor, and write.This operation is very very leaky.
 
 <figure>
-<img src="images/Lecture_5/Subbytes.png" id="fig:SubBytes" alt="SubBytes" /><figcaption aria-hidden="true">SubBytes</figcaption>
+<img src="images/Lecture_5/Subbytes.png" id="fig:SubBytes"
+alt="SubBytes" />
+<figcaption aria-hidden="true">SubBytes</figcaption>
 </figure>
 
 ### ShiftRows
@@ -514,7 +529,9 @@ imagination, it doesn’t change the data so there are actually operations
 that don’t do shift row.
 
 <figure>
-<img src="images/Lecture_5/shiftrows.png" id="fig:ShiftRows" alt="ShiftRows" /><figcaption aria-hidden="true">ShiftRows</figcaption>
+<img src="images/Lecture_5/shiftrows.png" id="fig:ShiftRows"
+alt="ShiftRows" />
+<figcaption aria-hidden="true">ShiftRows</figcaption>
 </figure>
 
 ### MixColumns
@@ -528,7 +545,9 @@ the competition that it was very efficient way was doing mix column
 This is the most leaky part of AES this mixed columns.
 
 <figure>
-<img src="images/Lecture_5/mixcolumns.png" id="fig:MixColumns" alt="MixColumns" /><figcaption aria-hidden="true">MixColumns</figcaption>
+<img src="images/Lecture_5/mixcolumns.png" id="fig:MixColumns"
+alt="MixColumns" />
+<figcaption aria-hidden="true">MixColumns</figcaption>
 </figure>
 
 ### AddRoundKey
@@ -543,7 +562,8 @@ can really attack as very efficiently. We can assume that this expansion
 is very secure.
 
 <figure>
-<img src="images/Lecture_5/addkey.png" id="fig:AddKey" alt="AddKey" /><figcaption aria-hidden="true">AddKey</figcaption>
+<img src="images/Lecture_5/addkey.png" id="fig:AddKey" alt="AddKey" />
+<figcaption aria-hidden="true">AddKey</figcaption>
 </figure>
 
 ## AES Power Analysis
@@ -792,7 +812,9 @@ changing. Now let’s see how does it looks, I’m going to run AES twice,
 and then do some little figure.
 
 <figure>
-<img src="images/Lecture_5/aes_mat_out.png" id="fig:Diagram" alt="Diagram" /><figcaption aria-hidden="true">Diagram</figcaption>
+<img src="images/Lecture_5/aes_mat_out.png" id="fig:Diagram"
+alt="Diagram" />
+<figcaption aria-hidden="true">Diagram</figcaption>
 </figure>
 
 The x-axis is the index of the byte in the state. I read the bytes not
@@ -1013,7 +1035,8 @@ $\\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-(x - \\mu)^2 / 2\\sigma^2}$ where
 voltage source might have a mean of 5 and a standard deviation of 0.5,
 making the PDF look like:  
 
-<img src="images/Lecture_5/Normal-Dist.png" style="width:8cm" alt="image" />
+<img src="images/Lecture_5/Normal-Dist.png" style="width:8cm"
+alt="image" />
 
 We can use the PDF to calculate how likely a certain measurement is.
 Using this distribution, *f*(5.1) ≈ 0.7821 *f*(7.0) ≈ 0.0003 so we’re

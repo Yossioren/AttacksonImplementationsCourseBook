@@ -5,6 +5,9 @@ nav_order: 02
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-2---temporal-side-channels-i)
+
 ## History
 
 In 1995, at the age of 22, Paul Kocher released a paper called Timing
@@ -28,15 +31,20 @@ However the assumption is that these are possible according to
 Kerckhoffs’s principle(law), that states that everything except the key
 is public knowledge.
 
-Figure
-<a href="#c1_fig_threat_model" data-reference-type="ref" data-reference="c1_fig_threat_model">1.1</a>
-describes the Threat Model on an implementation of a secure system. It
-is important to mention that we’re talking about attacking an
-implementation, and not the algorithm itself as we consider the
-algorithm or protocol being examined as completely secure.
+Figure <a href="#c1_fig_threat_model" data-reference-type="ref"
+data-reference="c1_fig_threat_model">1.1</a> describes the Threat Model
+on an implementation of a secure system. It is important to mention that
+we’re talking about attacking an implementation, and not the algorithm
+itself as we consider the algorithm or protocol being examined as
+completely secure.
 
 <figure>
-<img src="images/chapter_1/threat_model.png" id="c1_fig_threat_model" alt="The Threat Model. Image from JF Dhem1998. The attacker can send a message to the implementation and get an answer from it. Also - the attacker is able to measure the time it takes for the implementation to compute the output" /><figcaption aria-hidden="true">The Threat Model. Image from JF Dhem1998. The attacker can send a message to the implementation and get an answer from it. Also - the attacker is able to measure the time it takes for the implementation to compute the output</figcaption>
+<img src="images/chapter_1/threat_model.png" id="c1_fig_threat_model"
+alt="The Threat Model. Image from JF Dhem1998. The attacker can send a message to the implementation and get an answer from it. Also - the attacker is able to measure the time it takes for the implementation to compute the output" />
+<figcaption aria-hidden="true">The Threat Model. Image from JF Dhem1998.
+The attacker can send a message to the implementation and get an answer
+from it. Also - the attacker is able to measure the time it takes for
+the implementation to compute the output</figcaption>
 </figure>
 
 ### When is a timing attack even possible?
@@ -55,11 +63,18 @@ algorithm or protocol being examined as completely secure.
 A timing attack is based on the time it takes to complete an algorithm.
 
 <figure>
-<img src="images/chapter_1/password_check_algo_1.png" id="c1_fig_pass_check_1" alt="A simple and efficient password checking algorithm. In line 4 there’s a check if there length of the password is the same as the length of the input. In line 8 there’s an iteration over all of the characters in the password " /><figcaption aria-hidden="true">A simple and efficient password checking algorithm. In line 4 there’s a check if there length of the password is the same as the length of the input. In line 8 there’s an iteration over all of the characters in the password </figcaption>
+<img src="images/chapter_1/password_check_algo_1.png"
+id="c1_fig_pass_check_1"
+alt="A simple and efficient password checking algorithm. In line 4 there’s a check if there length of the password is the same as the length of the input. In line 8 there’s an iteration over all of the characters in the password " />
+<figcaption aria-hidden="true">A simple and efficient password checking
+algorithm. In line 4 there’s a check if there length of the password is
+the same as the length of the input. In line 8 there’s an iteration over
+all of the characters in the password </figcaption>
 </figure>
 
 Consider the algorithm for password checking as described in figure
-<a href="#c1_fig_pass_check_1" data-reference-type="ref" data-reference="c1_fig_pass_check_1">1.2</a>
+<a href="#c1_fig_pass_check_1" data-reference-type="ref"
+data-reference="c1_fig_pass_check_1">1.2</a>
 
 In a scenario where a timing attack is not possible, breaking the
 password requires the attacker to bruteforce the password, checking
@@ -114,13 +129,20 @@ system is completely resistant to timing attacks.
 #### Prevention Method 1: Padding
 
 <figure>
-<img src="images/chapter_1/password_check_algo_2.png" id="c1_fig_pass_check_2" alt="Prevention method 1, padding the user guess and the secret password to the same length and check all characters even if there’s a mismatch in the first character." /><figcaption aria-hidden="true">Prevention method 1, padding the user guess and the secret password to the same length and check all characters even if there’s a mismatch in the first character.</figcaption>
+<img src="images/chapter_1/password_check_algo_2.png"
+id="c1_fig_pass_check_2"
+alt="Prevention method 1, padding the user guess and the secret password to the same length and check all characters even if there’s a mismatch in the first character." />
+<figcaption aria-hidden="true">Prevention method 1, padding the user
+guess and the secret password to the same length and check all
+characters even if there’s a mismatch in the first
+character.</figcaption>
 </figure>
 
 The first method we examine is to pad the secret password and the user’s
 guess to the same length. Also - the function dosen’t exit as soon as we
 see a character mismatch. The code is described in figure
-<a href="#c1_fig_pass_check_2" data-reference-type="ref" data-reference="c1_fig_pass_check_2">1.3</a>
+<a href="#c1_fig_pass_check_2" data-reference-type="ref"
+data-reference="c1_fig_pass_check_2">1.3</a>
 
 The problem with this implementation is that every time there’s a
 character mismatch we execute additional code, which is loading the
@@ -142,7 +164,11 @@ the attacker will be able to tell the difference between them.
 ### Prevention Method 2: Hashing
 
 <figure>
-<img src="images/chapter_1/password_check_algo_3.png" id="c1_fig_pass_check_3" alt="Secure password checking using a secure hash function" /><figcaption aria-hidden="true">Secure password checking using a secure hash function</figcaption>
+<img src="images/chapter_1/password_check_algo_3.png"
+id="c1_fig_pass_check_3"
+alt="Secure password checking using a secure hash function" />
+<figcaption aria-hidden="true">Secure password checking using a secure
+hash function</figcaption>
 </figure>
 
 The right way to store passwords is with hashing (storing the hash of
@@ -156,24 +182,26 @@ not due to the Avalanche property.
 
 Using hashes to perform a secure password check is described in the
 algorithm in figure
-<a href="#c1_fig_pass_check_3" data-reference-type="ref" data-reference="c1_fig_pass_check_3">1.4</a>
-A guess is being hashed before it is compared against the hash of the
-true password. An attacker might use the same methods as described
-previously to try to leak the hash of the true password, but that would
-be very difficult as the attacker does not input the hash, the attacker
-only controls a string that is later being hashed by the algorithm. So
-trying the previous methods to leak the password would not work assuming
-the hash function is propely implemented.
+<a href="#c1_fig_pass_check_3" data-reference-type="ref"
+data-reference="c1_fig_pass_check_3">1.4</a> A guess is being hashed
+before it is compared against the hash of the true password. An attacker
+might use the same methods as described previously to try to leak the
+hash of the true password, but that would be very difficult as the
+attacker does not input the hash, the attacker only controls a string
+that is later being hashed by the algorithm. So trying the previous
+methods to leak the password would not work assuming the hash function
+is propely implemented.
 
 A possible leak occuring from this method is the length of the true
 password. In line 7 of the algorithm in figure
-<a href="#c1_fig_pass_check_3" data-reference-type="ref" data-reference="c1_fig_pass_check_3">1.4</a>
-the hash of the true password is computed. Line 7 makes the total run
-time of the program dependent upon the length of the true password.
-While this might be risky, this is easy to fix - we can just precompute
-the hash of the true password and use it whenever the algorithm runs.
-This is done for example in Linux where the hashes of user’s passwords
-are stored in a file in `/etc/shadow`.
+<a href="#c1_fig_pass_check_3" data-reference-type="ref"
+data-reference="c1_fig_pass_check_3">1.4</a> the hash of the true
+password is computed. Line 7 makes the total run time of the program
+dependent upon the length of the true password. While this might be
+risky, this is easy to fix - we can just precompute the hash of the true
+password and use it whenever the algorithm runs. This is done for
+example in Linux where the hashes of user’s passwords are stored in a
+file in `/etc/shadow`.
 
 ## The Algebra Behind RSA
 

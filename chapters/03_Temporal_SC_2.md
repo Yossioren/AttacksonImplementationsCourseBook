@@ -5,6 +5,9 @@ nav_order: 03
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-3---temporal-side-channels-ii)
+
 ## recap
 
 In the previous chapter we discussed about RSA cryptosystem . In this
@@ -16,7 +19,9 @@ The simplest algorithm for raising a number to a power uses modular
 multiplication which is an expensive operation.
 
 <figure>
-<img src="images/modmul.png" id="fig:modmul" alt="Modular multiplication" /><figcaption aria-hidden="true">Modular multiplication</figcaption>
+<img src="images/modmul.png" id="fig:modmul"
+alt="Modular multiplication" />
+<figcaption aria-hidden="true">Modular multiplication</figcaption>
 </figure>
 
 Modular multiplication is pretty straightforward. It works just like
@@ -32,7 +37,10 @@ numbers keep growing and the runtime keep raising, so we can’t do that
 either.
 
 <figure>
-<img src="images/vispow10.png" id="vispow10:fig" alt="Visualization of powers of 10 from one to 1 billion." /><figcaption aria-hidden="true">Visualization of powers of 10 from one to 1 billion.</figcaption>
+<img src="images/vispow10.png" id="vispow10:fig"
+alt="Visualization of powers of 10 from one to 1 billion." />
+<figcaption aria-hidden="true">Visualization of powers of 10 from one to
+1 billion.</figcaption>
 </figure>
 
 As we discussed in the last chapter, the slowest and most trivial way of
@@ -68,14 +76,20 @@ multiplicative proofs. The book contains several ways to do modular
 exponentiation.
 
 <figure>
-<img src="images/appliedCrypt.jpg" id="fig:appliedCrypt" alt="Cover of the handbook of applied cryptography" /><figcaption aria-hidden="true">Cover of the handbook of applied cryptography</figcaption>
+<img src="images/appliedCrypt.jpg" id="fig:appliedCrypt"
+alt="Cover of the handbook of applied cryptography" />
+<figcaption aria-hidden="true">Cover of the handbook of applied
+cryptography</figcaption>
 </figure>
 
 The following approach is called the left to right binary
 exponentiation, also known as square multiply.
 
 <figure>
-<img src="images/ltrbe.png" id="fig:ltrbe" alt="The pseudo-code was taken from the handbook of applied cryptography, page 615." /><figcaption aria-hidden="true">The pseudo-code was taken from the handbook of applied cryptography, page 615.</figcaption>
+<img src="images/ltrbe.png" id="fig:ltrbe"
+alt="The pseudo-code was taken from the handbook of applied cryptography, page 615." />
+<figcaption aria-hidden="true">The pseudo-code was taken from the
+handbook of applied cryptography, page 615.</figcaption>
 </figure>
 
 The inputs are *g* (we want to raise g to the power of *e*,
@@ -201,14 +215,18 @@ and to do that we need to pay a lot for modular reduction. So, the first
 thing we do is enter the Montgomery representation and do the
 Mont(*g*<sup>*e*</sup>) and each one of this multiplication steps is
 going to be about as difficult as regular multiplication (Figure Figure
-<a href="#montg:fig" data-reference-type="ref" data-reference="montg:fig">1.5</a>).
-After we finished with that we exit the Montgomery representation and
-then we have our result. Entering and leaving the Montgomery
-representation costs as much as modular multiplication but in the middle
-it’s as cheap as regular representation.
+<a href="#montg:fig" data-reference-type="ref"
+data-reference="montg:fig">1.5</a>). After we finished with that we exit
+the Montgomery representation and then we have our result. Entering and
+leaving the Montgomery representation costs as much as modular
+multiplication but in the middle it’s as cheap as regular
+representation.
 
 <figure>
-<img src="images/montg.PNG" id="montg:fig" alt="General sketch of Montgomery Exponentiation" /><figcaption aria-hidden="true">General sketch of Montgomery Exponentiation</figcaption>
+<img src="images/montg.PNG" id="montg:fig"
+alt="General sketch of Montgomery Exponentiation" />
+<figcaption aria-hidden="true">General sketch of Montgomery
+Exponentiation</figcaption>
 </figure>
 
 Now lets review how the Montgomery Exponentiation works inside
@@ -300,7 +318,9 @@ as an attacker we can send as many queries as we want and we and recover
 the responses (the signatures). The goal is to extract the secret key.
 
 <figure>
-<img src="images/smartcard.png" id="fig:smart card" alt="The timing attack principle" /><figcaption aria-hidden="true">The timing attack principle</figcaption>
+<img src="images/smartcard.png" id="fig:smart card"
+alt="The timing attack principle" />
+<figcaption aria-hidden="true">The timing attack principle</figcaption>
 </figure>
 
 So, let’s look a bit closer on the attack model - what messages we can
@@ -471,7 +491,9 @@ extra reduction and
 didn’t (see ).
 
 <figure>
-<img src="images/extraRed.PNG" id="fig:extraRed" alt="Key bit guess simulation" /><figcaption aria-hidden="true">Key bit guess simulation</figcaption>
+<img src="images/extraRed.PNG" id="fig:extraRed"
+alt="Key bit guess simulation" />
+<figcaption aria-hidden="true">Key bit guess simulation</figcaption>
 </figure>
 
 If we guessed correctly what can we tell about the messages that got an
@@ -483,7 +505,10 @@ groups will be measurably different. So now we are going to change the
 discussion about the messages into the traces.
 
 <figure>
-<img src="images/extraStat.PNG" id="fig:extraStat" alt="Guessing correctly the key bit makes the statics measurably different" /><figcaption aria-hidden="true">Guessing correctly the key bit makes the statics measurably different</figcaption>
+<img src="images/extraStat.PNG" id="fig:extraStat"
+alt="Guessing correctly the key bit makes the statics measurably different" />
+<figcaption aria-hidden="true">Guessing correctly the key bit makes the
+statics measurably different</figcaption>
 </figure>
 
 if the next key bit is 0 then the statistics of the runtimes of 0 bit
@@ -545,7 +570,10 @@ can even create a vector of randomly chosen numbers using randn (1, 5) +
 ready to try the student T-test.
 
 <figure>
-<img src="images/defmatplot.png" id="fig:defmatplot" alt="Plotting of the vectors for mu_1 = 10, mu_2 = 20" /><figcaption aria-hidden="true">Plotting of the vectors for <span class="math inline"><em>m</em><em>u</em><sub>1</sub> = 10, <em>m</em><em>u</em><sub>2</sub> = 20</span></figcaption>
+<img src="images/defmatplot.png" id="fig:defmatplot"
+alt="Plotting of the vectors for mu_1 = 10, mu_2 = 20" />
+<figcaption aria-hidden="true">Plotting of the vectors for <span
+class="math inline"><em>m</em><em>u</em><sub>1</sub> = 10, <em>m</em><em>u</em><sub>2</sub> = 20</span></figcaption>
 </figure>
 
 Looking only on the graphs - can we say they are from the same
@@ -561,7 +589,10 @@ we make it more difficult for the ttest2? Answer: if we change
 *m**u*<sub>2</sub> to 11, then they will be very close distributions.
 
 <figure>
-<img src="images/defmatplot2.png" id="fig:defmatplot2" alt="Plotting of the vectors for mu_1 = 10, mu_2 = 11" /><figcaption aria-hidden="true">Plotting of the vectors for <span class="math inline"><em>m</em><em>u</em><sub>1</sub> = 10, <em>m</em><em>u</em><sub>2</sub> = 11</span></figcaption>
+<img src="images/defmatplot2.png" id="fig:defmatplot2"
+alt="Plotting of the vectors for mu_1 = 10, mu_2 = 11" />
+<figcaption aria-hidden="true">Plotting of the vectors for <span
+class="math inline"><em>m</em><em>u</em><sub>1</sub> = 10, <em>m</em><em>u</em><sub>2</sub> = 11</span></figcaption>
 </figure>
 
 How we as attackers can handle this situation? Answer: run many times.
@@ -578,7 +609,13 @@ next bit in linear time. Let’s review a figure from " A Practical
 Implementation of the Timing Attack" which you are encouraged to read.
 
 <figure>
-<img src="images/figpita.png" id="fig:figpita" alt="x axis – is the bit index from right to left (the left most bit is known to be 1) and y axis – is the distance of means we chose (some times its 500 or 100 but after 151 the distance of means is a lot smaller which means we guessed a bit wrong). How to solve it? Answer: go backwards and backtrack." /><figcaption aria-hidden="true">x axis – is the bit index from right to left (the left most bit is known to be 1) and y axis – is the distance of means we chose (some times its 500 or 100 but after 151 the distance of means is a lot smaller which means we guessed a bit wrong). How to solve it? Answer: go backwards and backtrack.</figcaption>
+<img src="images/figpita.png" id="fig:figpita"
+alt="x axis – is the bit index from right to left (the left most bit is known to be 1) and y axis – is the distance of means we chose (some times its 500 or 100 but after 151 the distance of means is a lot smaller which means we guessed a bit wrong). How to solve it? Answer: go backwards and backtrack." />
+<figcaption aria-hidden="true">x axis – is the bit index from right to
+left (the left most bit is known to be 1) and y axis – is the distance
+of means we chose (some times its 500 or 100 but after 151 the distance
+of means is a lot smaller which means we guessed a bit wrong). How to
+solve it? Answer: go backwards and backtrack.</figcaption>
 </figure>
 
 Now let’s talk about counter measurements. When Kocher announced the
@@ -589,7 +626,8 @@ Photuris which is related to the IPsec protocol and was used for key
 exchange in the IP protocol.
 
 <figure>
-<img src="images/paul.png" id="fig:paul" alt="The message." /><figcaption aria-hidden="true">The message.</figcaption>
+<img src="images/paul.png" id="fig:paul" alt="The message." />
+<figcaption aria-hidden="true">The message.</figcaption>
 </figure>
 
 When he read that this attack can attack Photuris, Bill replied: don’t
@@ -664,7 +702,10 @@ wrote it in assembly we won’t be able to attack it, but we could use
 power analysis.
 
 <figure>
-<img src="images/saama.png" id="fig:saama" alt="Square and always multiple algorithm" /><figcaption aria-hidden="true">Square and always multiple algorithm</figcaption>
+<img src="images/saama.png" id="fig:saama"
+alt="Square and always multiple algorithm" />
+<figcaption aria-hidden="true">Square and always multiple
+algorithm</figcaption>
 </figure>
 
 If we run this algorithm as is, we have two places in memory for *s* and

@@ -70,7 +70,11 @@ follows:
     removing/changing files, ransomware, backdoor, etc.)
 
 <figure>
-<img src="images/chapter10/computer_in_cyber_crimes.png" id="fig:comp_in_cybercrime" alt="The computer in cybercrime " /><figcaption aria-hidden="true">The computer in cybercrime <span class="citation" data-cites="tabansky2012cybercrime"></span></figcaption>
+<img src="images/chapter10/computer_in_cyber_crimes.png"
+id="fig:comp_in_cybercrime" alt="The computer in cybercrime " />
+<figcaption aria-hidden="true">The computer in cybercrime <span
+class="citation"
+data-cites="tabansky2012cybercrime"></span></figcaption>
 </figure>
 
 From this we learn that not any crime committed with the aid of a
@@ -189,7 +193,10 @@ security patch wasn’t yet installed, and encrypt the victim’s files,
 then asking for money to decrypt them[^3].
 
 <figure>
-<img src="images/EthernalBlue-WannaCry_Timeline.jpg" id="fig:wannacry_timeline" alt="EthernalBlue-WannaCry Timeline" /><figcaption aria-hidden="true">EthernalBlue-WannaCry Timeline</figcaption>
+<img src="images/EthernalBlue-WannaCry_Timeline.jpg"
+id="fig:wannacry_timeline" alt="EthernalBlue-WannaCry Timeline" />
+<figcaption aria-hidden="true">EthernalBlue-WannaCry
+Timeline</figcaption>
 </figure>
 
 WannaCry was finally beaten when a malware researcher found it made
@@ -237,7 +244,9 @@ the option to pull a lever to change the direction of the trolley to the
 second path, resulting in the single death of the man there.
 
 <figure>
-<img src="images/The_Trolley_Problem.jpg" id="fig:trolley_problem" alt="The Trolley Problem" /><figcaption aria-hidden="true">The Trolley Problem</figcaption>
+<img src="images/The_Trolley_Problem.jpg" id="fig:trolley_problem"
+alt="The Trolley Problem" />
+<figcaption aria-hidden="true">The Trolley Problem</figcaption>
 </figure>
 
 According to the numbers, you should pull the switch to save the five.
@@ -256,7 +265,10 @@ approaching trolley. The stakes are the same, but in the scenario, in
 order to save the five you need to actually commit murder!
 
 <figure>
-<img src="images/The_Trolley_Problem_Fat_Man.jpg" id="fig:trolley_problem_fat_man" alt="The Trolley Problem (Fat Man)" /><figcaption aria-hidden="true">The Trolley Problem (Fat Man)</figcaption>
+<img src="images/The_Trolley_Problem_Fat_Man.jpg"
+id="fig:trolley_problem_fat_man" alt="The Trolley Problem (Fat Man)" />
+<figcaption aria-hidden="true">The Trolley Problem (Fat
+Man)</figcaption>
 </figure>
 
 Our “closeness" to a situation affects on how we judge it by our moral
@@ -288,15 +300,24 @@ who will purchase a car which is programmed to kill him on certain
 circumstances?
 
 <figure>
-<img src="images/chapter10/dilemmaA.png" id="fig:a" alt="killing several pedestrians or one passer by" /><figcaption aria-hidden="true">killing several pedestrians or one passer by</figcaption>
+<img src="images/chapter10/dilemmaA.png" id="fig:a"
+alt="killing several pedestrians or one passer by" />
+<figcaption aria-hidden="true">killing several pedestrians or one passer
+by</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter10/dilemmaB.png" id="fig:b" alt="killing one pedestrian or killing its own passenger" /><figcaption aria-hidden="true">killing one pedestrian or killing its own passenger</figcaption>
+<img src="images/chapter10/dilemmaB.png" id="fig:b"
+alt="killing one pedestrian or killing its own passenger" />
+<figcaption aria-hidden="true">killing one pedestrian or killing its own
+passenger</figcaption>
 </figure>
 
 <figure>
-<img src="images/chapter10/dilemmaC.png" id="fig:c" alt="killing several pedestrians or killing its own passenger" /><figcaption aria-hidden="true">killing several pedestrians or killing its own passenger</figcaption>
+<img src="images/chapter10/dilemmaC.png" id="fig:c"
+alt="killing several pedestrians or killing its own passenger" />
+<figcaption aria-hidden="true">killing several pedestrians or killing
+its own passenger</figcaption>
 </figure>
 
 ##### Cyber crime.
@@ -324,7 +345,9 @@ describes a timeline of a vulnerability from the moment it is found to
 the moment its patch is deployed.
 
 <figure>
-<img src="images/Vulnerability_Timeline.PNG" id="fig:vulnerability_timeline" alt="Timeline of a vulnerability" /><figcaption aria-hidden="true">Timeline of a vulnerability</figcaption>
+<img src="images/Vulnerability_Timeline.PNG"
+id="fig:vulnerability_timeline" alt="Timeline of a vulnerability" />
+<figcaption aria-hidden="true">Timeline of a vulnerability</figcaption>
 </figure>
 
 Symantec, the company founding Nortron[^7], had a lot of data regarding
@@ -332,7 +355,11 @@ vulnerabilities and exploits, and used it to research the matter. shows
 their results.
 
 <figure>
-<img src="images/Disclosure_Research_Findings.PNG" id="fig:disclosure_research_findings" alt="Symantec’s disclosure research findings" /><figcaption aria-hidden="true">Symantec’s disclosure research findings</figcaption>
+<img src="images/Disclosure_Research_Findings.PNG"
+id="fig:disclosure_research_findings"
+alt="Symantec’s disclosure research findings" />
+<figcaption aria-hidden="true">Symantec’s disclosure research
+findings</figcaption>
 </figure>
 
 From Symantec’s results, we conclude the following:
@@ -357,13 +384,15 @@ Vulnerabilities and Exposures. Disclosure could be performed by
 uploading a vulnerability to the site such that only the owner of the
 software can see it, and publish the details only when a patch is
 released (between points *t*<sub>*p*</sub> and *t*<sub>*a*</sub> in
-<a href="#fig:vulnerability_timeline" data-reference-type="ref" data-reference="fig:vulnerability_timeline">1.8</a>),
-to avoid the window when the vulnerability is public and unpatched
-(between *t*<sub>0</sub> and *t*<sub>*p*</sub> in
-<a href="#fig:vulnerability_timeline" data-reference-type="ref" data-reference="fig:vulnerability_timeline">1.8</a>).
-Microsoft called this practice of disclosing privately Coordinated
-Vulnerability Disclosure, and claim it significantly reduces the amount
-of exploits on new vulnerabilities.
+<a href="#fig:vulnerability_timeline" data-reference-type="ref"
+data-reference="fig:vulnerability_timeline">1.8</a>), to avoid the
+window when the vulnerability is public and unpatched (between
+*t*<sub>0</sub> and *t*<sub>*p*</sub> in
+<a href="#fig:vulnerability_timeline" data-reference-type="ref"
+data-reference="fig:vulnerability_timeline">1.8</a>). Microsoft called
+this practice of disclosing privately Coordinated Vulnerability
+Disclosure, and claim it significantly reduces the amount of exploits on
+new vulnerabilities.
 
 Google introduced a system where the vulnerability remains private for
 90 days, after which it goes public, with or without a patch. The strict
@@ -371,7 +400,10 @@ deadline is meant to make sure the vulnerable vendor does not dismiss
 fixing the bug due to it being unknown, and thus security is improved.
 
 <figure>
-<img src="images/chapter10/macOScve2.png" id="fig:macOSsve" alt="Example to a cve entry of a vulnerability found in macOS" /><figcaption aria-hidden="true">Example to a cve entry of a vulnerability found in macOS</figcaption>
+<img src="images/chapter10/macOScve2.png" id="fig:macOSsve"
+alt="Example to a cve entry of a vulnerability found in macOS" />
+<figcaption aria-hidden="true">Example to a cve entry of a vulnerability
+found in macOS</figcaption>
 </figure>
 
 Over the years using machine learning with CVEs was used for detecting

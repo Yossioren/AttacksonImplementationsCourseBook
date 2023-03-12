@@ -1,6 +1,6 @@
-# Attacks on Implementations of Secure Systems
+# Video Links
 
-This is the handbook for the course "Attacks on Secure Implementations", taught in 2020 at Ben-Gurion University by Dr. Yossi Oren.
+This is the list of videos from the course "Attacks on Secure Implementations", taught in 2020 at Ben-Gurion University by Dr. Yossi Oren.
 
 You can download the PDF of the entire handbook [here](https://github.com/Yossioren/AttacksonImplementationsCourseBook/raw/master/UniversityCourseBookAOI.pdf), or view it online [here](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/). 
 
@@ -26,6 +26,7 @@ More information: https://iss.oy.ne.ro/Attacks
 
 Basic reading is the first chapter of Coursebook; for further reading, see the paper about the [TEMPEST](https://cryptome.org/nsa-tempest.pdf); here's Thomas Popp's paper [An Introduction to Implementation Attacks and Countermeasures](https://ieeexplore.ieee.org/document/5185386); there's also an [Overview about Attacks on Smart Cards](https://linkinghub.elsevier.com/retrieve/pii/S1363412703001079);
 
+
 ### Lecture 2 - Temporal Side Channels I
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/02_Temporal_SC_1)
 
@@ -39,6 +40,7 @@ Basic reading is the first chapter of Coursebook; for further reading, see the p
 - [Make RSA more efficient via LR and CRT](https://www.youtube.com/watch?v=m7FYn4XMONE&list=UUKK5uxRGT-0Jtq1bGAg7XkQ&index=49) (18 minutes);
 
 Basic reading is the second chapter of Coursebook; for additional background reading on timing attacks, see [A Practical Implementation of the Timing Attack](https://link.springer.com/chapter/10.1007%2F10721064_15); To read more about Montgomery's Modular Multiplications, see [Modular Multiplication Without Trial Division](https://www.ams.org/journals/mcom/1985-44-170/S0025-5718-1985-0777282-X/home.html); there's also an [Overview about Attacks on Smart Cards](https://linkinghub.elsevier.com/retrieve/pii/S1363412703001079); To delve more the math behind RSA, you can read [Kaliski's "The Mathematics of the RSA Public-Key Cryptosystem"](https://www.ams.org/publicoutreach/msamhome/06-Kaliski.pdf);
+
 
 ### Lecture 3 - Temporal Side Channels II
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/03_Temporal_SC_2)
@@ -54,7 +56,8 @@ Basic reading is the second chapter of Coursebook; for additional background rea
 
 Basic reading is the 3rd chapter of our Coursebook. It starts with a recap and then introduces efficient implementations of modular exponentiations as described in Chapter 14 of [The Handbook of Applied Cryptography](https://doi.org/10.1201/9781439821916); To read about a cheaper way for modular multiplication, you can learn about the [Chinese Remainder Theorem](https://books.google.co.il/books?id=RQLtCgAAQBAJ&lpg=PR5&ots=l13HVwsuKW&dq=Chinese%20remainder%20theorem%3A%20applications%20in%20computing%2C%20coding%2C%20cryptography&lr&hl=iw&pg=PR5#v=onepage&q=Chinese%20remainder%20theorem:%20applications%20in%20computing,%20coding,%20cryptography&f=false); You can also read the 1998 paper ["A Practical Implementation of the Timing Attack"](https://link.springer.com/chapter/10.1007%2F10721064_15) that proposes improvements to Kocher's idea that when the running time of a cryptographic algorithm is non-constant, timing measurements can leak information about the secret key; Then it discusses the Vaizata method, and it's recommended you brush up on [T-Tests](https://en.wikipedia.org/wiki/Student%27s_t-test), developed by Guinness head brewer, [William Sealey Gosset](https://en.wikipedia.org/wiki/William_Sealy_Gosset);
 
-### Lecture 4 - Power-EM Side Channels I
+
+### Lecture 4 - Power-EM Side Channels I 
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/04_Low_Data_Complexity_Power_EM_1)
 
 - [Basic electric circuit and Ohm's Law](https://youtu.be/KNHn61t1Bmg) - A brief overview/refresh for Ohm's Law (20 minutes);
@@ -69,7 +72,7 @@ Basic reading is the 3rd chapter of our Coursebook. It starts with a recap and t
 Basic reading is chapter 4 of the Coursebook, that starts with an introduction to electric circuits and the involved components, [Ohm's Law](https://en.wikipedia.org/wiki/Ohm%27s_law), [logic gates](https://en.wikipedia.org/wiki/Logic_gate) and calculating the power consumption on a CMOS device using the [Hamming Distance Model](https://en.wikipedia.org/wiki/Hamming_distance);
 
 
-### Lecture 5 - Power-EM Side Channels II
+### Lecture 5 - Power-EM Side Channels II 
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/05_Low_Data_Complexity_Power_EM_2)
 
 - [The New York Times 1998 - Paul Kocher](https://youtu.be/rC6mYV5f1cw) - Revisiting an attack from the 1995 on Smart Cards (10 minutes);
@@ -90,7 +93,7 @@ The basic reading is Chapter 5 of the Coursebook up to around 5.12 "AES Internal
 
 The basic reading is Chapter 5 of the coursebook, from 5.10 The Advanced Encryption Standard, that explores the steps of AES and their leaky nature that can be used for a power analysis attack to recover the key.
 
-### Guest Lecture [Part 1] - Stjepan Picek - CSI NN: Reverse Engineering of Neural Network Architectures Through Electromagnetic Side Channel
+### Guest Lecture [Part 1] - Stjepan Picek - CSI NN: Reverse Engineering of Neural Network Architectures Through Electromagnetic Side Channel  <a name="Lecture6.5">#</a>
 - [CSI NN(Reverse NN via EM) - part 1](https://youtu.be/9gQlJZKCTrg) - An intro about how timing attacks can be used for reverse engineering machine learning modules to obtain sensitive information about the involved datasets (20 minutes);
 - [CSI NN(Reverse NN via EM) - part 2](https://youtu.be/Mn6J7LqWdWo) - Exploring which information is required to execute such attacks, and which operations in the model are targeted (22 minutes);
 - [CSI NN(Reverse NN via EM) - part 3](https://youtu.be/Vr7KXwLXUbA) - Delving into the reverse engineering process on a Neural Network (9 minutes);
@@ -102,7 +105,7 @@ The basic reading is Chapter 5 of the coursebook, from 5.10 The Advanced Encrypt
 - [SCA via Deep Learning - part 2](https://youtu.be/hWFG1TnAqWM) (16 minutes);
 
 
-### Lecture 7 - High Data Complexity Attacks Power-EM I
+### Lecture 7 - High Data Complexity Attacks Power-EM I 
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/07_High_Data_Complexity_Power_EM_1)
 
 - [Recap - Attacks on AES](https://youtu.be/iWwzi1rqzYg) - A recap of RSA and AES attacks (13 minutes);
@@ -116,7 +119,7 @@ The basic reading is Chapter 5 of the coursebook, from 5.10 The Advanced Encrypt
 
 Basic reading is Chapters 7 and 8 of the Coursebook; Whereas chapter 5 mainly focused on low data complexity attacks (with few traces), chapter 7 focuses on high data complexity attacks, aka DPA and CPA (many, many traces). It revisits the Vaizata method and how it can be used for high data complexity attacks, similarly to timing attacks (this time the assumption is that the power consumption is depended on the key). At 7.2 we demonstrate an attack on AES using example data from the [Power Analysis Attacks book](https://link.springer.com/book/10.1007/978-0-387-38162-6) and visualize the process.
 
-### Lecture 8 - Micro-Architectural Side Channels
+### Lecture 8 - Micro-Architectural Side Channels  
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/06_Cache_Attacks_Guest_Lecture)
 
 - [The Cache - Hierarchy and Structure](https://youtu.be/NJEgH9jgifA) - Discussing the need for caches, their structure, mapping policy and hierarchy (20 minutes);
@@ -127,7 +130,7 @@ Basic reading is Chapters 7 and 8 of the Coursebook; Whereas chapter 5 mainly fo
 
 Basic reading is chapter 6 of the coursebook that deals CPU Caches and Cache attack techniques; For further reading on cache attacks, see Colin Percival's [Cache Missing For Fun And Profit](http://css.csail.mit.edu/6.858/2014/readings/ht-cache.pdf); The chapter also introduces 2 main cache attack techniques: [Flush+Reload](https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/yarom) and [Prime+Probe](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7163050); For further reading about the hash function can be reverse engineered, see [Reverse engineering intel last-level cache complex addressing using performance counters. ](https://link.springer.com/chapter/10.1007%2F978-3-319-26362-5_3); Finally, there is a step-by-step Flush+Reload cache attack (as presented in Gruss, Spreitzer and Mangard's ["Automating attacks on inclusive last-level caches"](https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/gruss) and on Yarom and Faulkner's ["A high resolution, low noise, L3 cache side-channel attack"](https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/yarom) demonstration to retrieve the user's keystroke timestamps in a gedit program. The Github repository can be found [here](https://github.com/clementine-m/cache_template_attacks).
 
-### Lecture 9 - Fault Attacks I
+### Lecture 9 - Fault Attacks I  
 [Textbook Link](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/09_Fault_Attacks)
 
 - [Definition of Fault Attacks](https://youtu.be/PSRZaFiDwy8) - Defining Fault Attacks, which are active attacks for extracting information from devices by breaking them (12 minutes);
@@ -136,7 +139,7 @@ Basic reading is chapter 6 of the coursebook that deals CPU Caches and Cache att
 
 This lecture is based on chapter 9 of the coursebook "Fault Attacks", which is an active attack that allows the attacker to extract information from a device by breaking it. It goes on to discuss different kinds of fault methods (power supply attacks, timing attacks, temperature attacks, and more), further giving examples of classic fault attacks targeting the control flow: [Canon camera blinking](https://chdk.fandom.com/wiki/Obtaining_a_firmware_dump#Q._How_can_I_get_a_firmware_dump.3F), and [Unloopers](https://www.oocities.org/wild_lightning21/hardware/unlooper.htm). We then examine a fault attack on RSA-CRT as presented by Boneh and Lipton in [On the importance of eliminating errors in cryptographic computations](https://doi.org/10.1007/s001450010016); 
 
-### Lecture 10 - Fault Attacks II
+### Lecture 10 - Fault Attacks II  
 - [Introduction to the Biham-Shamir Fault Attack](https://youtu.be/Kmx6huPoDJA) - texty texty text (20 minutes);
 - [Biham-Shamir Fault Attack Explained](https://youtu.be/hFDZK5nVYGo) - texty texty text (20 minutes);
 - [Introduction to The Boneh, DeMillo, Lipton Fault attack - RSA-CRT](https://youtu.be/kkqEYy-fS0A) - texty texty text (20 minutes);

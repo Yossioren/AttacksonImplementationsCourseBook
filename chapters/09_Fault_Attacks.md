@@ -5,6 +5,9 @@ nav_order: 09
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-9---fault-attacks-i)
+
 <div class="centering">
 
 ## Topics
@@ -67,7 +70,11 @@ us additional information about the computation and/or the secret. This
 process is described in .
 
 <figure>
-<img src="images/chapter_9/fault_attacks_schematic.png" id="fig:fault_attacks_schematic" alt="A schematic diagram of fault attacks and leakage types" /><figcaption aria-hidden="true">A schematic diagram of fault attacks and leakage types</figcaption>
+<img src="images/chapter_9/fault_attacks_schematic.png"
+id="fig:fault_attacks_schematic"
+alt="A schematic diagram of fault attacks and leakage types" />
+<figcaption aria-hidden="true">A schematic diagram of fault attacks and
+leakage types</figcaption>
 </figure>
 
 Like with passive attacks, some of these outputs can be acquired at
@@ -201,7 +208,10 @@ structure to an arbitrary value gave the attackers access to the
 entirety of the device’s memory.
 
 <figure>
-<img src="images/chapter_9/bulb.png" id="fig:memory_lightbulb" alt="A light bulb flipping memory bits filled with safe Java structures" /><figcaption aria-hidden="true">A light bulb flipping memory bits filled with safe Java structures</figcaption>
+<img src="images/chapter_9/bulb.png" id="fig:memory_lightbulb"
+alt="A light bulb flipping memory bits filled with safe Java structures" />
+<figcaption aria-hidden="true">A light bulb flipping memory bits filled
+with safe Java structures</figcaption>
 </figure>
 
 #### Optical, Electromagnetic
@@ -345,7 +355,11 @@ So if we could multiply by *p* and *q* instead of by *n*, we would cut
 #### Chinese Remainder Theorem
 
 <figure>
-<img src="images/chapter_9/soldiers.jpeg" id="fig:chinese_remainder" alt="Chinese Remainder Theorem (Source: https://russinoff.com/papers/crt.html)" /><figcaption aria-hidden="true">Chinese Remainder Theorem (Source: <a href="https://russinoff.com/papers/crt.html" class="uri">https://russinoff.com/papers/crt.html</a>)</figcaption>
+<img src="images/chapter_9/soldiers.jpeg" id="fig:chinese_remainder"
+alt="Chinese Remainder Theorem (Source: https://russinoff.com/papers/crt.html)" />
+<figcaption aria-hidden="true">Chinese Remainder Theorem (Source: <a
+href="https://russinoff.com/papers/crt.html"
+class="uri">https://russinoff.com/papers/crt.html</a>)</figcaption>
 </figure>
 
 The idea is that if we know both *x* (mod *p*) and *x* (mod *q*) then we
@@ -425,7 +439,10 @@ In the final section, we will describe the Rowhammer attack.
 -   Method: Memory accesses
 
 <figure>
-<img src="images/chapter_9/DRAM.jpg" id="fig:dram_svg" alt="High Level Illustration of DRAM Organization (Source: Wikipedia: Row hammer)" /><figcaption aria-hidden="true">High Level Illustration of DRAM Organization (Source: Wikipedia: Row hammer)</figcaption>
+<img src="images/chapter_9/DRAM.jpg" id="fig:dram_svg"
+alt="High Level Illustration of DRAM Organization (Source: Wikipedia: Row hammer)" />
+<figcaption aria-hidden="true">High Level Illustration of DRAM
+Organization (Source: Wikipedia: Row hammer)</figcaption>
 </figure>
 
 ### Double-sided Rowhammer
@@ -515,7 +532,11 @@ information to be de-duped, then hammer on it until a bit in the key
 flips, making it much easier to factor.
 
 <figure>
-<img src="images/chapter_9/flip_feng_shui.PNG" id="fig:flip_feng_shui" alt="The attacker maps the same page as the victim, then utilizes Rowhammer to change the victim’s memory without causing page duplication" /><figcaption aria-hidden="true">The attacker maps the same page as the victim, then utilizes Rowhammer to change the victim’s memory without causing page duplication</figcaption>
+<img src="images/chapter_9/flip_feng_shui.PNG" id="fig:flip_feng_shui"
+alt="The attacker maps the same page as the victim, then utilizes Rowhammer to change the victim’s memory without causing page duplication" />
+<figcaption aria-hidden="true">The attacker maps the same page as the
+victim, then utilizes Rowhammer to change the victim’s memory without
+causing page duplication</figcaption>
 </figure>
 
 #### ECCPloit
@@ -537,7 +558,9 @@ areas. RAMBleed attack was implements against OpenSSH server allowing
 the attacker read RSA secret private keys.
 
 <figure>
-<img src="images/chapter_9/rambleed_memory_layout.png" id="fig:rambleed_memory_layout" alt="RAMBleed memory layout" /><figcaption aria-hidden="true">RAMBleed memory layout</figcaption>
+<img src="images/chapter_9/rambleed_memory_layout.png"
+id="fig:rambleed_memory_layout" alt="RAMBleed memory layout" />
+<figcaption aria-hidden="true">RAMBleed memory layout</figcaption>
 </figure>
 
 In order to perform this attack, the attacker need to get to specific
@@ -588,7 +611,10 @@ to a server application, it directly writes it to its buffer as shown in
 .
 
 <figure>
-<img src="images/chapter_9/RDMA.jpeg" id="fig:RDMA_vs_non-RDMA" alt="RDMA vs non-RDMA (standard TCP connection)" /><figcaption aria-hidden="true">RDMA vs non-RDMA (standard TCP connection)</figcaption>
+<img src="images/chapter_9/RDMA.jpeg" id="fig:RDMA_vs_non-RDMA"
+alt="RDMA vs non-RDMA (standard TCP connection)" />
+<figcaption aria-hidden="true">RDMA vs non-RDMA (standard TCP
+connection)</figcaption>
 </figure>
 
 In the ThrowHammer attack, the attacker is assumed to be able to
@@ -606,7 +632,11 @@ used by the RDMA protocol. This allows the attacker to perform
 double-sided Rowhammer similar to Flip Feng Shui .
 
 <figure>
-<img src="images/chapter_9/Unique-Flips.jpeg" id="fig:Unique-Flips" alt="Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network  " /><figcaption aria-hidden="true">Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network  <span class="citation" data-cites="throwhammer"></span></figcaption>
+<img src="images/chapter_9/Unique-Flips.jpeg" id="fig:Unique-Flips"
+alt="Number of unique Rowhammer bit flips over time using two sets of DIMMs over a 40 Gbps Ethernet network  " />
+<figcaption aria-hidden="true">Number of unique Rowhammer bit flips over
+time using two sets of DIMMs over a 40 Gbps Ethernet network  <span
+class="citation" data-cites="throwhammer"></span></figcaption>
 </figure>
 
 An overview of the chapter can be found in the following link:
@@ -672,8 +702,11 @@ commercial device, the Google Nexus 6, and has demonstrated its
 dangerous implications in the secure execution environment TrustZone.
 
 An illustration of the VoltJockey attack process can be found in
-Figure <a href="#fig:voltjockey" data-reference-type="ref" data-reference="fig:voltjockey">1.9</a>.
+Figure <a href="#fig:voltjockey" data-reference-type="ref"
+data-reference="fig:voltjockey">1.9</a>.
 
 <figure>
-<img src="images/chapter8/voltjockey_process.jpg" id="fig:voltjockey" alt="VoltJockey attack process." /><figcaption aria-hidden="true">VoltJockey attack process.</figcaption>
+<img src="images/chapter8/voltjockey_process.jpg" id="fig:voltjockey"
+alt="VoltJockey attack process." />
+<figcaption aria-hidden="true">VoltJockey attack process.</figcaption>
 </figure>

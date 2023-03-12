@@ -5,6 +5,9 @@ nav_order: 04
 1. Table of Contents
 {:toc}
 
+[View the video recordings for this
+chapter](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/#lecture-4---power-em-side-channels-i)
+
 In this chapter, we’re going to learn about:
 
 -   Electric Engineering basics
@@ -18,20 +21,23 @@ In this chapter, we’re going to learn about:
 ### A basic electronic circuit
 
 The most basic electronic circuit (Figure
-<a href="#fig:basic_electronic_circuitn" data-reference-type="ref" data-reference="fig:basic_electronic_circuitn">1.1</a>)
-consists of a power supply (Vdd) and some sort of electrical load (a
-component consuming electric power) connected to the power supply on the
-one hand and to the “ground" (the reference point from which electric
-potential or voltage is measured) on the other hand. As the electric
-current - a targeted flow of free electrons - flows through the load,
-the load does some kind of a “work”. We can think of electric current as
-behaving like water - going from the hill (Vdd) to the valey (Ground)
-with rivers and obstacles (Loads/Resistors) trying to prevent it from
-flowing. The higher the resistance of the load, the less current will be
-able to flow through it.
+<a href="#fig:basic_electronic_circuitn" data-reference-type="ref"
+data-reference="fig:basic_electronic_circuitn">1.1</a>) consists of a
+power supply (Vdd) and some sort of electrical load (a component
+consuming electric power) connected to the power supply on the one hand
+and to the “ground" (the reference point from which electric potential
+or voltage is measured) on the other hand. As the electric current - a
+targeted flow of free electrons - flows through the load, the load does
+some kind of a “work”. We can think of electric current as behaving like
+water - going from the hill (Vdd) to the valey (Ground) with rivers and
+obstacles (Loads/Resistors) trying to prevent it from flowing. The
+higher the resistance of the load, the less current will be able to flow
+through it.
 
 <figure>
-<img src="images/basic_electronic_circuit.png" id="fig:basic_electronic_circuitn" alt="Basic electronic circuit." /><figcaption aria-hidden="true">Basic electronic circuit.</figcaption>
+<img src="images/basic_electronic_circuit.png"
+id="fig:basic_electronic_circuitn" alt="Basic electronic circuit." />
+<figcaption aria-hidden="true">Basic electronic circuit.</figcaption>
 </figure>
 
 There are two different ways to wire different loads on an electric
@@ -63,7 +69,9 @@ without overheating.
 ### Ohm’s law
 
 <figure>
-<img src="images/ohms_law_cartoon.png" id="fig:ohms_law_cartoon" alt="Ohm’s Law." /><figcaption aria-hidden="true">Ohm’s Law.</figcaption>
+<img src="images/ohms_law_cartoon.png" id="fig:ohms_law_cartoon"
+alt="Ohm’s Law." />
+<figcaption aria-hidden="true">Ohm’s Law.</figcaption>
 </figure>
 
 Ohm’s law defines the relationship between the Voltage, Current and
@@ -138,31 +146,34 @@ state and there is no current in the circuit. That’s to say - it doesn’t
 #### Connecting in serial
 
 If we connect a short circuit between the load and the ground (Figure
-<a href="#fig:circuit1" data-reference-type="ref" data-reference="fig:circuit1">[fig:circuit1]</a>),
-it will have no influence on it since we basically just cut a cable and
-put another one instead.
+<a href="#fig:circuit1" data-reference-type="ref"
+data-reference="fig:circuit1">[fig:circuit1]</a>), it will have no
+influence on it since we basically just cut a cable and put another one
+instead.
 
 If we connect an open circuit after the load (See Figure
-<a href="#fig:circuit2" data-reference-type="ref" data-reference="fig:circuit2">[fig:circuit2]</a>),
-it will increase the resistance to a very high value, causing the
-current to become effectively zero. And if the current is zero - the
-voltage is also zero (Ohm’s Law).
+<a href="#fig:circuit2" data-reference-type="ref"
+data-reference="fig:circuit2">[fig:circuit2]</a>), it will increase the
+resistance to a very high value, causing the current to become
+effectively zero. And if the current is zero - the voltage is also zero
+(Ohm’s Law).
 
 #### Connecting in parallel
 
 If we connect an open circuit in parallel to the load (See Figure
-<a href="#fig:circuit3" data-reference-type="ref" data-reference="fig:circuit3">[fig:circuit3]</a>),
-the current will flow only through the load’s path, so the current on
-the open circuit will be 0. However, the voltage drop between both
-points of the open circuit will be the same as the drop between the load
-sides.
+<a href="#fig:circuit3" data-reference-type="ref"
+data-reference="fig:circuit3">[fig:circuit3]</a>), the current will flow
+only through the load’s path, so the current on the open circuit will be
+0. However, the voltage drop between both points of the open circuit
+will be the same as the drop between the load sides.
 
 If we connect a short circuit in parallel to the load (See Figure
-<a href="#fig:circuit4" data-reference-type="ref" data-reference="fig:circuit4">[fig:circuit4]</a>),
-the current will “prefer" flowing through it rather than through the
-load, so the current through the load will be equal to zero, while the
-current through the short circuit will be very high - by Ohm’s law,
-since the voltage stays the same as before.
+<a href="#fig:circuit4" data-reference-type="ref"
+data-reference="fig:circuit4">[fig:circuit4]</a>), the current will
+“prefer" flowing through it rather than through the load, so the current
+through the load will be equal to zero, while the current through the
+short circuit will be very high - by Ohm’s law, since the voltage stays
+the same as before.
 
 Since the cable is not a perfect conductor, some of the energy will be
 consumed in the form of thermal work, so the cable will heat up.
@@ -251,7 +262,11 @@ consumption characteristics change as a function of the state of the
 circuit.
 
 <figure>
-<img src="images/type_of_electronic_components.png" id="fig:type_of_electronic_components" alt="Examples of electronic components." /><figcaption aria-hidden="true">Examples of electronic components.</figcaption>
+<img src="images/type_of_electronic_components.png"
+id="fig:type_of_electronic_components"
+alt="Examples of electronic components." />
+<figcaption aria-hidden="true">Examples of electronic
+components.</figcaption>
 </figure>
 
 Specifically, of outmost interest for us is the transistor. In
@@ -331,7 +346,9 @@ There are two types of such useful impurities we can introduce:
 ### How does the Field-Effect Transistor work? 
 
 <figure>
-<img src="images/field_effect_transistor.png" id="fig:field_effect_transistor" alt="Field-Effect Transistor." /><figcaption aria-hidden="true">Field-Effect Transistor.</figcaption>
+<img src="images/field_effect_transistor.png"
+id="fig:field_effect_transistor" alt="Field-Effect Transistor." />
+<figcaption aria-hidden="true">Field-Effect Transistor.</figcaption>
 </figure>
 
 In the Field-Effect Transistor there are two “n+" areas with N-type
@@ -428,7 +445,9 @@ that has two stable states and can be used to store a single bit of
 data.
 
 <figure>
-<img src="images/banch_of_flipflops.png" id="fig:banch_of_flipflops" style="width:100.0%" alt="A series of flip-flops" /><figcaption aria-hidden="true">A series of flip-flops</figcaption>
+<img src="images/banch_of_flipflops.png" id="fig:banch_of_flipflops"
+style="width:100.0%" alt="A series of flip-flops" />
+<figcaption aria-hidden="true">A series of flip-flops</figcaption>
 </figure>
 
 The circuit can be made to change state by signals applied to one or
@@ -465,7 +484,9 @@ real-world chips, is an image of a modern Intel core i7 CPU, which is
 fundamentally a CMOS chip.
 
 <figure>
-<img src="images/i7.png" id="fig:i7" style="width:100.0%" alt="Intel i7 CPU" /><figcaption aria-hidden="true">Intel i7 CPU</figcaption>
+<img src="images/i7.png" id="fig:i7" style="width:100.0%"
+alt="Intel i7 CPU" />
+<figcaption aria-hidden="true">Intel i7 CPU</figcaption>
 </figure>
 
 We can see a multitude of different components, most notably:
@@ -479,7 +500,11 @@ We can see a multitude of different components, most notably:
 ### Power Consumption Variability
 
 <figure>
-<img src="images/chapter4/not-gate-with-power-consumption-plot.png" id="fig:Not gate connected to an oscilloscope" alt="Not gate connected to an oscilloscope." /><figcaption aria-hidden="true">Not gate connected to an oscilloscope.</figcaption>
+<img src="images/chapter4/not-gate-with-power-consumption-plot.png"
+id="fig:Not gate connected to an oscilloscope"
+alt="Not gate connected to an oscilloscope." />
+<figcaption aria-hidden="true">Not gate connected to an
+oscilloscope.</figcaption>
 </figure>
 
 In we have a CMOS NOT gate, like the one we saw before, with an
@@ -624,7 +649,9 @@ We’ll now take a look at a few examples of attacker setups.
 #### Power measurement setup
 
 <figure>
-<img src="images/chapter4/power_measurement_setup.png" id="fig:power_measurement_setup" alt="Power measurement setup" /><figcaption aria-hidden="true">Power measurement setup</figcaption>
+<img src="images/chapter4/power_measurement_setup.png"
+id="fig:power_measurement_setup" alt="Power measurement setup" />
+<figcaption aria-hidden="true">Power measurement setup</figcaption>
 </figure>
 
 In we have:
@@ -638,7 +665,9 @@ In we have:
 #### EM measurement setup
 
 <figure>
-<img src="images/chapter4/em_measurement_setup.png" id="fig:em_measurement_setup" alt="EM measurement setup" /><figcaption aria-hidden="true">EM measurement setup</figcaption>
+<img src="images/chapter4/em_measurement_setup.png"
+id="fig:em_measurement_setup" alt="EM measurement setup" />
+<figcaption aria-hidden="true">EM measurement setup</figcaption>
 </figure>
 
 In we want to measure the EM field of a micro controller chip. We place
@@ -657,7 +686,10 @@ to extract the secret data we want.
 #### Generic attack setup schematic
 
 <figure>
-<img src="images/chapter4/attacker_setup_schematic.png" id="fig:attack_setup_schematic" alt="Generic attack setup schematic" /><figcaption aria-hidden="true">Generic attack setup schematic</figcaption>
+<img src="images/chapter4/attacker_setup_schematic.png"
+id="fig:attack_setup_schematic" alt="Generic attack setup schematic" />
+<figcaption aria-hidden="true">Generic attack setup
+schematic</figcaption>
 </figure>
 
 describes a generic power-analysis attack setup schematic. We have the
