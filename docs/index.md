@@ -4,11 +4,9 @@ This is the handbook for the course "Attacks on Secure Implementations", taught 
 
 You can download the PDF of the entire handbook [here](https://github.com/Yossioren/AttacksonImplementationsCourseBook/raw/master/UniversityCourseBookAOI.pdf), or view it online [here](https://orenlab.sise.bgu.ac.il/AttacksonImplementationsCourseBook/). 
 
-The source code for the handbook, experimental labs and other fun material can be found in the GitHub repository:
+The source code for the handbook, experimental labs and other fun material can be found in the [GitHub repository](https://github.com/Yossioren/AttacksonImplementationsCourseBook)
 
-https://github.com/Yossioren/AttacksonImplementationsCourseBook
-
-Online course page: https://moodle2.bgu.ac.il/moodle/enrol/index.php?id=30088
+[Online course page on Moodle (BGU students only)](https://moodle.bgu.ac.il/moodle/course/view.php?id=47661)
 
 More information: https://iss.oy.ne.ro/Attacks
 

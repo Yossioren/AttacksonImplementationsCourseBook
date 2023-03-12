@@ -22,6 +22,12 @@ description: This is the handbook for the course "Attacks on Secure Implementati
 webmaster_verifications:
   google: G3nnoOJAuTy9rt3nEkP
 
+aux_links:
+  "Oren Lab Home Page":
+    - "https://orenlab.sise.bgu.ac.il/"
+
+
+
 plugins:
   - jekyll-seo-tag
 
