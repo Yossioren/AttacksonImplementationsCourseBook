@@ -125,5 +125,8 @@
         "Witteman",
         "xleftmargin",
         "Yael"
+    ],
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "master"
     ]
 }
